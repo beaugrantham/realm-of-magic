@@ -1,1046 +1,1046 @@
-#NOP vim:tabstop=4 shiftwidth=4 softtabstop=0 noexpandtab
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
 
 #CLASS {RealmOfMagic} {open}
-	#SPLIT;
+  #SPLIT;
 
-	#SESSION rom rom.mud.de 4000;
+  #SESSION rom rom.mud.de 4000;
 
 
-	#NOP -- Constants;
+  #NOP -- Constants;
 
-	#VAR {tickDuration}				{75};
+  #VAR {tickDuration}             {75};
 
-	#MATH {xpMultiplierDuration}	{5 * $tickDuration};
-	#MATH {warcryDuration}			{2 * $tickDuration};
+  #MATH {xpMultiplierDuration}    {5 * $tickDuration};
+  #MATH {warcryDuration}          {2 * $tickDuration};
 
 
-	#NOP -- Initial setup;
-
-	#VAR {player[position]}			{standing};
-	#VAR {target}					{};
-	#VAR {tickRemaining}			{-1};
-	#VAR {xpMultiplierRemaining}	{-1};
-	#VAR {warcryRemaining}			{-1};
-	#VAR {cooldown[neptun]}			{0};
-
-	#NOP -- Spam;
-
-	#SUB {..It emits a faint humming sound!$}	{};
-	#SUB {..It has a soft glowing aura!$}		{};
-	#SUB {..It glows yellow!}					{};
-
-	#GAG {^The Messenger of the Realm shouts, 'Don't forget to vote on mudconnect and keep us in the top 10!'};
-	#GAG {^http://realmofmagic.org/vote};
+  #NOP -- Initial setup;
+
+  #VAR {player[position]}         {standing};
+  #VAR {target}                   {};
+  #VAR {tickRemaining}            {-1};
+  #VAR {xpMultiplierRemaining}    {-1};
+  #VAR {warcryRemaining}          {-1};
+  #VAR {cooldown[neptun]}         {0};
+
+  #NOP -- Spam;
+
+  #SUB {..It emits a faint humming sound!$}   {};
+  #SUB {..It has a soft glowing aura!$}       {};
+  #SUB {..It glows yellow!}                   {};
+
+  #GAG {^The Messenger of the Realm shouts, 'Don't forget to vote on mudconnect and keep us in the top 10!'};
+  #GAG {^http://realmofmagic.org/vote};
 
 
-	#NOP -- Position;
-
-	#ALIAS {_setPosition} {
-		#VAR {player[position]} {%1};
-	};
-
-	#ACTION {^You are resting.}								{_setPosition resting};
-	#ACTION {^You are sitting.}								{_setPosition sitting};
-	#ACTION {^You can't concentrate enough while resting.}	{_setPosition resting};
-	#ACTION {^You go to sleep.}								{_setPosition sleeping};
-	#ACTION {^You rest your tired bones.}					{_setPosition resting};
-	#ACTION {^You sit down.}								{_setPosition sitting};
-	#ACTION {^You sit down and rest your tired bones.}		{_setPosition resting};
-	#ACTION {^You stand up.}								{_setPosition standing};
-	#ACTION {^You stop resting, and stand up.}				{_setPosition standing};
-	#ACTION {^You wake, and sit up.}						{_setPosition sitting};
-
-	#ALIAS {wake} {wak; stand; look};
-
-
-	#NOP -- Stats;
-
-	#ACTION {^|%dH %dM %dV} {
-		#VAR {player[hp][current]}		{%1};
-		#VAR {player[mana][current]}	{%2};
-		#VAR {player[mv][current]}		{%3};
-	};
-
-	#ACTION {^You have %d(%d) hit, %d(%d) mana and %d(%d) movement points.} {
-		#VAR {player[hp][current]}		{%1};
-		#VAR {player[hp][max]}			{%2};
-		#VAR {player[mana][current]}	{%3};
-		#VAR {player[mana][max]}		{%4};
-		#VAR {player[mv][current]}		{%5};
-		#VAR {player[mv][max]}			{%6};
-	};
-
-	#ACTION {^Strength: %d/%d Intelligence: %d Wisdom: %d Dexterity: %d Constitution: %d} {
-		#VAR {player[str]}			{%1};
-		#VAR {player[str][extra]}	{%2};
-		#VAR {player[int]}			{%3};
-		#VAR {player[wis]}			{%4};
-		#VAR {player[dex]}			{%5};
-		#VAR {player[con]}			{%6};
-	};
-
-	#ACTION {^You need %d exp to make level %d.$} {
-		#VAR {player[tnl]} {%1};
-		#MATH {player[level]} {%2-1};
-	};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Looting
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ALIAS {gg}		{get gold};
-	#ALIAS {ggc}	{get gold corpse; exa corpse};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Looting (gold, etc)
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^A huge mound of gold coins is lying here.}								{gg};
-	#ACTION {^A pile of gold coins is lying here.}										{gg};
-	#ACTION {^A large heap of gold coins is lying here.}								{gg};
-	#ACTION {^A sand dollar lies here.}													{get dollar};
-	#NOP ACTION {^A small pile of gold coins is lying here.}							{gg};
-	#ACTION {^A token of the wind has fallen on the ground here - ready to be taken...}	{get token};
-	#ACTION {^Some gold coins are piled up on the floor}								{gg};
-	#ACTION {^You gain %d experience points for killing this opponent.}					{ggc};
-	#ACTION {^You gain one measly exp for this fight.}									{ggc};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Looting (items for gambling)
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^A beautiful deep blue ball gown is here, waiting to be worn.}		{get all.gown};
-	#ACTION {^A beautiful gown has been dropped here.}							{get all.gown};
-	#ACTION {^A dark blue shimmering can be seen in the corner.}				{get all.cloak};
-	#ACTION {^A dark bracelet is here, calling for his master.}					{get all.bracelet};
-	#ACTION {^A plate made of Iridium is shining in the light.}					{get all.plate};
-	#ACTION {^A shining red robe glitters here as if it was metal.}				{get all.robe};
-	#ACTION {^Some black metal is lying on the ground, looking really heavy.}	{get all.suit};
-	#ACTION {^Someone has forgotten a piece of black velvet.}					{get all.gown};
-	#ACTION {^Something silver glitters in the corner of your eye.}				{get all.pendant};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Looting (items worth money)
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^A book is lying on the floor, emitting a dark aura.}				{get all.book};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Group
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#VAR {isGrouped} {0};
-
-	#ALIAS {as} {assist}
-	#ALIAS {of %+} {order fol %1};
-	#ALIAS {ok %+} {
-		setTarget %1;
-		order fol kill $target;
-	};
-	#ALIAS {gk %+ %+} {
-		setTarget %1;
-		order %2 kill $target;
-		assist %2;
-		of assist;
-	};
-
-	#ACTION {is now a member of your group.$}		{#VAR {isGrouped} {1}};
-	#ACTION {^Your group consists of:$}				{#VAR {isGrouped} {1}};
-	#ACTION {^You have disbanded the group.$}		{#VAR {isGrouped} {0}};
-
-	#ACTION {^There were %d coins.} {
-		#IF {$isGrouped == 1} {split %1};
-	};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Movement
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ALIAS {odd} {open door d};
-	#ALIAS {ode} {open door e};
-	#ALIAS {odn} {open door n};
-	#ALIAS {ods} {open door s};
-	#ALIAS {odu} {open door u};
-	#ALIAS {odw} {open door w};
-
-	#ALIAS {udd} {unlock door d; odd};
-	#ALIAS {ude} {unlock door e; ode};
-	#ALIAS {udn} {unlock door n; odn};
-	#ALIAS {uds} {unlock door s; ods};
-	#ALIAS {udu} {unlock door u; odu};
-	#ALIAS {udw} {unlock door w; odw};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Gambling
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^You can <spin> the <wheel> now!}					{spin wheel};
-
-	#ACTION {^You win a %+ rose!}								{junk rose};
-	#ACTION {^You win a bottle of champagne!}					{junk champagne};
-	#ACTION {^You win a bottle of wine!}						{junk wine};
-	#ACTION {^You win a bucket of popcorn!}						{junk popcorn};
-	#ACTION {^You win a chessboard with pieces!}				{junk chess};
-	#ACTION {^You win a crystal orb paperweight!}				{junk orb};
-	#ACTION {^You win a deck of "Mortal Cardmaster" cards!}		{junk deck};
-	#ACTION {^You win a dictionary}								{junk dictionary};
-	#ACTION {^You win a doll of Lilith (tm)!}					{junk doll};
-	#ACTION {^You win a doll of Rosemary (tm)!}					{junk doll};
-	#ACTION {^You win a game set of "Connect Four"!}			{junk game};
-	#ACTION {^You win a gingerbread heart!}						{junk gingerbread};
-	#ACTION {^You win a jade necklace!}							{junk jade};
-	#ACTION {^You win a luxurious pen!}							{junk pen};
-	#ACTION {^You win a Ring of Random Teleportation!}			{junk ring};
-	#ACTION {^You win a small wind-up turtle!}					{junk turtle};
-	#ACTION {^You win a stick of cotton candy!}					{junk candy};
-	#ACTION {^You win a teddy bear!}							{junk bear};
-	#ACTION {^You win a 'Mon Cherie' gift box!}					{junk box};
-	#ACTION {^You win an Andrew (tm) action figure!}			{junk figure};
-	#ACTION {^You win an Olorin (tm) action figure!}			{junk figure};
-	#ACTION {^You win the Axe of Wounding!}						{junk axe};
-	#ACTION {^You win the King Welmar Special Collector Coin!}	{junk coin};
-	#ACTION {^You win the Staff 'Party Brightener'!}			{junk staff};
-	#ACTION {^You win the Staff of Nutrition!}					{junk staff};
-	#ACTION {^You win the Sword of Mysteries!}					{junk sword};
-	#ACTION {^You win Ragaddon's double-eyepatch!}				{junk patch};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Retry
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^AAAAaaahh... cough, cough... obviously you need more practice!}	{warcry};
-	#ACTION {^As %+ avoids your bash, you topple over and fall to the ground!}	{stand};
-	#ACTION {^Maybe you should get on your feet first?}							{stand};
-	#ACTION {^PANIC!%sYou couldn't escape!}										{flee};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- React
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^AUW AUW AUW!!! The thorny bushes}				{chop bushes};
-	#ACTION {^OUCHIE!!! The thorny bushes}					{chop bushes};
-	#ACTION {^Neptun raises an eyebrow.}					{
-		#IF {$cooldown[neptun] == 0} {
-			bow neptun;
-			_cooldown neptun 5;
-		};
-	};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Combat
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ALIAS {setTarget} {
-		#IF {"%1" != ""} {#VAR {target} {%1}};
-	};
-
-	#ALIAS	{bash}	{setTarget %1; bas $target};
-	#ALIAS	{kick}	{setTarget %1; kic $target};
-	#ALIAS	{kill}	{setTarget %1; kil $target};
-
-	#ACTION {^AAAHHH!!! CHARGE!!! BANZAIIII!!!$} {
-		#MATH {warcryRemaining} {$warcryDuration - ($tickDuration - $tickRemaining)};
-	};
-
-	#ACTION {^The holy sword Sikanda stirs in its sheath but does not yet move into your hand...$} {#send};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Tick activities;
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ALIAS {tick} {
-		#IF {"%1" != ""} {#SUB {%0} {[TICK] %0}};
-		#VAR {tickRemaining} {$tickDuration};
-	};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Tick activities (skills);
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^You calm down.$}														{tick %0};
-	#ACTION {^Your ability to spy just left you.$}									{tick %0; spy};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Tick activities (damage);
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^You feel burning poison in your blood,$}								{tick %0};
-	#ACTION {^You feel the pain as your bleeding wound takes its toll...$}			{tick %0};
-	#ACTION {^You suffer tremendous pain.$}											{tick %0};
-
-	#NOP -- ----------------------------------------------------------------------------------------
-	#NOP -- Tick activities (weather);
-	#NOP -- ----------------------------------------------------------------------------------------
-
-	#ACTION {^Darkness once again fills the realm as the moon sets.$}				{tick %0};
-	#ACTION {^It is bitterly cold outside.$}										{tick %0};
-	#NOP #ACTION {^It starts to rain.$}												{tick %0};
-	#ACTION {^It starts to snow.$}													{tick %0};
-	#ACTION {^Moonlight begins to fill the room.$}									{tick %0};
-	#ACTION {^The blizzard has died down, but the snow continues.$}					{tick %0};
-	#ACTION {^The blizzard is over, but it is still snowing.$}						{tick %0};
-	#ACTION {^The clouds disappear.$}												{tick %0};
-	#ACTION {^The day has begun spreading light throughout the land.$}				{tick %0};
-	#ACTION {^The flowers start to bloom.$}											{tick %0};
-	#ACTION {^The full moon begins to rise from the western horizon.$}				{tick %0};
-	#ACTION {^The lightning has gone, but it is still raining.$}					{tick %0};
-	#ACTION {^The moon slowly sets.$}												{tick %0};
-	#ACTION {^The night has begun, dropping a blanket of darkness.$}				{tick %0};
-	#ACTION {^The night has fallen outside.$}										{tick %0};
-	#ACTION {^The rainstorm slowly dies down.$}										{tick %0};
-	#ACTION {^The sky starts to get cloudy.$}										{tick %0};
-	#ACTION {^The snow has stopped.$}												{tick %0};
-	#ACTION {^The snowstorm slowly dies down.$}										{tick %0};
-	#ACTION {^The sun begins to rise from the eastern horizon.$}					{tick %0};
-	#ACTION {^The sun is directly above, it must be noon.$}							{tick %0};
-	#ACTION {^The sun slowly disappears into the western horizon.$}					{tick %0};
-	#ACTION {^The waning moon begins to rise from the western horizon.$}			{tick %0};
-	#ACTION {^The waxing moon begins to rise from the western horizon.$}			{tick %0};
-	#ACTION {^You are caught in a blizzard.$}										{tick %0};
-	#ACTION {^You are caught in lightning storm.$}									{tick %0};
-
-	#ACTION {^You have been idle, and are pulled into a void.$}						{tick %0};
-
-	#ACTION {^A quivering horde of maggots consumes the corpse.$}					{tick %0};
-
-	#ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
-		tick %0;
-		#VAR {xpMultiplierRemaining} {$xpMultiplierDuration};
-	};
-
-	#TICK {eachSecond} {
-		#IF {$tickRemaining == 0} {tick};
-		#ELSEIF {$tickRemaining > 0} {#MATH {tickRemaining} {$tickRemaining - 1}};
-
-		#IF {$xpMultiplierRemaining >= 0} {
-			#MATH {xpMultiplierRemaining} {$xpMultiplierRemaining - 1};
-		};
-
-		#IF {$warcryRemaining >= 0} {
-			#MATH {warcryRemaining} {$warcryRemaining - 1};
-		};
-
-		#ECHO {
-			{(%+2s)--(%+3s)--(%+2s)---------------------------------------------------------------} {1}
-		} {$tickRemaining} {$xpMultiplierRemaining} {$warcryRemaining};
-	} {1};
-
-
-	#NOP -- Utilities;
-
-	#ALIAS {_cooldown} {
-		#VAR {cooldown[%1]} {%2};
-		#TICK {cooldown-%1} {
-			#MATH {cooldown[%1]} {$cooldown[%1] - 1};
-			#IF {$cooldown[%1] == 0} {#UNTICK {cooldown-%1}};
-		} {1};
-	};
-
-	#ALIAS reload {
-		#KILL {all};
-		#READ rom.tin;
-	};
-
-	#TODO - make this simpler (just return true or false)
-	#FUNCTION {isEmpty} {
-		#IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
-	};
-
-	#FUNCTION {ifEmpty} {
-		#IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
-	};
-
-	#ticker {idle} {#send} {300}
+  #NOP -- Position;
+
+  #ALIAS {_setPosition} {
+    #VAR {player[position]} {%1};
+  };
+
+  #ACTION {^You are resting.}                             {_setPosition resting};
+  #ACTION {^You are sitting.}                             {_setPosition sitting};
+  #ACTION {^You can't concentrate enough while resting.}  {_setPosition resting};
+  #ACTION {^You go to sleep.}                             {_setPosition sleeping};
+  #ACTION {^You rest your tired bones.}                   {_setPosition resting};
+  #ACTION {^You sit down.}                                {_setPosition sitting};
+  #ACTION {^You sit down and rest your tired bones.}      {_setPosition resting};
+  #ACTION {^You stand up.}                                {_setPosition standing};
+  #ACTION {^You stop resting, and stand up.}              {_setPosition standing};
+  #ACTION {^You wake, and sit up.}                        {_setPosition sitting};
+
+  #ALIAS {wake} {wak; stand; look};
+
+
+  #NOP -- Stats;
+
+  #ACTION {^|%dH %dM %dV} {
+    #VAR {player[hp][current]}      {%1};
+    #VAR {player[mana][current]}    {%2};
+    #VAR {player[mv][current]}      {%3};
+  };
+
+  #ACTION {^You have %d(%d) hit, %d(%d) mana and %d(%d) movement points.} {
+    #VAR {player[hp][current]}      {%1};
+    #VAR {player[hp][max]}          {%2};
+    #VAR {player[mana][current]}    {%3};
+    #VAR {player[mana][max]}        {%4};
+    #VAR {player[mv][current]}      {%5};
+    #VAR {player[mv][max]}          {%6};
+  };
+
+  #ACTION {^Strength: %d/%d Intelligence: %d Wisdom: %d Dexterity: %d Constitution: %d} {
+    #VAR {player[str]}          {%1};
+    #VAR {player[str][extra]}   {%2};
+    #VAR {player[int]}          {%3};
+    #VAR {player[wis]}          {%4};
+    #VAR {player[dex]}          {%5};
+    #VAR {player[con]}          {%6};
+  };
+
+  #ACTION {^You need %d exp to make level %d.$} {
+    #VAR {player[tnl]} {%1};
+    #MATH {player[level]} {%2-1};
+  };
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Looting
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ALIAS {gg}     {get gold};
+  #ALIAS {ggc}    {get gold corpse; exa corpse};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Looting (gold, etc)
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^A huge mound of gold coins is lying here.}                                {gg};
+  #ACTION {^A pile of gold coins is lying here.}                                      {gg};
+  #ACTION {^A large heap of gold coins is lying here.}                                {gg};
+  #ACTION {^A sand dollar lies here.}                                                 {get dollar};
+  #NOP ACTION {^A small pile of gold coins is lying here.}                            {gg};
+  #ACTION {^A token of the wind has fallen on the ground here - ready to be taken...} {get token};
+  #ACTION {^Some gold coins are piled up on the floor}                                {gg};
+  #ACTION {^You gain %d experience points for killing this opponent.}                 {ggc};
+  #ACTION {^You gain one measly exp for this fight.}                                  {ggc};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Looting (items for gambling)
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^A beautiful deep blue ball gown is here, waiting to be worn.}     {get all.gown};
+  #ACTION {^A beautiful gown has been dropped here.}                          {get all.gown};
+  #ACTION {^A dark blue shimmering can be seen in the corner.}                {get all.cloak};
+  #ACTION {^A dark bracelet is here, calling for his master.}                 {get all.bracelet};
+  #ACTION {^A plate made of Iridium is shining in the light.}                 {get all.plate};
+  #ACTION {^A shining red robe glitters here as if it was metal.}             {get all.robe};
+  #ACTION {^Some black metal is lying on the ground, looking really heavy.}   {get all.suit};
+  #ACTION {^Someone has forgotten a piece of black velvet.}                   {get all.gown};
+  #ACTION {^Something silver glitters in the corner of your eye.}             {get all.pendant};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Looting (items worth money)
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^A book is lying on the floor, emitting a dark aura.}              {get all.book};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Group
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #VAR {isGrouped} {0};
+
+  #ALIAS {as} {assist}
+  #ALIAS {of %+} {order fol %1};
+  #ALIAS {ok %+} {
+    setTarget %1;
+    order fol kill $target;
+  };
+  #ALIAS {gk %+ %+} {
+    setTarget %1;
+    order %2 kill $target;
+    assist %2;
+    of assist;
+  };
+
+  #ACTION {is now a member of your group.$}       {#VAR {isGrouped} {1}};
+  #ACTION {^Your group consists of:$}             {#VAR {isGrouped} {1}};
+  #ACTION {^You have disbanded the group.$}       {#VAR {isGrouped} {0}};
+
+  #ACTION {^There were %d coins.} {
+    #IF {$isGrouped == 1} {split %1};
+  };
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Movement
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ALIAS {odd} {open door d};
+  #ALIAS {ode} {open door e};
+  #ALIAS {odn} {open door n};
+  #ALIAS {ods} {open door s};
+  #ALIAS {odu} {open door u};
+  #ALIAS {odw} {open door w};
+
+  #ALIAS {udd} {unlock door d; odd};
+  #ALIAS {ude} {unlock door e; ode};
+  #ALIAS {udn} {unlock door n; odn};
+  #ALIAS {uds} {unlock door s; ods};
+  #ALIAS {udu} {unlock door u; odu};
+  #ALIAS {udw} {unlock door w; odw};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Gambling
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^You can <spin> the <wheel> now!}                  {spin wheel};
+
+  #ACTION {^You win a %+ rose!}                               {junk rose};
+  #ACTION {^You win a bottle of champagne!}                   {junk champagne};
+  #ACTION {^You win a bottle of wine!}                        {junk wine};
+  #ACTION {^You win a bucket of popcorn!}                     {junk popcorn};
+  #ACTION {^You win a chessboard with pieces!}                {junk chess};
+  #ACTION {^You win a crystal orb paperweight!}               {junk orb};
+  #ACTION {^You win a deck of "Mortal Cardmaster" cards!}     {junk deck};
+  #ACTION {^You win a dictionary}                             {junk dictionary};
+  #ACTION {^You win a doll of Lilith (tm)!}                   {junk doll};
+  #ACTION {^You win a doll of Rosemary (tm)!}                 {junk doll};
+  #ACTION {^You win a game set of "Connect Four"!}            {junk game};
+  #ACTION {^You win a gingerbread heart!}                     {junk gingerbread};
+  #ACTION {^You win a jade necklace!}                         {junk jade};
+  #ACTION {^You win a luxurious pen!}                         {junk pen};
+  #ACTION {^You win a Ring of Random Teleportation!}          {junk ring};
+  #ACTION {^You win a small wind-up turtle!}                  {junk turtle};
+  #ACTION {^You win a stick of cotton candy!}                 {junk candy};
+  #ACTION {^You win a teddy bear!}                            {junk bear};
+  #ACTION {^You win a 'Mon Cherie' gift box!}                 {junk box};
+  #ACTION {^You win an Andrew (tm) action figure!}            {junk figure};
+  #ACTION {^You win an Olorin (tm) action figure!}            {junk figure};
+  #ACTION {^You win the Axe of Wounding!}                     {junk axe};
+  #ACTION {^You win the King Welmar Special Collector Coin!}  {junk coin};
+  #ACTION {^You win the Staff 'Party Brightener'!}            {junk staff};
+  #ACTION {^You win the Staff of Nutrition!}                  {junk staff};
+  #ACTION {^You win the Sword of Mysteries!}                  {junk sword};
+  #ACTION {^You win Ragaddon's double-eyepatch!}              {junk patch};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Retry
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^AAAAaaahh... cough, cough... obviously you need more practice!}   {warcry};
+  #ACTION {^As %+ avoids your bash, you topple over and fall to the ground!}  {stand};
+  #ACTION {^Maybe you should get on your feet first?}                         {stand};
+  #ACTION {^PANIC!%sYou couldn't escape!}                                     {flee};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- React
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^AUW AUW AUW!!! The thorny bushes}             {chop bushes};
+  #ACTION {^OUCHIE!!! The thorny bushes}                  {chop bushes};
+  #ACTION {^Neptun raises an eyebrow.}                    {
+    #IF {$cooldown[neptun] == 0} {
+      bow neptun;
+      _cooldown neptun 5;
+    };
+  };
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Combat
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ALIAS {setTarget} {
+    #IF {"%1" != ""} {#VAR {target} {%1}};
+  };
+
+  #ALIAS  {bash}  {setTarget %1; bas $target};
+  #ALIAS  {kick}  {setTarget %1; kic $target};
+  #ALIAS  {kill}  {setTarget %1; kil $target};
+
+  #ACTION {^AAAHHH!!! CHARGE!!! BANZAIIII!!!$} {
+    #MATH {warcryRemaining} {$warcryDuration - ($tickDuration - $tickRemaining)};
+  };
+
+  #ACTION {^The holy sword Sikanda stirs in its sheath but does not yet move into your hand...$} {#send};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Tick activities;
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ALIAS {tick} {
+    #IF {"%1" != ""} {#SUB {%0} {[TICK] %0}};
+    #VAR {tickRemaining} {$tickDuration};
+  };
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Tick activities (skills);
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^You calm down.$}                                                      {tick %0};
+  #ACTION {^Your ability to spy just left you.$}                                  {tick %0; spy};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Tick activities (damage);
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^You feel burning poison in your blood,$}                              {tick %0};
+  #ACTION {^You feel the pain as your bleeding wound takes its toll...$}          {tick %0};
+  #ACTION {^You suffer tremendous pain.$}                                         {tick %0};
+
+  #NOP -- ----------------------------------------------------------------------------------------
+  #NOP -- Tick activities (weather);
+  #NOP -- ----------------------------------------------------------------------------------------
+
+  #ACTION {^Darkness once again fills the realm as the moon sets.$}               {tick %0};
+  #ACTION {^It is bitterly cold outside.$}                                        {tick %0};
+  #NOP #ACTION {^It starts to rain.$}                                             {tick %0};
+  #ACTION {^It starts to snow.$}                                                  {tick %0};
+  #ACTION {^Moonlight begins to fill the room.$}                                  {tick %0};
+  #ACTION {^The blizzard has died down, but the snow continues.$}                 {tick %0};
+  #ACTION {^The blizzard is over, but it is still snowing.$}                      {tick %0};
+  #ACTION {^The clouds disappear.$}                                               {tick %0};
+  #ACTION {^The day has begun spreading light throughout the land.$}              {tick %0};
+  #ACTION {^The flowers start to bloom.$}                                         {tick %0};
+  #ACTION {^The full moon begins to rise from the western horizon.$}              {tick %0};
+  #ACTION {^The lightning has gone, but it is still raining.$}                    {tick %0};
+  #ACTION {^The moon slowly sets.$}                                               {tick %0};
+  #ACTION {^The night has begun, dropping a blanket of darkness.$}                {tick %0};
+  #ACTION {^The night has fallen outside.$}                                       {tick %0};
+  #ACTION {^The rainstorm slowly dies down.$}                                     {tick %0};
+  #ACTION {^The sky starts to get cloudy.$}                                       {tick %0};
+  #ACTION {^The snow has stopped.$}                                               {tick %0};
+  #ACTION {^The snowstorm slowly dies down.$}                                     {tick %0};
+  #ACTION {^The sun begins to rise from the eastern horizon.$}                    {tick %0};
+  #ACTION {^The sun is directly above, it must be noon.$}                         {tick %0};
+  #ACTION {^The sun slowly disappears into the western horizon.$}                 {tick %0};
+  #ACTION {^The waning moon begins to rise from the western horizon.$}            {tick %0};
+  #ACTION {^The waxing moon begins to rise from the western horizon.$}            {tick %0};
+  #ACTION {^You are caught in a blizzard.$}                                       {tick %0};
+  #ACTION {^You are caught in lightning storm.$}                                  {tick %0};
+
+  #ACTION {^You have been idle, and are pulled into a void.$}                     {tick %0};
+
+  #ACTION {^A quivering horde of maggots consumes the corpse.$}                   {tick %0};
+
+  #ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
+    tick %0;
+    #VAR {xpMultiplierRemaining} {$xpMultiplierDuration};
+  };
+
+  #TICK {eachSecond} {
+    #IF {$tickRemaining == 0} {tick};
+    #ELSEIF {$tickRemaining > 0} {#MATH {tickRemaining} {$tickRemaining - 1}};
+
+    #IF {$xpMultiplierRemaining >= 0} {
+      #MATH {xpMultiplierRemaining} {$xpMultiplierRemaining - 1};
+    };
+
+    #IF {$warcryRemaining >= 0} {
+      #MATH {warcryRemaining} {$warcryRemaining - 1};
+    };
+
+    #ECHO {
+      {(%+2s)--(%+3s)--(%+2s)---------------------------------------------------------------} {1}
+    } {$tickRemaining} {$xpMultiplierRemaining} {$warcryRemaining};
+  } {1};
+
+
+  #NOP -- Utilities;
+
+  #ALIAS {_cooldown} {
+    #VAR {cooldown[%1]} {%2};
+    #TICK {cooldown-%1} {
+      #MATH {cooldown[%1]} {$cooldown[%1] - 1};
+      #IF {$cooldown[%1] == 0} {#UNTICK {cooldown-%1}};
+    } {1};
+  };
+
+  #ALIAS reload {
+    #KILL {all};
+    #READ rom.tin;
+  };
+
+  #TODO - make this simpler (just return true or false)
+  #FUNCTION {isEmpty} {
+    #IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
+  };
+
+  #FUNCTION {ifEmpty} {
+    #IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
+  };
+
+  #ticker {idle} {#send} {300}
 #CLASS {RealmOfMagic} {close}
 
 #CLASS {RealmOfMagic|Speedwalks} {open}
-	#VAR {_speedwalks[alk][moonglow]}						{.47nw9n5es2we2ses2ene3n2wn};
+  #VAR {_speedwalks[alk][moonglow]}                       {.47nw9n5es2we2ses2ene3n2wn};
 
-	#VAR {_speedwalks[atalia][inken]}						{.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eue};
-	#VAR {_speedwalks[atalia][lemuria]}						{.swn16w3n2w5d};
-	#VAR {_speedwalks[atalia][midgaard]}					{.swn16w7n15e2n2w2nen};
-	#VAR {_speedwalks[atalia][moonglow]}					{.swn21w2s2wn};
-	#VAR {_speedwalks[atalia][pyramid]}						{.sen16enes7en11en};
-	#VAR {_speedwalks[atalia][riva-south]}					{.swn16w4n10wsws6w2s8w2n};
-	#VAR {_speedwalks[atalia][rome]}						{.sen16enes7en2es};
-	#VAR {_speedwalks[atalia][thalos]}						{.sen16enes7en9e2s5w};
-	#VAR {_speedwalks[atalia][vc]}							{.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eueswde7s2w4s3e3nws3e};
-	#VAR {_speedwalks[atalia][weramak]}						{.swn5w4s4e11suses2e3n};
+  #VAR {_speedwalks[atalia][inken]}                       {.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eue};
+  #VAR {_speedwalks[atalia][lemuria]}                     {.swn16w3n2w5d};
+  #VAR {_speedwalks[atalia][midgaard]}                    {.swn16w7n15e2n2w2nen};
+  #VAR {_speedwalks[atalia][moonglow]}                    {.swn21w2s2wn};
+  #VAR {_speedwalks[atalia][pyramid]}                     {.sen16enes7en11en};
+  #VAR {_speedwalks[atalia][riva-south]}                  {.swn16w4n10wsws6w2s8w2n};
+  #VAR {_speedwalks[atalia][rome]}                        {.sen16enes7en2es};
+  #VAR {_speedwalks[atalia][thalos]}                      {.sen16enes7en9e2s5w};
+  #VAR {_speedwalks[atalia][vc]}                          {.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eueswde7s2w4s3e3nws3e};
+  #VAR {_speedwalks[atalia][weramak]}                     {.swn5w4s4e11suses2e3n};
 
-	#VAR {_speedwalks[camelot][moonglow?]}					{.9s2w5n8wuwnu4wn2ws3ws4wswnw2swswsws2wswn3w4s2e2s11w2s2wswsw4s7wn};
+  #VAR {_speedwalks[camelot][moonglow?]}                  {.9s2w5n8wuwnu4wn2ws3ws4wswnw2swswsws2wswn3w4s2e2s11w2s2wswsw4s7wn};
 
-	#VAR {_speedwalks[demonspace][demonspace-stonering]}	{.ndnue};
-	#VAR {_speedwalks[demonspace][ebony-estate]}			{.2swuw};
-	#VAR {_speedwalks[demonspace][flying-citadel]}			{.3e};
-	#VAR {_speedwalks[demonspace][gomorrah]}				{.d; disarm trap};
-	#VAR {_speedwalks[demonspace][malifon]}					{.su2n};
-	#VAR {_speedwalks[demonspace][mirror-midgaard]}			{.nw2uw};
-	#VAR {_speedwalks[demonspace][palace-of-greatch]}		{.3nw2uw};
-	#VAR {_speedwalks[demonspace][palace-of-khorne]}		{.2e2sue};
-	#VAR {_speedwalks[demonspace][palace-of-nurgle]}		{.2e2us};
-	#VAR {_speedwalks[demonspace][palace-of-slaanesh]}		{.wus};
-	#VAR {_speedwalks[demonspace][palace-of-winds]}			{.n3u};
-	#VAR {_speedwalks[demonspace][space-needle]}			{.2w4nuswdw};
-	#VAR {_speedwalks[demonspace][strange-island]}			{.3euwn};
-	#VAR {_speedwalks[demonspace][tower-of-darkness]}		{.nwuw};
-	#VAR {_speedwalks[demonspace][tutor-1]}					{.nnnnws; open trapdoor d; d; open trapdoor e; e};
+  #VAR {_speedwalks[demonspace][demonspace-stonering]}    {.ndnue};
+  #VAR {_speedwalks[demonspace][ebony-estate]}            {.2swuw};
+  #VAR {_speedwalks[demonspace][flying-citadel]}          {.3e};
+  #VAR {_speedwalks[demonspace][gomorrah]}                {.d; disarm trap};
+  #VAR {_speedwalks[demonspace][malifon]}                 {.su2n};
+  #VAR {_speedwalks[demonspace][mirror-midgaard]}         {.nw2uw};
+  #VAR {_speedwalks[demonspace][palace-of-greatch]}       {.3nw2uw};
+  #VAR {_speedwalks[demonspace][palace-of-khorne]}        {.2e2sue};
+  #VAR {_speedwalks[demonspace][palace-of-nurgle]}        {.2e2us};
+  #VAR {_speedwalks[demonspace][palace-of-slaanesh]}      {.wus};
+  #VAR {_speedwalks[demonspace][palace-of-winds]}         {.n3u};
+  #VAR {_speedwalks[demonspace][space-needle]}            {.2w4nuswdw};
+  #VAR {_speedwalks[demonspace][strange-island]}          {.3euwn};
+  #VAR {_speedwalks[demonspace][tower-of-darkness]}       {.nwuw};
+  #VAR {_speedwalks[demonspace][tutor-1]}                 {.nnnnws; open trapdoor d; d; open trapdoor e; e};
 
-	#VAR {_speedwalks[demonspace-stonering][demonspace]}	{.e2d3s};
+  #VAR {_speedwalks[demonspace-stonering][demonspace]}    {.e2d3s};
 
-	#VAR {_speedwalks[ebony-estate][demonspace]}			{.e2ned};
+  #VAR {_speedwalks[ebony-estate][demonspace]}            {.e2ned};
 
-	#VAR {_speedwalks[fanhir][atalia]}						{.s7e4s7e8s16esen};
-	#VAR {_speedwalks[fanhir][midgaard]}					{.s7e4s13es9e2n2w2nen};
-	#VAR {_speedwalks[fanhir][moonglow]}					{.se3sd9e11s2wn};
+  #VAR {_speedwalks[fanhir][atalia]}                      {.s7e4s7e8s16esen};
+  #VAR {_speedwalks[fanhir][midgaard]}                    {.s7e4s13es9e2n2w2nen};
+  #VAR {_speedwalks[fanhir][moonglow]}                    {.se3sd9e11s2wn};
 
-	#VAR {_speedwalks[flying-citadel][demonspace]}			{.2e};
+  #VAR {_speedwalks[flying-citadel][demonspace]}          {.2e};
 
-	#VAR {_speedwalks[gomorrah][demonspace]}				{disarm trap; u};
+  #VAR {_speedwalks[gomorrah][demonspace]}                {disarm trap; u};
 
-	#VAR {_speedwalks[iaitanto][atalia]}					{.e2sw7s11ene5n21esen};
-	#VAR {_speedwalks[iaitanto][ninja-hideout]}				{.en6w6ne2n2enwn};
+  #VAR {_speedwalks[iaitanto][atalia]}                    {.e2sw7s11ene5n21esen};
+  #VAR {_speedwalks[iaitanto][ninja-hideout]}             {.en6w6ne2n2enwn};
 
-	#VAR {_speedwalks[inken][atalia]}						{.wd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn};
-	#VAR {_speedwalks[inken][sodom]}						{.wd5wuwsususwdsdw2ds2e3sw3sw};
-	#VAR {_speedwalks[inken][vc]}							{.swde7s2w4s3e3nws3e};
+  #VAR {_speedwalks[inken][atalia]}                       {.wd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn};
+  #VAR {_speedwalks[inken][sodom]}                        {.wd5wuwsususwdsdw2ds2e3sw3sw};
+  #VAR {_speedwalks[inken][vc]}                           {.swde7s2w4s3e3nws3e};
 
-	#VAR {_speedwalks[kerofk][moonglow]}					{.nw2s4w9s3w4s2es2es3es2wn};
-	#VAR {_speedwalks[kerofk][ofcol]}						{.nw2s4w9se2n9e};
+  #VAR {_speedwalks[kerofk][moonglow]}                    {.nw2s4w9s3w4s2es2es3es2wn};
+  #VAR {_speedwalks[kerofk][ofcol]}                       {.nw2s4w9se2n9e};
 
-	#VAR {_speedwalks[lemuria][atalia]}						{.5u2e3s16esen};
-	#VAR {_speedwalks[lemuria][moonglow]}					{.5u5s5wn};
+  #VAR {_speedwalks[lemuria][atalia]}                     {.5u2e3s16esen};
+  #VAR {_speedwalks[lemuria][moonglow]}                   {.5u5s5wn};
 
-	#VAR {_speedwalks[lyta][atalia]}						{.2eu5ws8ws7wnws16wswn};
+  #VAR {_speedwalks[lyta][atalia]}                        {.2eu5ws8ws7wnws16wswn};
 
-	#VAR {_speedwalks[malifon][demonspace]}					{.edn};
+  #VAR {_speedwalks[malifon][demonspace]}                 {.edn};
 
-	#VAR {_speedwalks[midgaard][atalia]}					{.sw2s2e2s15w7s16esen};
-	#VAR {_speedwalks[midgaard][demonspace]}				{.sws19e2u2w2u2eu4w; enter mirror};
-	#VAR {_speedwalks[midgaard][fanhir]}					{.sw2s2e2s9wn13w4n7wn};
-	#VAR {_speedwalks[midgaard][haon-dor-fishing-village]}	{.sws3wuwd19w4swn2wnwn3w2sw; squeeze gap};
-	#VAR {_speedwalks[midgaard][moonglow]}					{.sw2s2e2s20w9s2wn};
-	#VAR {_speedwalks[midgaard][shire]}						{.sws16w6n3en};
+  #VAR {_speedwalks[midgaard][atalia]}                    {.sw2s2e2s15w7s16esen};
+  #VAR {_speedwalks[midgaard][demonspace]}                {.sws19e2u2w2u2eu4w; enter mirror};
+  #VAR {_speedwalks[midgaard][fanhir]}                    {.sw2s2e2s9wn13w4n7wn};
+  #VAR {_speedwalks[midgaard][haon-dor-fishing-village]}  {.sws3wuwd19w4swn2wnwn3w2sw; squeeze gap};
+  #VAR {_speedwalks[midgaard][moonglow]}                  {.sw2s2e2s20w9s2wn};
+  #VAR {_speedwalks[midgaard][shire]}                     {.sws16w6n3en};
 
-	#VAR {_speedwalks[mirror-midgaard][demonspace]}			{.2es2d};
+  #VAR {_speedwalks[mirror-midgaard][demonspace]}         {.2es2d};
 
-	#VAR {_speedwalks[moon-goddess][moonglow]}				{.3swd2nd2ed2sd2wd2nd2ed4se3n8en};
+  #VAR {_speedwalks[moon-goddess][moonglow]}              {.3swd2nd2ed2sd2wd2nd2ed4se3n8en};
 
-	#VAR {_speedwalks[moonglow][alk]}						{.s2e4s3wnw3n4w9se47s};
-	#VAR {_speedwalks[moonglow][aldur]}						{.s2en11w2sw};
-	#VAR {_speedwalks[moonglow][atalia]}					{.s2e2n21esen};
-	#VAR {_speedwalks[moonglow][camelot]}					{.s2e9n20e2n2w4n3esen2enenene2nesen4en2en3es4edsed8e5s2en};
-	#VAR {_speedwalks[moonglow][fanhir]}					{.s2e11n9wu3nwn};
-	#VAR {_speedwalks[moonglow][iaitanto]}					{.s2ewe4s12w8nenw};
-	#VAR {_speedwalks[moonglow][kerofk]}					{.s2en3wn2wn2w4n3e9n4e2nes};
-	#VAR {_speedwalks[moonglow][lemuria]}					{.s5e5n5d};
-	#VAR {_speedwalks[moonglow][midgaard]}					{.s2e9n20e2n2w2nen};
-	#VAR {_speedwalks[moonglow][midgaard-2]}				{open door d; d; close door u; n; open curtain; n; close curtain; en tombstone; .en; en statue; e};
-	#VAR {_speedwalks[moonglow][moon-goddess]}				{.s8w3swn; get amulet; unlock portal; open portal; drop amulet; .3nu2wu2su2eu2nu2wu2sue; open moon; .nnn};
-	#VAR {_speedwalks[moonglow][ofcol]}						{.s2e4n7w4s7e};
-	#VAR {_speedwalks[moonglow][riva-south]}				{.s2e6n5w2s7w2s8w2n};
-	#VAR {_speedwalks[moonglow][tc]}						{.s2e10n9w2n3e6sd2s3w2un};
+  #VAR {_speedwalks[moonglow][alk]}                       {.s2e4s3wnw3n4w9se47s};
+  #VAR {_speedwalks[moonglow][aldur]}                     {.s2en11w2sw};
+  #VAR {_speedwalks[moonglow][atalia]}                    {.s2e2n21esen};
+  #VAR {_speedwalks[moonglow][camelot]}                   {.s2e9n20e2n2w4n3esen2enenene2nesen4en2en3es4edsed8e5s2en};
+  #VAR {_speedwalks[moonglow][fanhir]}                    {.s2e11n9wu3nwn};
+  #VAR {_speedwalks[moonglow][iaitanto]}                  {.s2ewe4s12w8nenw};
+  #VAR {_speedwalks[moonglow][kerofk]}                    {.s2en3wn2wn2w4n3e9n4e2nes};
+  #VAR {_speedwalks[moonglow][lemuria]}                   {.s5e5n5d};
+  #VAR {_speedwalks[moonglow][midgaard]}                  {.s2e9n20e2n2w2nen};
+  #VAR {_speedwalks[moonglow][midgaard-2]}                {open door d; d; close door u; n; open curtain; n; close curtain; en tombstone; .en; en statue; e};
+  #VAR {_speedwalks[moonglow][moon-goddess]}              {.s8w3swn; get amulet; unlock portal; open portal; drop amulet; .3nu2wu2su2eu2nu2wu2sue; open moon; .nnn};
+  #VAR {_speedwalks[moonglow][ofcol]}                     {.s2e4n7w4s7e};
+  #VAR {_speedwalks[moonglow][riva-south]}                {.s2e6n5w2s7w2s8w2n};
+  #VAR {_speedwalks[moonglow][tc]}                        {.s2e10n9w2n3e6sd2s3w2un};
 
-	#VAR {_speedwalks[ofcol][kerofk]}						{.9w2sw9n4e2nes};
-	#VAR {_speedwalks[ofcol][lemuria]}						{.7w4n7en3e5d};
-	#VAR {_speedwalks[ofcol][moonglow]}						{.7w4n7e4s2wn};
+  #VAR {_speedwalks[ofcol][kerofk]}                       {.9w2sw9n4e2nes};
+  #VAR {_speedwalks[ofcol][lemuria]}                      {.7w4n7en3e5d};
+  #VAR {_speedwalks[ofcol][moonglow]}                     {.7w4n7e4s2wn};
 
-	#VAR {_speedwalks[palace-of-greatch][demonspace]}		{.3ne2d};
+  #VAR {_speedwalks[palace-of-greatch][demonspace]}       {.3ne2d};
 
-	#VAR {_speedwalks[palace-of-khorne][demonspace]}		{.w2n2ed};
+  #VAR {_speedwalks[palace-of-khorne][demonspace]}        {.w2n2ed};
 
-	#VAR {_speedwalks[palace-of-nurgle][demonspace]}		{.n2e2d};
+  #VAR {_speedwalks[palace-of-nurgle][demonspace]}        {.n2e2d};
 
-	#VAR {_speedwalks[palace-of-slaanesh][demonspace]}		{.ned};
+  #VAR {_speedwalks[palace-of-slaanesh][demonspace]}      {.ned};
 
-	#VAR {_speedwalks[palace-of-winds][demonspace]}			{.3n};
+  #VAR {_speedwalks[palace-of-winds][demonspace]}         {.3n};
 
-	#VAR {_speedwalks[pyramid][atalia]}						{.s3wn8ws7wnws16wswn};
+  #VAR {_speedwalks[pyramid][atalia]}                     {.s3wn8ws7wnws16wswn};
 
-	#VAR {_speedwalks[riva-north][atalia]}					{.2e5sd2sese2n13e4s16esen};
-	#VAR {_speedwalks[riva-north][moonglow]}				{.2e5sd2sese2n8e6s2wn};
-	#VAR {_speedwalks[riva-north][riva-south]}				{.2e5sd2ses3w2s8w2n};
+  #VAR {_speedwalks[riva-north][atalia]}                  {.2e5sd2sese2n13e4s16esen};
+  #VAR {_speedwalks[riva-north][moonglow]}                {.2e5sd2sese2n8e6s2wn};
+  #VAR {_speedwalks[riva-north][riva-south]}              {.2e5sd2ses3w2s8w2n};
 
-	#VAR {_speedwalks[riva-south][atalia]}					{.2s8e2n4e2n13e4s16esen};
-	#VAR {_speedwalks[riva-south][brim]}					{.2s5w2nw6n2e};
-	#VAR {_speedwalks[riva-south][moonglow]}				{.2s8e2n4e2n8e6s2wn};
-	#VAR {_speedwalks[riva-south][obelisk]}					{.2s5wn2wu3wsw2sws2dnw2n2w; knock portal -.. . .- - ....};
-	#VAR {_speedwalks[riva-south][riva-north]}				{.2s5w2nw4n6e5ses; open gate s; .7s2w};
-	#VAR {_speedwalks[riva-south][rivan-monastary]}			{.2s5w2nw6n2e3n};
-	#VAR {_speedwalks[riva-south][thieves-route]}			{.2s5wn2w3s5w2swn; move stone; n; stand};
+  #VAR {_speedwalks[riva-south][atalia]}                  {.2s8e2n4e2n13e4s16esen};
+  #VAR {_speedwalks[riva-south][brim]}                    {.2s5w2nw6n2e};
+  #VAR {_speedwalks[riva-south][moonglow]}                {.2s8e2n4e2n8e6s2wn};
+  #VAR {_speedwalks[riva-south][obelisk]}                 {.2s5wn2wu3wsw2sws2dnw2n2w; knock portal -.. . .- - ....};
+  #VAR {_speedwalks[riva-south][riva-north]}              {.2s5w2nw4n6e5ses; open gate s; .7s2w};
+  #VAR {_speedwalks[riva-south][rivan-monastary]}         {.2s5w2nw6n2e3n};
+  #VAR {_speedwalks[riva-south][thieves-route]}           {.2s5wn2w3s5w2swn; move stone; n; stand};
 
-	#VAR {_speedwalks[rome][atalia]}						{.n2ws7wnws16wswn};
+  #VAR {_speedwalks[rome][atalia]}                        {.n2ws7wnws16wswn};
 
-	#VAR {_speedwalks[space-needle][demonspace]}			{.4e};
+  #VAR {_speedwalks[space-needle][demonspace]}            {.4e};
 
-	#VAR {_speedwalks[strange-island][demonspace]}			{.swd};
+  #VAR {_speedwalks[strange-island][demonspace]}          {.swd};
 
-	#VAR {_speedwalks[tc][moonglow]}						{.s2d3e3nu5n3w2s9e10s2wn};
+  #VAR {_speedwalks[tc][moonglow]}                        {.s2d3e3nu5n3w2s9e10s2wn};
 
-	#VAR {_speedwalks[thalos][atalia]}						{.5e2n3wn8ws7wnws16wswn};
-	#VAR {_speedwalks[thalos][lyta]}						{.5ene2nd2w};
+  #VAR {_speedwalks[thalos][atalia]}                      {.5e2n3wn8ws7wnws16wswn};
+  #VAR {_speedwalks[thalos][lyta]}                        {.5ene2nd2w};
 
-	#VAR {_speedwalks[tower-of-darkness][demonspace]}		{.2esd};
+  #VAR {_speedwalks[tower-of-darkness][demonspace]}       {.2esd};
 
-	#VAR {_speedwalks[tutor-1][tutor-2]}					{open trapdoor n; n; open trapdoor u; .uww; open trapdoor d; d; open trapdoor d; d; open trapdoor e; e};
-	##VAR {_speedwalks[tutor-2][tutor-3]}					{open trapdoor w; w; open trapdoor u; .uueunus; open trapdoor s; s};
-	##VAR {_speedwalks[tutor-3][tutor-4]}					{.nnnede; open trapdoor e; e};
+  #VAR {_speedwalks[tutor-1][tutor-2]}                    {open trapdoor n; n; open trapdoor u; .uww; open trapdoor d; d; open trapdoor d; d; open trapdoor e; e};
+  ##VAR {_speedwalks[tutor-2][tutor-3]}                   {open trapdoor w; w; open trapdoor u; .uueunus; open trapdoor s; s};
+  ##VAR {_speedwalks[tutor-3][tutor-4]}                   {.nnnede; open trapdoor e; e};
 
-	#VAR {_speedwalks[vc][atalia]}							{.3wnes3w4n2e7nwuenwd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn};
-	#VAR {_speedwalks[vc][inken]}							{.3wnes3w4n2e7nwuen};
+  #VAR {_speedwalks[vc][atalia]}                          {.3wnes3w4n2e7nwuenwd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn};
+  #VAR {_speedwalks[vc][inken]}                           {.3wnes3w4n2e7nwuen};
 
-	#VAR {_speedwalks[weramak][atalia]}						{.3s2wnwnd11n4e4n5wswn};
+  #VAR {_speedwalks[weramak][atalia]}                     {.3s2wnwnd11n4e4n5wswn};
 
-	#VAR {_speedwalks[xanth][moonglow]}						{.ne2n2e3ne5n2e3n6wsw7n2ene2s3es22e9s2wn};
+  #VAR {_speedwalks[xanth][moonglow]}                     {.ne2n2e3ne5n2e3n6wsw7n2ene2s3es22e9s2wn};
 
-#	#ALIAS {sw %S} {speedwalk %1};
+#   #ALIAS {sw %S} {speedwalk %1};
 #
-#	#ALIAS {speedwalk %S} {
-#		#IF {"@isEmpty{$_speedwalks[%1]; true}" == "true"} {
-#			#SHOWME {No speedwalks from %1};
-#		} {
-#			#FOREACH {$_speedwalks[%1]} {_speedwalks_to} {
-#				#IF {"@isEmpty{$_speedwalks[%1][$_speedwalks_to]; true}" == "true"} {#CONTINUE};
-#				#ELSE {
-#					#FORMAT {_speedwalks_display} {%-20s %-20s %s} {%1} {$_speedwalks_to} {$_speedwalks[%1][$_speedwalks_to]};
-#					#SHOWME {$_speedwalks_display};
-#				};
-#			};
-#		};
-#	}
+#   #ALIAS {speedwalk %S} {
+#       #IF {"@isEmpty{$_speedwalks[%1]; true}" == "true"} {
+#           #SHOWME {No speedwalks from %1};
+#       } {
+#           #FOREACH {$_speedwalks[%1]} {_speedwalks_to} {
+#               #IF {"@isEmpty{$_speedwalks[%1][$_speedwalks_to]; true}" == "true"} {#CONTINUE};
+#               #ELSE {
+#                   #FORMAT {_speedwalks_display} {%-20s %-20s %s} {%1} {$_speedwalks_to} {$_speedwalks[%1][$_speedwalks_to]};
+#                   #SHOWME {$_speedwalks_display};
+#               };
+#           };
+#       };
+#   }
 
-	#ALIAS {sw %S %S} {speedwalk %1 %2};
+  #ALIAS {sw %S %S} {speedwalk %1 %2};
 
-	#ALIAS {speedwalk %S %S} {
-		#IF {"@isEmpty{$_speedwalks[%1][%2]; true}" == "true"} {
-			#SHOWME {No such speedwalk (%1 to %2)};
-		} {
-			#SHOWME {$_speedwalks[%1][%2]};
-			$_speedwalks[%1][%2];
-		};
-	}
+  #ALIAS {speedwalk %S %S} {
+    #IF {"@isEmpty{$_speedwalks[%1][%2]; true}" == "true"} {
+      #SHOWME {No such speedwalk (%1 to %2)};
+    } {
+      #SHOWME {$_speedwalks[%1][%2]};
+      $_speedwalks[%1][%2];
+    };
+  }
 
-	#ALIAS {speedwalks} {
-		#SHOWME {----------};
-		#FOREACH {$_speedwalks[]} {_speedwalks_from} {
-			#FOREACH {$_speedwalks[$_speedwalks_from]} {_speedwalks_to} {
-				#IF {"@isEmpty{$_speedwalks[$_speedwalks_from][$_speedwalks_to]; true}" == "true"} {#CONTINUE};
-				#ELSE {
-					#FORMAT {_speedwalks_display} {%-20s %-20s %s} {$_speedwalks_from} {$_speedwalks_to} {$_speedwalks[$_speedwalks_from][$_speedwalks_to]};
-					#SHOWME {$_speedwalks_display};
-				};
-			};
-		};
-		#UNVAR {_speedwalks_display};
-		#UNVAR {_speedwalks_from};
-		#UNVAR {_speedwalks_to};
-	};
+  #ALIAS {speedwalks} {
+    #SHOWME {----------};
+    #FOREACH {$_speedwalks[]} {_speedwalks_from} {
+      #FOREACH {$_speedwalks[$_speedwalks_from]} {_speedwalks_to} {
+        #IF {"@isEmpty{$_speedwalks[$_speedwalks_from][$_speedwalks_to]; true}" == "true"} {#CONTINUE};
+        #ELSE {
+          #FORMAT {_speedwalks_display} {%-20s %-20s %s} {$_speedwalks_from} {$_speedwalks_to} {$_speedwalks[$_speedwalks_from][$_speedwalks_to]};
+          #SHOWME {$_speedwalks_display};
+        };
+      };
+    };
+    #UNVAR {_speedwalks_display};
+    #UNVAR {_speedwalks_from};
+    #UNVAR {_speedwalks_to};
+  };
 
-	#ALIAS {record} {
-		#LIST {_speedwalk_path} {clear};
+  #ALIAS {record} {
+    #LIST {_speedwalk_path} {clear};
 
-		#ALIAS {down}	{d; #LIST {_speedwalk_path} {add} {d}};
-		#ALIAS {east}	{e; #LIST {_speedwalk_path} {add} {e}};
-		#ALIAS {north}	{n; #LIST {_speedwalk_path} {add} {n}};
-		#ALIAS {south}	{s; #LIST {_speedwalk_path} {add} {s}};
-		#ALIAS {up}		{u; #LIST {_speedwalk_path} {add} {u}};
-		#ALIAS {west}	{w; #LIST {_speedwalk_path} {add} {w}};
-	}
+    #ALIAS {down}   {d; #LIST {_speedwalk_path} {add} {d}};
+    #ALIAS {east}   {e; #LIST {_speedwalk_path} {add} {e}};
+    #ALIAS {north}  {n; #LIST {_speedwalk_path} {add} {n}};
+    #ALIAS {south}  {s; #LIST {_speedwalk_path} {add} {s}};
+    #ALIAS {up}     {u; #LIST {_speedwalk_path} {add} {u}};
+    #ALIAS {west}   {w; #LIST {_speedwalk_path} {add} {w}};
+  }
 
-	#ALIAS {replay} {
-		#VAR {_replay_output} {};
-		#VAR {_replay_last} {};
-		#VAR {_replay_cnt} {1};
+  #ALIAS {replay} {
+    #VAR {_replay_output} {};
+    #VAR {_replay_last} {};
+    #VAR {_replay_cnt} {1};
 
-		#FOREACH {$_speedwalk_path[%*]} {_replay_current} {
-			#IF {"$_replay_last" == ""} {
-				#VAR {_replay_last} {$_replay_current};
-				#CONTINUE;
-			};
+    #FOREACH {$_speedwalk_path[%*]} {_replay_current} {
+      #IF {"$_replay_last" == ""} {
+        #VAR {_replay_last} {$_replay_current};
+        #CONTINUE;
+      };
 
-			#IF {"$_replay_last" == "$_replay_current"} {
-				#MATH {_replay_cnt} {$_replay_cnt + 1};
-				#VAR {_replay_last} {$_replay_current};
-				#CONTINUE;
-			};
+      #IF {"$_replay_last" == "$_replay_current"} {
+        #MATH {_replay_cnt} {$_replay_cnt + 1};
+        #VAR {_replay_last} {$_replay_current};
+        #CONTINUE;
+      };
 
-			#IF {$_replay_cnt > 1} {
-				#FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
-				#VAR {_replay_cnt} {1};
-			};
+      #IF {$_replay_cnt > 1} {
+        #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
+        #VAR {_replay_cnt} {1};
+      };
 
-			#FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
+      #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
 
-			#VAR {_replay_last} {$_replay_current};
-		};
+      #VAR {_replay_last} {$_replay_current};
+    };
 
-		#IF {$_replay_cnt > 1} {
-			#FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
-		};
+    #IF {$_replay_cnt > 1} {
+      #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
+    };
 
-		#FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
+    #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
 
-		#SHOWME {$_replay_output};
+    #SHOWME {$_replay_output};
 
-		#UNALIAS {down};
-		#UNALIAS {east};
-		#UNALIAS {north};
-		#UNALIAS {south};
-		#UNALIAS {up};
-		#UNALIAS {west};
+    #UNALIAS {down};
+    #UNALIAS {east};
+    #UNALIAS {north};
+    #UNALIAS {south};
+    #UNALIAS {up};
+    #UNALIAS {west};
 
-		#UNVAR {_replay_cnt};
-		#UNVAR {_replay_current};
-		#UNVAR {_replay_last};
-		#UNVAR {_replay_output};
-		#UNVAR {_speedwalk_path};
-	}
+    #UNVAR {_replay_cnt};
+    #UNVAR {_replay_current};
+    #UNVAR {_replay_last};
+    #UNVAR {_replay_output};
+    #UNVAR {_speedwalk_path};
+  }
 
-	#ALIAS {.%+} {speedwalk %1};
+  #ALIAS {.%+} {speedwalk %1};
 #CLASS {RealmOfMagic|Speedwalks} {close}
 
 #CLASS {RealmOfMagic|AutoTrack} {open}
-	#VAR {_autoTrack[target]}	{0}
-	#VAR {_autoTrack[enabled]}	{0}
-	#VAR {_autoTrack[dir1]}		{0}
-	#VAR {_autoTrack[dir2]}		{0}
-	#VAR {_autoTrack[dir3]}		{0}
+  #VAR {_autoTrack[target]}   {0}
+  #VAR {_autoTrack[enabled]}  {0}
+  #VAR {_autoTrack[dir1]}     {0}
+  #VAR {_autoTrack[dir2]}     {0}
+  #VAR {_autoTrack[dir3]}     {0}
 
-	#ALIAS {strack %+} {
-		_autoTrack_reset;
-		#VAR {_autoTrack[enabled]}	{1};
-		#VAR {_autoTrack[target]}	{%1};
-		_autoTrack_track
-	}
-	#ALIAS {troff} {
-		_autoTrack_reset
-		#VAR {_autoTrack[enabled]} {0};
-	}
+  #ALIAS {strack %+} {
+    _autoTrack_reset;
+    #VAR {_autoTrack[enabled]}  {1};
+    #VAR {_autoTrack[target]}   {%1};
+    _autoTrack_track
+  }
+  #ALIAS {troff} {
+    _autoTrack_reset
+    #VAR {_autoTrack[enabled]} {0};
+  }
 
-	#ALIAS {_autoTrack_reset} {
-		#VAR {_autoTrack[dir1]} {0};
-		#VAR {_autoTrack[dir2]} {0};
-		#VAR {_autoTrack[dir3]} {0};
-	}
-	#ALIAS {_autoTrack_track} {
-		track $_autoTrack[target];
-		track $_autoTrack[target];
-		track $_autoTrack[target];
-	}
-	#ALIAS {_autoTrack_check} {
-		#IF {$_autoTrack[enabled] == 1} {
-			#IF		{"$_autoTrack[dir1]" == "$_autoTrack[dir2]"} {$_autoTrack[dir1]};
-			#ELSEIF {"$_autoTrack[dir1]" == "$_autoTrack[dir3]"} {$_autoTrack[dir1]};
-			#ELSEIF {"$_autoTrack[dir2]" == "$_autoTrack[dir3]"} {$_autoTrack[dir2]};
+  #ALIAS {_autoTrack_reset} {
+    #VAR {_autoTrack[dir1]} {0};
+    #VAR {_autoTrack[dir2]} {0};
+    #VAR {_autoTrack[dir3]} {0};
+  }
+  #ALIAS {_autoTrack_track} {
+    track $_autoTrack[target];
+    track $_autoTrack[target];
+    track $_autoTrack[target];
+  }
+  #ALIAS {_autoTrack_check} {
+    #IF {$_autoTrack[enabled] == 1} {
+      #IF     {"$_autoTrack[dir1]" == "$_autoTrack[dir2]"} {$_autoTrack[dir1]};
+      #ELSEIF {"$_autoTrack[dir1]" == "$_autoTrack[dir3]"} {$_autoTrack[dir1]};
+      #ELSEIF {"$_autoTrack[dir2]" == "$_autoTrack[dir3]"} {$_autoTrack[dir2]};
 
-			_autoTrack_reset;
-			_autoTrack_track;
-		}
-	}
+      _autoTrack_reset;
+      _autoTrack_track;
+    }
+  }
 
-	#ACTION {^You sense a trail {north|south|east|west|up|down} from here!} {
-		#IF {$_autoTrack[enabled] == 1} {
-			#IF		{"$_autoTrack[dir1]" == "0"} {#VAR {_autoTrack[dir1]} {%1}};
-			#ELSEIF {"$_autoTrack[dir2]" == "0"} {#VAR {_autoTrack[dir2]} {%1}};
-			#ELSEIF {"$_autoTrack[dir3]" == "0"} {#VAR {_autoTrack[dir3]} {%1}; _autoTrack_check};
-		}
-	}
+  #ACTION {^You sense a trail {north|south|east|west|up|down} from here!} {
+    #IF {$_autoTrack[enabled] == 1} {
+      #IF     {"$_autoTrack[dir1]" == "0"} {#VAR {_autoTrack[dir1]} {%1}};
+      #ELSEIF {"$_autoTrack[dir2]" == "0"} {#VAR {_autoTrack[dir2]} {%1}};
+      #ELSEIF {"$_autoTrack[dir3]" == "0"} {#VAR {_autoTrack[dir3]} {%1}; _autoTrack_check};
+    }
+  }
 
-	#ACTION {^You're already in the same room!}			{troff}
-	#ACTION {^You can't sense a trail to %+ from here.}	{troff}
+  #ACTION {^You're already in the same room!}         {troff}
+  #ACTION {^You can't sense a trail to %+ from here.} {troff}
 #CLASS {RealmOfMagic|AutoTrack} {close}
 
 #CLASS {RealmOfMagic|Thief} {open}
-	#VAR {thief[auto][flee]} {0};
-	#VAR {thief[auto][backstab]} {0};
+  #VAR {thief[auto][flee]} {0};
+  #VAR {thief[auto][backstab]} {0};
 
-	#ALIAS {ko} {
-		setTarget %1;
+  #ALIAS {ko} {
+    setTarget %1;
 
-		knockout $target;
-	};
+    knockout $target;
+  };
 
-	#ALIAS {bs} {
-		setTarget %1;
+  #ALIAS {bs} {
+    setTarget %1;
 
-		backstab $target;
-	};
+    backstab $target;
+  };
 
-	#ALIAS {kb} {
-		setTarget %1;
+  #ALIAS {kb} {
+    setTarget %1;
 
-		#VAR {thief[auto][backstab]} {1};
+    #VAR {thief[auto][backstab]} {1};
 
-		knockout $target;
-	};
+    knockout $target;
+  };
 
-	#ALIAS {kbf} {
-		setTarget %1;
+  #ALIAS {kbf} {
+    setTarget %1;
 
-		#VAR {thief[auto][flee]} {1};
+    #VAR {thief[auto][flee]} {1};
 
-		kb $target;
-	};
+    kb $target;
+  };
 
-	#ALIAS {bsf} {
-		setTarget %1;
+  #ALIAS {bsf} {
+    setTarget %1;
 
-		#VAR {thief[auto][flee]} {1};
+    #VAR {thief[auto][flee]} {1};
 
-		backstab $target;
-	};
+    backstab $target;
+  };
 
-	#ALIAS {kof} {
-		setTarget %1;
+  #ALIAS {kof} {
+    setTarget %1;
 
-		#VAR {thief[auto][flee]} {1};
+    #VAR {thief[auto][flee]} {1};
 
-		knockout $target;
-	};
+    knockout $target;
+  };
 
-	#ACTION {^{He|She|It} laughs at your clumsy feint.  En Garde!$}						{_fail};
-	#ACTION {^You manage to hit {him|her|it}, but not quite where you wanted.$}			{_fail};
+  #ACTION {^{He|She|It} laughs at your clumsy feint.  En Garde!$}                     {_fail};
+  #ACTION {^You manage to hit {him|her|it}, but not quite where you wanted.$}         {_fail};
 
-	#ACTION {^Looks like you didn't even manage to hit {him|her|it}.$}					{knockout $target};
+  #ACTION {^Looks like you didn't even manage to hit {him|her|it}.$}                  {knockout $target};
 
-	#ACTION {^Knockout who?$}															{_reset};
-	#ACTION {^Hmmm... Looks like you don't know where to hit}							{_reset};
-	#ACTION {makes a strange sound but is suddenly very silent as you place}			{_reset};
+  #ACTION {^Knockout who?$}                                                           {_reset};
+  #ACTION {^Hmmm... Looks like you don't know where to hit}                           {_reset};
+  #ACTION {makes a strange sound but is suddenly very silent as you place}            {_reset};
 
-	#ACTION {^You throw some nasty judo on} 											{_succeedKO};
-	#ACTION {s already out cold.$}														{_succeedKO};
+  #ACTION {^You throw some nasty judo on}                                             {_succeedKO};
+  #ACTION {s already out cold.$}                                                      {_succeedKO};
 
-	#ACTION {makes a strange sound as you place %+ in {his|her} back!$}					{_succeedBS};
+  #ACTION {makes a strange sound as you place %+ in {his|her} back!$}                 {_succeedBS};
 
-	#ACTION {^No way!  You're fighting for your life!} {
-		#IF {$thief[auto][flee] == 1} {flee};
-		_reset;
-	};
+  #ACTION {^No way!  You're fighting for your life!} {
+    #IF {$thief[auto][flee] == 1} {flee};
+    _reset;
+  };
 
-	#ALIAS {_fail} {
-		#IF {$thief[auto][flee] == 1} {flee};
-		_reset;
-	};
+  #ALIAS {_fail} {
+    #IF {$thief[auto][flee] == 1} {flee};
+    _reset;
+  };
 
-	#ALIAS {_succeedKO} {
-		#IF {$thief[auto][backstab] == 1} {backstab $target}};
-		#ELSEIF {$thief[auto][flee] == 1) {_reset};
-	};
+  #ALIAS {_succeedKO} {
+    #IF {$thief[auto][backstab] == 1} {backstab $target}};
+    #ELSEIF {$thief[auto][flee] == 1) {_reset};
+  };
 
-	#ALIAS {_succeedBS} {
-		#IF {$thief[auto][flee] == 1} {flee};
-		_reset;
-	};
+  #ALIAS {_succeedBS} {
+    #IF {$thief[auto][flee] == 1} {flee};
+    _reset;
+  };
 
-	#ALIAS {_reset} {
-		#VAR {thief[auto][flee]} {0};
-		#VAR {thief[auto][backstab]} {0};
-	};
+  #ALIAS {_reset} {
+    #VAR {thief[auto][flee]} {0};
+    #VAR {thief[auto][backstab]} {0};
+  };
 
 #CLASS {RealmOfMagic|Thief} {close}
 
 #CLASS {RealmOfMagic|Alchemy} {open}
-	#VAR {alchemy[container]} {holding};
+  #VAR {alchemy[container]} {holding};
 
-	#ALIAS {_getAlchemy} {get types.ingredient; put types.ingredient $alchemy[container]};
+  #ALIAS {_getAlchemy} {get types.ingredient; put types.ingredient $alchemy[container]};
 
-	#ACTION {^A beautiful seashell is floating around.}							{_getAlchemy};
-	#ACTION {^A bit of kelp is here.}											{_getAlchemy};
-	#ACTION {^A blistered rock is lying in the sand.}							{_getAlchemy};
-	#ACTION {^A bunch of sage is lying here.}									{_getAlchemy};
-	#ACTION {^A bunch of seaweed is swimming here.}								{_getAlchemy};
-	#ACTION {^A bundle of valerin is growing here.}								{_getAlchemy};
-	#ACTION {^A dragon has lost one of his scales here.}						{_getAlchemy};
-	#ACTION {^A few brambles are growing here.}									{_getAlchemy};
-	#ACTION {^A lizard has lost his tail here.}									{_getAlchemy};
-	#ACTION {^A lump of coal is lying here.}									{_getAlchemy};
-	#ACTION {^A mossy twig is lying here on the ground.}						{_getAlchemy};
-	#ACTION {^A palm tree's leaf has been carried here by the wind.}			{_getAlchemy};
-	#ACTION {^A piece of bark is lying here.}									{_getAlchemy};
-	#ACTION {^A piece of driftwood is drifting along the water.}				{_getAlchemy};
-	#ACTION {^A piece of quartz is lying here.}									{_getAlchemy};
-	#ACTION {^A pile of snow is here.}											{_getAlchemy};
-	#ACTION {^A raw diamond is lying here.}										{_getAlchemy};
-	#ACTION {^A sand dollar is floating around.}								{_getAlchemy};
-	#ACTION {^A small cactus has grown here.}									{_getAlchemy};
-	#ACTION {^A snow-covered rock is lying on the cold ground.}					{_getAlchemy};
-	#ACTION {^A tentacle of an octopus is floating here.}						{_getAlchemy};
-	#ACTION {^A toadstool is lying here.}										{_getAlchemy};
-	#ACTION {^A twig, withered by the dryness, is sticking out of the sand.}	{_getAlchemy};
-	#ACTION {^An icicle is lying around here.}									{_getAlchemy};
-	#ACTION {^Some algae are floating around here.}								{_getAlchemy};
-	#ACTION {^Some black sand is here.}											{_getAlchemy};
-	#ACTION {^Some elderberries are growing here.}								{_getAlchemy};
-	#ACTION {^Some frosty leaves are lying here.}								{_getAlchemy};
-	#ACTION {^Some nettles are lying here.}										{_getAlchemy};
-	#ACTION {^Some pine cones are lying here.}									{_getAlchemy};
-	#ACTION {^The beak of a penguin is lying here.}								{_getAlchemy};
-	#ACTION {^The beard of a goat is lying here.}								{_getAlchemy};
-	#ACTION {^The bones of a fish are floating on the water here.}				{_getAlchemy};
-	#ACTION {^The claw of a bear is lying here.}								{_getAlchemy};
-	#ACTION {^The ear of a seal is lying in the snow.}							{_getAlchemy};
-	#ACTION {^The eye of a newt is lying here.}									{_getAlchemy};
-	#ACTION {^The fang of a white wolf is lying here.}							{_getAlchemy};
-	#ACTION {^The feather of an eagle has fallen to the ground.}				{_getAlchemy};
-	#ACTION {^The fin of a shark is drifting lifelessly on the water.}			{_getAlchemy};
-	#ACTION {^The leg of a spider is lying in the sand.}						{_getAlchemy};
-	#ACTION {^The pinchers of a scorpion are lying in the sand.}				{_getAlchemy};
-	#ACTION {^The tail of a mouse is lying here.}								{_getAlchemy};
-	#ACTION {^You see a bit of ice-covered grass in the snow.}					{_getAlchemy};
-	#ACTION {^You see some frozen lichens.}										{_getAlchemy};
-	#ACTION {^You see some tumbleweed sticking out of the sand.}				{_getAlchemy};
+  #ACTION {^A beautiful seashell is floating around.}                         {_getAlchemy};
+  #ACTION {^A bit of kelp is here.}                                           {_getAlchemy};
+  #ACTION {^A blistered rock is lying in the sand.}                           {_getAlchemy};
+  #ACTION {^A bunch of sage is lying here.}                                   {_getAlchemy};
+  #ACTION {^A bunch of seaweed is swimming here.}                             {_getAlchemy};
+  #ACTION {^A bundle of valerin is growing here.}                             {_getAlchemy};
+  #ACTION {^A dragon has lost one of his scales here.}                        {_getAlchemy};
+  #ACTION {^A few brambles are growing here.}                                 {_getAlchemy};
+  #ACTION {^A lizard has lost his tail here.}                                 {_getAlchemy};
+  #ACTION {^A lump of coal is lying here.}                                    {_getAlchemy};
+  #ACTION {^A mossy twig is lying here on the ground.}                        {_getAlchemy};
+  #ACTION {^A palm tree's leaf has been carried here by the wind.}            {_getAlchemy};
+  #ACTION {^A piece of bark is lying here.}                                   {_getAlchemy};
+  #ACTION {^A piece of driftwood is drifting along the water.}                {_getAlchemy};
+  #ACTION {^A piece of quartz is lying here.}                                 {_getAlchemy};
+  #ACTION {^A pile of snow is here.}                                          {_getAlchemy};
+  #ACTION {^A raw diamond is lying here.}                                     {_getAlchemy};
+  #ACTION {^A sand dollar is floating around.}                                {_getAlchemy};
+  #ACTION {^A small cactus has grown here.}                                   {_getAlchemy};
+  #ACTION {^A snow-covered rock is lying on the cold ground.}                 {_getAlchemy};
+  #ACTION {^A tentacle of an octopus is floating here.}                       {_getAlchemy};
+  #ACTION {^A toadstool is lying here.}                                       {_getAlchemy};
+  #ACTION {^A twig, withered by the dryness, is sticking out of the sand.}    {_getAlchemy};
+  #ACTION {^An icicle is lying around here.}                                  {_getAlchemy};
+  #ACTION {^Some algae are floating around here.}                             {_getAlchemy};
+  #ACTION {^Some black sand is here.}                                         {_getAlchemy};
+  #ACTION {^Some elderberries are growing here.}                              {_getAlchemy};
+  #ACTION {^Some frosty leaves are lying here.}                               {_getAlchemy};
+  #ACTION {^Some nettles are lying here.}                                     {_getAlchemy};
+  #ACTION {^Some pine cones are lying here.}                                  {_getAlchemy};
+  #ACTION {^The beak of a penguin is lying here.}                             {_getAlchemy};
+  #ACTION {^The beard of a goat is lying here.}                               {_getAlchemy};
+  #ACTION {^The bones of a fish are floating on the water here.}              {_getAlchemy};
+  #ACTION {^The claw of a bear is lying here.}                                {_getAlchemy};
+  #ACTION {^The ear of a seal is lying in the snow.}                          {_getAlchemy};
+  #ACTION {^The eye of a newt is lying here.}                                 {_getAlchemy};
+  #ACTION {^The fang of a white wolf is lying here.}                          {_getAlchemy};
+  #ACTION {^The feather of an eagle has fallen to the ground.}                {_getAlchemy};
+  #ACTION {^The fin of a shark is drifting lifelessly on the water.}          {_getAlchemy};
+  #ACTION {^The leg of a spider is lying in the sand.}                        {_getAlchemy};
+  #ACTION {^The pinchers of a scorpion are lying in the sand.}                {_getAlchemy};
+  #ACTION {^The tail of a mouse is lying here.}                               {_getAlchemy};
+  #ACTION {^You see a bit of ice-covered grass in the snow.}                  {_getAlchemy};
+  #ACTION {^You see some frozen lichens.}                                     {_getAlchemy};
+  #ACTION {^You see some tumbleweed sticking out of the sand.}                {_getAlchemy};
 
-	#SUB {^bark of a tree}														{<069>[000001] %0};
-	#SUB {^some frozen lichens}													{<069>[000001] %0};
-	#SUB {^some fishbones}														{<069>[000001] %0};
-	#SUB {^a bit of kelp}														{<069>[000010] %0};
-	#SUB {^a newt eye}															{<069>[000010] %0};
-	#SUB {^a lump of coal}														{<069>[000010] %0};
-	#SUB {^an icicle}															{<069>[000100] %0};
-	#SUB {^some pine cones}														{<069>[000100] %0};
-	#SUB {^an eagle feather}													{<069>[001000] %0};
-	#SUB {^a toadstool}															{<069>[001000] %0};
-	#SUB {^some black sand}														{<069>[001000] %0};
-	#SUB {^a wolf fang}															{<069>[010000] %0};
-	#SUB {^a small cactus}														{<069>[010000] %0};
-	#SUB {^a spider leg}														{<069>[100000] %0};
-	#SUB {^a seashell}															{<069>[100000] %0};
+  #SUB {^bark of a tree}                                                      {<069>[000001] %0};
+  #SUB {^some frozen lichens}                                                 {<069>[000001] %0};
+  #SUB {^some fishbones}                                                      {<069>[000001] %0};
+  #SUB {^a bit of kelp}                                                       {<069>[000010] %0};
+  #SUB {^a newt eye}                                                          {<069>[000010] %0};
+  #SUB {^a lump of coal}                                                      {<069>[000010] %0};
+  #SUB {^an icicle}                                                           {<069>[000100] %0};
+  #SUB {^some pine cones}                                                     {<069>[000100] %0};
+  #SUB {^an eagle feather}                                                    {<069>[001000] %0};
+  #SUB {^a toadstool}                                                         {<069>[001000] %0};
+  #SUB {^some black sand}                                                     {<069>[001000] %0};
+  #SUB {^a wolf fang}                                                         {<069>[010000] %0};
+  #SUB {^a small cactus}                                                      {<069>[010000] %0};
+  #SUB {^a spider leg}                                                        {<069>[100000] %0};
+  #SUB {^a seashell}                                                          {<069>[100000] %0};
 
-	#SUB {^a bit of ice-covered grass}											{<039>[000001] %0};
-	#SUB {^a tentacle of an octopus}											{<039>[000001] %0};
-	#SUB {^a mossy twig}														{<039>[000001] %0};
-	#SUB {^a bear claw}															{<039>[000010] %0};
-	#SUB {^a bunch of seaweed}													{<039>[000010] %0};
-	#SUB {^a piece of quartz}													{<039>[000010] %0};
-	#SUB {^a bunch of sage}														{<039>[000100] %0};
-	#SUB {^a pile of snow}														{<039>[000100] %0};
-	#SUB {^some elderberries}													{<039>[001000] %0};
-	#SUB {^a withered twig}														{<039>[001000] %0};
-	#SUB {^a goat beard}														{<039>[001000] %0};
-	#SUB {^a penguin beak}														{<039>[010000] %0};
-	#SUB {^some tumbleweed}														{<039>[010000] %0};
-	#SUB {^a piece of driftwood}												{<039>[100000] %0};
-	#SUB {^a lizard tail}														{<039>[100000] %0};
+  #SUB {^a bit of ice-covered grass}                                          {<039>[000001] %0};
+  #SUB {^a tentacle of an octopus}                                            {<039>[000001] %0};
+  #SUB {^a mossy twig}                                                        {<039>[000001] %0};
+  #SUB {^a bear claw}                                                         {<039>[000010] %0};
+  #SUB {^a bunch of seaweed}                                                  {<039>[000010] %0};
+  #SUB {^a piece of quartz}                                                   {<039>[000010] %0};
+  #SUB {^a bunch of sage}                                                     {<039>[000100] %0};
+  #SUB {^a pile of snow}                                                      {<039>[000100] %0};
+  #SUB {^some elderberries}                                                   {<039>[001000] %0};
+  #SUB {^a withered twig}                                                     {<039>[001000] %0};
+  #SUB {^a goat beard}                                                        {<039>[001000] %0};
+  #SUB {^a penguin beak}                                                      {<039>[010000] %0};
+  #SUB {^some tumbleweed}                                                     {<039>[010000] %0};
+  #SUB {^a piece of driftwood}                                                {<039>[100000] %0};
+  #SUB {^a lizard tail}                                                       {<039>[100000] %0};
 
-	#SUB {^some frosty leaves}													{<029>[000001] %0};
-	#SUB {^some nettles}														{<029>[000001] %0};
-	#SUB {^a shark fin}															{<029>[000001] %0};
-	#SUB {^a mouse tail}														{<029>[000010] %0};
-	#SUB {^some algae}															{<029>[000010] %0};
-	#SUB {^a raw diamond}														{<029>[000010] %0};
-	#SUB {^a snow-covered rock}													{<029>[000100] %0};
-	#SUB {^a few brambles}														{<029>[000100] %0};
-	#SUB {^a bundle of valerin}													{<029>[001000] %0};
-	#SUB {^a blistered rock}													{<029>[001000] %0};
-	#SUB {^a palm tree's leaf}													{<029>[010000] %0};
-	#SUB {^a seal ear}															{<029>[010000] %0};
-	#SUB {^a dragon scale}														{<029>[010000] %0};
-	#SUB {^a sand dollar}														{<029>[100000] %0};
-	#SUB {^a pair of scorpion pincers}											{<029>[100000] %0};
+  #SUB {^some frosty leaves}                                                  {<029>[000001] %0};
+  #SUB {^some nettles}                                                        {<029>[000001] %0};
+  #SUB {^a shark fin}                                                         {<029>[000001] %0};
+  #SUB {^a mouse tail}                                                        {<029>[000010] %0};
+  #SUB {^some algae}                                                          {<029>[000010] %0};
+  #SUB {^a raw diamond}                                                       {<029>[000010] %0};
+  #SUB {^a snow-covered rock}                                                 {<029>[000100] %0};
+  #SUB {^a few brambles}                                                      {<029>[000100] %0};
+  #SUB {^a bundle of valerin}                                                 {<029>[001000] %0};
+  #SUB {^a blistered rock}                                                    {<029>[001000] %0};
+  #SUB {^a palm tree's leaf}                                                  {<029>[010000] %0};
+  #SUB {^a seal ear}                                                          {<029>[010000] %0};
+  #SUB {^a dragon scale}                                                      {<029>[010000] %0};
+  #SUB {^a sand dollar}                                                       {<029>[100000] %0};
+  #SUB {^a pair of scorpion pincers}                                          {<029>[100000] %0};
 
-	#SUB {{(^You see a|liquid with|smoke and)} black}							{%0 (burning hands??)};
-	#SUB {{(^You see a|liquid with|smoke and)} blueish white}					{%0 (fly)};
-	#SUB {{(^You see a|liquid with|smoke and)} bluish gray}						{%0 (weaken)};
-	#SUB {{(^You see a|liquid with|smoke and)} bluish red}						{%0 (dispel good)};
-	#SUB {{(^You see a|liquid with|smoke and)} bluish white}					{%0 (fly)};
-	#SUB {{(^You see a|liquid with|smoke and)} dark gray}						{%0 (sleep)};
-	#SUB {{(^You see a|liquid with|smoke and)} dark red}						{%0 (dispel good)};
-	#SUB {{(^You see a|liquid with|smoke and)} dull gray}						{%0 (slow)};
-	#SUB {{(^You see a|liquid with|smoke and)} dull white}						{%0 (knock)};
-	#SUB {{(^You see a|liquid with|smoke and)} flaming red}						{%0 (disintegrate)};
-	#SUB {{(^You see a|liquid with|smoke and)} glowing blue}					{%0 (dome of power)};
-	#SUB {{(^You see a|liquid with|smoke and)} glowing green}					{%0 (heal)};
-	#SUB {{(^You see a|liquid with|smoke and)} glowing red}						{%0 (exploding fist)};
-	#SUB {{(^You see a|liquid with|smoke and)} glowing white}					{%0 (sanctuary)};
-	#SUB {{(^You see a|liquid with|smoke and)} glowing yellow}					{%0 (remove sanctuary)};
-	#SUB {{(^You see a|liquid with|smoke and)} greenish gray}					{%0 (hold)};
-	#SUB {{(^You see a|liquid with|smoke and)} light blue}						{%0 (teleport)};
-	#SUB {{(^You see a|liquid with|smoke and)} light green}						{%0 (cure critical wounds)};
-	#SUB {{(^You see a|liquid with|smoke and)} light green}						{%0 (cure light wounds)};
-	#SUB {{(^You see a|liquid with|smoke and)} light orange}					{%0 (xray)};
-	#SUB {{(^You see a|liquid with|smoke and)} light red}						{%0 (cause critical wounds)};
-	#SUB {{(^You see a|liquid with|smoke and)} light yellow}					{%0 (remove curse)};
-	#SUB {{(^You see a|liquid with|smoke and)} light gray}						{%0 (curse or ?nothing?)};
-	#SUB {{(^You see a|liquid with|smoke and)} misty blue}						{%0 (invisibility)};
-	#SUB {{(^You see a|liquid with|smoke and)} misty gray}						{%0 (blindness)};
-	#SUB {{(^You see a|liquid with|smoke and)} misty green}						{%0 (cure blind)};
-	#SUB {{(^You see a|liquid with|smoke and)} misty orange}					{%0 (detect invisibility)};
-	#SUB {{(^You see a|liquid with|smoke and)} misty white}						{%0 (bless)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale blue}						{%0 (word of recall)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale gray}						{%0 (poison)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale green}						{%0 (cure light wounds)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale orange}						{%0 (detect poison)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale red}						{%0 (magic missile)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale white}						{%0 (armor)};
-	#SUB {{(^You see a|liquid with|smoke and)} pale yellow}						{%0 (remove poison)};
-	#SUB {{(^You see a|liquid with|smoke and)} pulsating gray}					{%0 (wither strike)};
-	#SUB {{(^You see a|liquid with|smoke and)} pulsating orange}				{%0 (sense life)};
-	#SUB {{(^You see a|liquid with|smoke and)} pulsating red}					{%0 (atomic blast)};
-	#SUB {{(^You see a|liquid with|smoke and)} pulsating yellow}				{%0 (return youth)};
-	#SUB {{(^You see a|liquid with|smoke and)} reddish orange}					{%0 (detect trap)};
-	#SUB {{(^You see a|liquid with|smoke and)} rich blue}						{%0 (strength)};
-	#SUB {{(^You see a|liquid with|smoke and)} shimmering blue}					{%0 (deflect)};
-	#SUB {{(^You see a|liquid with|smoke and)} shimmering orange}				{%0 (detect alignment)};
-	#SUB {{(^You see a|liquid with|smoke and)} shimmering red}					{%0 (energy drain or ?corrupt air?)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling blue}					{%0 (aid)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling gray}					{%0 (corrupt air or ?nothing?)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling green}					{%0 (restore)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling red}					{%0 (harm)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling white}					{%0 (mana)};
-	#SUB {{(^You see a|liquid with|smoke and)} sparkling yellow}				{%0 (counter magic)};
-	#SUB {{(^You see a|liquid with|smoke and)} yellowish orange}				{%0 (detect magic)};
-	#SUB {{(^You see a|liquid with|smoke and)} yellowish gray}					{%0 (nothing?)};
-	#SUB {{(^You see a|liquid with|smoke and)} yellowish white}					{%0 (rest)};
+  #SUB {{(^You see a|liquid with|smoke and)} black}                           {%0 (burning hands??)};
+  #SUB {{(^You see a|liquid with|smoke and)} blueish white}                   {%0 (fly)};
+  #SUB {{(^You see a|liquid with|smoke and)} bluish gray}                     {%0 (weaken)};
+  #SUB {{(^You see a|liquid with|smoke and)} bluish red}                      {%0 (dispel good)};
+  #SUB {{(^You see a|liquid with|smoke and)} bluish white}                    {%0 (fly)};
+  #SUB {{(^You see a|liquid with|smoke and)} dark gray}                       {%0 (sleep)};
+  #SUB {{(^You see a|liquid with|smoke and)} dark red}                        {%0 (dispel good)};
+  #SUB {{(^You see a|liquid with|smoke and)} dull gray}                       {%0 (slow)};
+  #SUB {{(^You see a|liquid with|smoke and)} dull white}                      {%0 (knock)};
+  #SUB {{(^You see a|liquid with|smoke and)} flaming red}                     {%0 (disintegrate)};
+  #SUB {{(^You see a|liquid with|smoke and)} glowing blue}                    {%0 (dome of power)};
+  #SUB {{(^You see a|liquid with|smoke and)} glowing green}                   {%0 (heal)};
+  #SUB {{(^You see a|liquid with|smoke and)} glowing red}                     {%0 (exploding fist)};
+  #SUB {{(^You see a|liquid with|smoke and)} glowing white}                   {%0 (sanctuary)};
+  #SUB {{(^You see a|liquid with|smoke and)} glowing yellow}                  {%0 (remove sanctuary)};
+  #SUB {{(^You see a|liquid with|smoke and)} greenish gray}                   {%0 (hold)};
+  #SUB {{(^You see a|liquid with|smoke and)} light blue}                      {%0 (teleport)};
+  #SUB {{(^You see a|liquid with|smoke and)} light green}                     {%0 (cure critical wounds)};
+  #SUB {{(^You see a|liquid with|smoke and)} light green}                     {%0 (cure light wounds)};
+  #SUB {{(^You see a|liquid with|smoke and)} light orange}                    {%0 (xray)};
+  #SUB {{(^You see a|liquid with|smoke and)} light red}                       {%0 (cause critical wounds)};
+  #SUB {{(^You see a|liquid with|smoke and)} light yellow}                    {%0 (remove curse)};
+  #SUB {{(^You see a|liquid with|smoke and)} light gray}                      {%0 (curse or ?nothing?)};
+  #SUB {{(^You see a|liquid with|smoke and)} misty blue}                      {%0 (invisibility)};
+  #SUB {{(^You see a|liquid with|smoke and)} misty gray}                      {%0 (blindness)};
+  #SUB {{(^You see a|liquid with|smoke and)} misty green}                     {%0 (cure blind)};
+  #SUB {{(^You see a|liquid with|smoke and)} misty orange}                    {%0 (detect invisibility)};
+  #SUB {{(^You see a|liquid with|smoke and)} misty white}                     {%0 (bless)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale blue}                       {%0 (word of recall)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale gray}                       {%0 (poison)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale green}                      {%0 (cure light wounds)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale orange}                     {%0 (detect poison)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale red}                        {%0 (magic missile)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale white}                      {%0 (armor)};
+  #SUB {{(^You see a|liquid with|smoke and)} pale yellow}                     {%0 (remove poison)};
+  #SUB {{(^You see a|liquid with|smoke and)} pulsating gray}                  {%0 (wither strike)};
+  #SUB {{(^You see a|liquid with|smoke and)} pulsating orange}                {%0 (sense life)};
+  #SUB {{(^You see a|liquid with|smoke and)} pulsating red}                   {%0 (atomic blast)};
+  #SUB {{(^You see a|liquid with|smoke and)} pulsating yellow}                {%0 (return youth)};
+  #SUB {{(^You see a|liquid with|smoke and)} reddish orange}                  {%0 (detect trap)};
+  #SUB {{(^You see a|liquid with|smoke and)} rich blue}                       {%0 (strength)};
+  #SUB {{(^You see a|liquid with|smoke and)} shimmering blue}                 {%0 (deflect)};
+  #SUB {{(^You see a|liquid with|smoke and)} shimmering orange}               {%0 (detect alignment)};
+  #SUB {{(^You see a|liquid with|smoke and)} shimmering red}                  {%0 (energy drain or ?corrupt air?)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling blue}                  {%0 (aid)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling gray}                  {%0 (corrupt air or ?nothing?)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling green}                 {%0 (restore)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling red}                   {%0 (harm)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling white}                 {%0 (mana)};
+  #SUB {{(^You see a|liquid with|smoke and)} sparkling yellow}                {%0 (counter magic)};
+  #SUB {{(^You see a|liquid with|smoke and)} yellowish orange}                {%0 (detect magic)};
+  #SUB {{(^You see a|liquid with|smoke and)} yellowish gray}                  {%0 (nothing?)};
+  #SUB {{(^You see a|liquid with|smoke and)} yellowish white}                 {%0 (rest)};
 #CLASS {RealmOfMagic|Alchemy} {close}
 
 #CLASS {RealmOfMagic|Magic} {open}
-	#ALIAS {cacid}		{cast 'acid splash'};
-	#ALIAS {catom}		{cast 'atomic blast'};
-	#ALIAS {cbi}		{cast 'break invisibility'};
-	#ALIAS {cblind}		{cast 'blindness'};
-	#ALIAS {ccharm}		{cast 'charm person'};
-	#ALIAS {cdome}		{cast 'dome of power'};
-	#ALIAS {cfear}		{cast 'fear'};
-	#ALIAS {cgold}		{cast 'create gold'};
-	#ALIAS {chold}		{cast 'hold'};
-	#ALIAS {cid}		{cast 'identify'};
-	#ALIAS {cla}		{cast 'locate all'};
-	#ALIAS {clb}		{cast 'lightning bolt'};
-	#ALIAS {clo}		{cast 'locate object'};
-	#ALIAS {clp}		{cast 'locate person'};
-	#ALIAS {cmm}		{cast 'magic missile'};
-	#ALIAS {cms}		{cast 'mass sleep'};
-	#ALIAS {crecharge}	{cast 'recharge'};
-	#ALIAS {crift}		{cast 'rift'};
-	#ALIAS {crs}	 	{cast 'remove sanctuary'};
-	#ALIAS {crsanc} 	{cast 'remove sanctuary'};
-	#ALIAS {csilence} 	{cast 'silence'};
-	#ALIAS {csleep} 	{cast 'sleep'};
-	#ALIAS {csum}		{cast 'summon'};
+  #ALIAS {cacid}      {cast 'acid splash'};
+  #ALIAS {catom}      {cast 'atomic blast'};
+  #ALIAS {cbi}        {cast 'break invisibility'};
+  #ALIAS {cblind}     {cast 'blindness'};
+  #ALIAS {ccharm}     {cast 'charm person'};
+  #ALIAS {cdome}      {cast 'dome of power'};
+  #ALIAS {cfear}      {cast 'fear'};
+  #ALIAS {cgold}      {cast 'create gold'};
+  #ALIAS {chold}      {cast 'hold'};
+  #ALIAS {cid}        {cast 'identify'};
+  #ALIAS {cla}        {cast 'locate all'};
+  #ALIAS {clb}        {cast 'lightning bolt'};
+  #ALIAS {clo}        {cast 'locate object'};
+  #ALIAS {clp}        {cast 'locate person'};
+  #ALIAS {cmm}        {cast 'magic missile'};
+  #ALIAS {cms}        {cast 'mass sleep'};
+  #ALIAS {crecharge}  {cast 'recharge'};
+  #ALIAS {crift}      {cast 'rift'};
+  #ALIAS {crs}        {cast 'remove sanctuary'};
+  #ALIAS {crsanc}     {cast 'remove sanctuary'};
+  #ALIAS {csilence}   {cast 'silence'};
+  #ALIAS {csleep}     {cast 'sleep'};
+  #ALIAS {csum}       {cast 'summon'};
 
-	#ALIAS {caid} 		{cast 'aid' @ifEmpty{%1; self}};
-	#ALIAS {carmor} 	{cast 'armor' @ifEmpty{%1; self}};
-	#ALIAS {ccounter}	{cast 'counter magic' @ifEmpty{%1; self}};
-	#ALIAS {cfly} 		{cast 'fly' @ifEmpty{%1; self}};
-	#ALIAS {cheal} 		{cast 'heal' @ifEmpty{%1; self}};
-	#ALIAS {ci} 		{cast 'invisibility' @ifEmpty{%1; self}};
-	#ALIAS {crest}		{cast 'rest' @ifEmpty{%1; self}};
-	#ALIAS {crp}		{cast 'remove poison' @ifEmpty{%1; self}};
-	#ALIAS {csanc}		{cast 'sanctuary' @ifEmpty{%1; self}};
-	#ALIAS {cshell}		{cast 'anti magic shell' @ifEmpty{%1; self}};
-	#ALIAS {cwater}		{cast 'water breathe' @ifEmpty{%1; self}};
-	#ALIAS {cinvis}		{cast 'invisibility' @ifEmpty{%1; self}};
-	#ALIAS {cyouth}		{cast 'return youth' @ifEmpty{%1; self}};
+  #ALIAS {caid}       {cast 'aid' @ifEmpty{%1; self}};
+  #ALIAS {carmor}     {cast 'armor' @ifEmpty{%1; self}};
+  #ALIAS {ccounter}   {cast 'counter magic' @ifEmpty{%1; self}};
+  #ALIAS {cfly}       {cast 'fly' @ifEmpty{%1; self}};
+  #ALIAS {cheal}      {cast 'heal' @ifEmpty{%1; self}};
+  #ALIAS {ci}         {cast 'invisibility' @ifEmpty{%1; self}};
+  #ALIAS {crest}      {cast 'rest' @ifEmpty{%1; self}};
+  #ALIAS {crp}        {cast 'remove poison' @ifEmpty{%1; self}};
+  #ALIAS {csanc}      {cast 'sanctuary' @ifEmpty{%1; self}};
+  #ALIAS {cshell}     {cast 'anti magic shell' @ifEmpty{%1; self}};
+  #ALIAS {cwater}     {cast 'water breathe' @ifEmpty{%1; self}};
+  #ALIAS {cinvis}     {cast 'invisibility' @ifEmpty{%1; self}};
+  #ALIAS {cyouth}     {cast 'return youth' @ifEmpty{%1; self}};
 
-	#ALIAS {cdag} 		{cast 'detect aggressive'};
-	#ALIAS {cdal} 		{cast 'detect alignment'};
-	#ALIAS {cdd} 		{cast 'dispel darkness'};
-	#ALIAS {cdeflect}	{cast 'deflect'};
-	#ALIAS {cdi} 		{cast 'detect invisibility'};
-	#ALIAS {cdm} 		{cast 'detect magic'};
-	#ALIAS {cdt} 		{cast 'detect trap'};
-	#ALIAS {cfood} 		{cast 'food and water'};
-	#ALIAS {cpeace} 	{cast 'peace'};
-	#ALIAS {crecall} 	{cast 'word of recall'};
-	#ALIAS {csl}		{cast 'sense life'};
-	#ALIAS {cwiz}		{cast 'wizards eye'};
-	#ALIAS {cxray}		{cast 'xray'};
+  #ALIAS {cdag}       {cast 'detect aggressive'};
+  #ALIAS {cdal}       {cast 'detect alignment'};
+  #ALIAS {cdd}        {cast 'dispel darkness'};
+  #ALIAS {cdeflect}   {cast 'deflect'};
+  #ALIAS {cdi}        {cast 'detect invisibility'};
+  #ALIAS {cdm}        {cast 'detect magic'};
+  #ALIAS {cdt}        {cast 'detect trap'};
+  #ALIAS {cfood}      {cast 'food and water'};
+  #ALIAS {cpeace}     {cast 'peace'};
+  #ALIAS {crecall}    {cast 'word of recall'};
+  #ALIAS {csl}        {cast 'sense life'};
+  #ALIAS {cwiz}       {cast 'wizards eye'};
+  #ALIAS {cxray}      {cast 'xray'};
 
-	#ALIAS {blind}		{cblind};
-	#ALIAS {csil}		{csilence};
-	#ALIAS {charm}		{ccharm};
-	#ALIAS {counter}	{ccounter};
-	#ALIAS {silence}	{csilence};
-	#ALIAS {sum}		{csum};
-
-
-	#NOP -- Display spell names next to effects;
-
-	#SUB {^A dome of magical energy is protecting you.}								{[dome of power      ] %0};
-	#SUB {^A globe preventing all magic surrounds you.}								{[anti magic shell   ] %0};
-	#SUB {^A magical ward protecting you from death slowly circles around you.}		{[death ward         ] %0};
-	#SUB {^An invisible barrier before you tries to deflect magic.}					{[deflect            ] %0};
-	#SUB {^Sharp thorns and spikes protrude out of your body.}						{[thorns             ] %0};
-	#SUB {^The difference between good and evil is very clear to you.}				{[detect alignment   ] %0};
-	#SUB {^The tingle of nature's protection races through your body.}				{[natural protection ] %0};
-	#SUB {^You are flying.}															{[fly                ] %0};
-	#SUB {^You are in tune with nature.}											{[focus              ] %0};
-	#SUB {^You are invisible.}														{[invisibility       ] %0};
-	#SUB {^You are protected by Sanctuary.}											{[sanctuary          ] %0};
-	#SUB {^You are sensitive to the presence of invisible things.}					{[detect invisible   ] %0};
-	#SUB {^You are sensitive to the presence of magical things.}					{[detect magic       ] %0};
-	#SUB {^You are silenced!}														{[silence            ] %0};
-	#SUB {^You can breathe in water.}												{[water breathe      ] %0};
-	#SUB {^You can feel the aggressiveness of other beings.}						{[detect aggressive  ] %0};
-	#SUB {^You can feel the presence of living beings around you.}					{[sense life         ] %0};
-	#SUB {^You can see what lies ahead.}											{[wizards eye        ] %0};
-	#SUB {^You emit light - chasing the darkness away.}								{[dispel darkness    ] %0};
-	#SUB {^You feel protected.}														{[armor              ] %0};
-	#SUB {^You feel righteous.}														{[bless              ] %0};
-	#SUB {^You feel very quick and agile.}											{[haste              ] %0};
-	#SUB {^You have been aided.}													{[aid                ] %0};
-	#SUB {^You have skin as tough as stone.}										{[stone skin         ] %0};
-	#SUB {^You think that you just can't wake up now.}								{[sleep              ] %0};
-	#SUB {^Your eyes are keen and piercing.}										{[xray               ] %0};
-	#SUB {^Your feet have turned to stone!}											{[hold               ] %0};
-	#SUB {^Your senses are keen.}													{[detect trap        ] %0};
-	#SUB {^Your skin is covered with a thick layer of bark.}						{[barkskin           ] %0};
-	#SUB {^You're spreading an aura of peace.}										{[peace              ] %0};
+  #ALIAS {blind}      {cblind};
+  #ALIAS {csil}       {csilence};
+  #ALIAS {charm}      {ccharm};
+  #ALIAS {counter}    {ccounter};
+  #ALIAS {silence}    {csilence};
+  #ALIAS {sum}        {csum};
 
 
-	#NOP -- Tick activities (spells);
+  #NOP -- Display spell names next to effects;
 
-	#ACTION {^The anti-magic shell around you sparks.}								{warnSpell %0 was anti magic shell};
-	#ACTION {^The aura around your body flickers slightly.}							{warnSpell %0 was sanctuary};
-	#ACTION {^The bark covering your skin starts peeling away in places.}			{warnSpell %0 was barkskin};
-	#ACTION {^The peace around you is about to fade.}								{warnSpell %0 was peace};
-	#ACTION {^The ward circling around you fades in and out of existence.}			{warnSpell %0 was death ward};
-	#ACTION {^You feel heavier now, your flying ability is leaving you.}			{warnSpell %0 was fly};
-	#ACTION {^You lose control of your wizard's eye for a moment.}					{warnSpell %0 was wizards eye};
-	#ACTION {^Your ability to breathe water is leaving you.}						{warnSpell %0 was water breathe};
-	#ACTION {^Your ability to judge behaviour is leaving you.}						{warnSpell %0 was ?};
-	#ACTION {^Your walk on water spell starts to wear off}							{warnSpell %0 was walk on water};
+  #SUB {^A dome of magical energy is protecting you.}                             {[dome of power      ] %0};
+  #SUB {^A globe preventing all magic surrounds you.}                             {[anti magic shell   ] %0};
+  #SUB {^A magical ward protecting you from death slowly circles around you.}     {[death ward         ] %0};
+  #SUB {^An invisible barrier before you tries to deflect magic.}                 {[deflect            ] %0};
+  #SUB {^Sharp thorns and spikes protrude out of your body.}                      {[thorns             ] %0};
+  #SUB {^The difference between good and evil is very clear to you.}              {[detect alignment   ] %0};
+  #SUB {^The tingle of nature's protection races through your body.}              {[natural protection ] %0};
+  #SUB {^You are flying.}                                                         {[fly                ] %0};
+  #SUB {^You are in tune with nature.}                                            {[focus              ] %0};
+  #SUB {^You are invisible.}                                                      {[invisibility       ] %0};
+  #SUB {^You are protected by Sanctuary.}                                         {[sanctuary          ] %0};
+  #SUB {^You are sensitive to the presence of invisible things.}                  {[detect invisible   ] %0};
+  #SUB {^You are sensitive to the presence of magical things.}                    {[detect magic       ] %0};
+  #SUB {^You are silenced!}                                                       {[silence            ] %0};
+  #SUB {^You can breathe in water.}                                               {[water breathe      ] %0};
+  #SUB {^You can feel the aggressiveness of other beings.}                        {[detect aggressive  ] %0};
+  #SUB {^You can feel the presence of living beings around you.}                  {[sense life         ] %0};
+  #SUB {^You can see what lies ahead.}                                            {[wizards eye        ] %0};
+  #SUB {^You emit light - chasing the darkness away.}                             {[dispel darkness    ] %0};
+  #SUB {^You feel protected.}                                                     {[armor              ] %0};
+  #SUB {^You feel righteous.}                                                     {[bless              ] %0};
+  #SUB {^You feel very quick and agile.}                                          {[haste              ] %0};
+  #SUB {^You have been aided.}                                                    {[aid                ] %0};
+  #SUB {^You have skin as tough as stone.}                                        {[stone skin         ] %0};
+  #SUB {^You think that you just can't wake up now.}                              {[sleep              ] %0};
+  #SUB {^Your eyes are keen and piercing.}                                        {[xray               ] %0};
+  #SUB {^Your feet have turned to stone!}                                         {[hold               ] %0};
+  #SUB {^Your senses are keen.}                                                   {[detect trap        ] %0};
+  #SUB {^Your skin is covered with a thick layer of bark.}                        {[barkskin           ] %0};
+  #SUB {^You're spreading an aura of peace.}                                      {[peace              ] %0};
 
-	#ACTION {^Your stomach rumbles.}												{warnSpell %0 was food and water};
-	#ACTION {^Your throat feels a bit dry again.}									{warnSpell %0 was food and water};
 
-	#ACTION {^Everything around you speeds up again.}								{endSpell %0 was haste};
-	#ACTION {^Everything looks solid again.}										{endSpell %0 was xray};
-	#ACTION {^The ability to breathe water left you.}								{endSpell %0 was water breathe};
-	#ACTION {^The aid you received is no longer present.}							{endSpell %0 was aid}
-	#ACTION {^The anti-magic shell about you flickers and is gone.}					{endSpell %0 was anti magic shell};
-	#ACTION {^The aura around your body fades.}										{endSpell %0 was sanctuary};
-	#ACTION {^The bark covering your skin peels away and crumbles to dust.} 		{endSpell %0 was barkskin};
-	#ACTION {^The darkness is no longer afraid of you.}								{endSpell %0 was dispel darkness};
-	#ACTION {^The detect invisible wears off.}										{endSpell %0 was detect invisible};
-	#ACTION {^The detect magic wears off.}											{endSpell %0 was detect magic};
-	#ACTION {^The invisible barrier around you has disappeared.}					{endSpell %0 was deflect};
-	#ACTION {^The magical ward circling around you disappears in a FLASH!}			{endSpell %0 was death ward};
-	#ACTION {^The peace around you is gone.}										{endSpell %0 was peace};
-	#ACTION {^The sharp spikes and spines protruding from your skin retract.}		{endSpell %0 was thorns};
-	#ACTION {^You cough and release that frog.}										{endSpell %0 was silence};
-	#ACTION {^You feel heavier now, your flying ability is gone.}					{endSpell %0 was fly};
-	#ACTION {^You feel less aware.}													{endSpell %0 was detect trap};
-	#ACTION {^You feel less aware of what lies ahead.}								{endSpell %0 was ?};
-	#ACTION {^You feel less aware of your surroundings.}							{endSpell %0 was sense life};
-	#ACTION {^You feel less protected.}												{endSpell %0 was armor};
-	#ACTION {^You feel less righteous.}												{endSpell %0 was bless};
-	#ACTION {^You feel weaker.}														{endSpell %0 was strength};
-	#ACTION {^You feel your skin again.}											{endSpell %0 was stone skin};
-	#ACTION {^You no longer feel a tingle in your skin.}							{endSpell %0 was natural protection};
-	#ACTION {^You sense the red in your vision disappear.}							{endSpell %0 was detect alignment};
-	#ACTION {^Your dome of power fades away.}										{endSpell %0 was dome of power};
-	#ACTION {^Your focus with nature fades.}										{endSpell %0 was focus};
-	#ACTION {^Your wizard's eye fades away with a *pop*}							{endSpell %0 was wizards eye};
+  #NOP -- Tick activities (spells);
 
-	#ALIAS {endSpell %1 was %2} {
-		#FORMAT {_magic} {[<110>%-18s<088>] %s} {%2} {%1};
-		#SUB {%1} {$_magic};
-		tick;
-	};
+  #ACTION {^The anti-magic shell around you sparks.}                              {warnSpell %0 was anti magic shell};
+  #ACTION {^The aura around your body flickers slightly.}                         {warnSpell %0 was sanctuary};
+  #ACTION {^The bark covering your skin starts peeling away in places.}           {warnSpell %0 was barkskin};
+  #ACTION {^The peace around you is about to fade.}                               {warnSpell %0 was peace};
+  #ACTION {^The ward circling around you fades in and out of existence.}          {warnSpell %0 was death ward};
+  #ACTION {^You feel heavier now, your flying ability is leaving you.}            {warnSpell %0 was fly};
+  #ACTION {^You lose control of your wizard's eye for a moment.}                  {warnSpell %0 was wizards eye};
+  #ACTION {^Your ability to breathe water is leaving you.}                        {warnSpell %0 was water breathe};
+  #ACTION {^Your ability to judge behaviour is leaving you.}                      {warnSpell %0 was ?};
+  #ACTION {^Your walk on water spell starts to wear off}                          {warnSpell %0 was walk on water};
 
-	#ALIAS {warnSpell %1 was %2} {
-		#FORMAT {_magic} {[<130>%-18s<088>] %s} {%2} {%1};
-		#SUB {%1} {$_magic};
-		tick;
-	};
+  #ACTION {^Your stomach rumbles.}                                                {warnSpell %0 was food and water};
+  #ACTION {^Your throat feels a bit dry again.}                                   {warnSpell %0 was food and water};
+
+  #ACTION {^Everything around you speeds up again.}                               {endSpell %0 was haste};
+  #ACTION {^Everything looks solid again.}                                        {endSpell %0 was xray};
+  #ACTION {^The ability to breathe water left you.}                               {endSpell %0 was water breathe};
+  #ACTION {^The aid you received is no longer present.}                           {endSpell %0 was aid}
+  #ACTION {^The anti-magic shell about you flickers and is gone.}                 {endSpell %0 was anti magic shell};
+  #ACTION {^The aura around your body fades.}                                     {endSpell %0 was sanctuary};
+  #ACTION {^The bark covering your skin peels away and crumbles to dust.}         {endSpell %0 was barkskin};
+  #ACTION {^The darkness is no longer afraid of you.}                             {endSpell %0 was dispel darkness};
+  #ACTION {^The detect invisible wears off.}                                      {endSpell %0 was detect invisible};
+  #ACTION {^The detect magic wears off.}                                          {endSpell %0 was detect magic};
+  #ACTION {^The invisible barrier around you has disappeared.}                    {endSpell %0 was deflect};
+  #ACTION {^The magical ward circling around you disappears in a FLASH!}          {endSpell %0 was death ward};
+  #ACTION {^The peace around you is gone.}                                        {endSpell %0 was peace};
+  #ACTION {^The sharp spikes and spines protruding from your skin retract.}       {endSpell %0 was thorns};
+  #ACTION {^You cough and release that frog.}                                     {endSpell %0 was silence};
+  #ACTION {^You feel heavier now, your flying ability is gone.}                   {endSpell %0 was fly};
+  #ACTION {^You feel less aware.}                                                 {endSpell %0 was detect trap};
+  #ACTION {^You feel less aware of what lies ahead.}                              {endSpell %0 was ?};
+  #ACTION {^You feel less aware of your surroundings.}                            {endSpell %0 was sense life};
+  #ACTION {^You feel less protected.}                                             {endSpell %0 was armor};
+  #ACTION {^You feel less righteous.}                                             {endSpell %0 was bless};
+  #ACTION {^You feel weaker.}                                                     {endSpell %0 was strength};
+  #ACTION {^You feel your skin again.}                                            {endSpell %0 was stone skin};
+  #ACTION {^You no longer feel a tingle in your skin.}                            {endSpell %0 was natural protection};
+  #ACTION {^You sense the red in your vision disappear.}                          {endSpell %0 was detect alignment};
+  #ACTION {^Your dome of power fades away.}                                       {endSpell %0 was dome of power};
+  #ACTION {^Your focus with nature fades.}                                        {endSpell %0 was focus};
+  #ACTION {^Your wizard's eye fades away with a *pop*}                            {endSpell %0 was wizards eye};
+
+  #ALIAS {endSpell %1 was %2} {
+    #FORMAT {_magic} {[<110>%-18s<088>] %s} {%2} {%1};
+    #SUB {%1} {$_magic};
+    tick;
+  };
+
+  #ALIAS {warnSpell %1 was %2} {
+    #FORMAT {_magic} {[<130>%-18s<088>] %s} {%2} {%1};
+    #SUB {%1} {$_magic};
+    tick;
+  };
 #CLASS {RealmOfMagic|Magic} {close}
