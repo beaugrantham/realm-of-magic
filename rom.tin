@@ -10,6 +10,7 @@
   #NOP -- ------------------------------------------------------------------------------------------
 
   #VAR {tickDuration}           {75};
+  #MATH {secondsPerTick}        {(59*1.000)/($tickDuration)}
 
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
@@ -99,7 +100,7 @@
   };
 
   #SUB {^You need %d exp to make level %d.$} {
-    You need <128>$player[_tnl]<088> exp to make level <128>%2<088>.
+    You need <028>$player[_tnl]<088> exp to make level <028>%2<088>.
   };
 
   #ACTION {^You have %d gold coins.$} {
@@ -115,7 +116,7 @@
   }
 
   #SUB {^You have %d gold coins and your balance is %d.$} {
-    You have <128>$player[_gold]<088> gold coins and your balance is <128>$player[_balance]<088>.
+    You have <028>$player[_gold]<088> gold coins and your balance is <028>$player[_balance]<088>.
   }
 
   #ACTION {^Your current balance is %d coins.$} {
@@ -124,7 +125,7 @@
   };
 
   #SUB {^You have %d gold coins.$} {
-    You have <128>$player[_gold]<088> (<128>$player[_balance]<088>) gold coins.
+    You have <028>$player[_gold]<088> (<028>$player[_balance]<088>) gold coins.
   }
 
   #ACTION {^You withdraw %d coins.$} {
@@ -319,6 +320,7 @@
 
   #ALIAS {tick} {
     #IF {"%1" != ""} {#SUB {%0} {[TICK] %0}};
+
     #VAR {tickRemaining} {$tickDuration};
   };
 
@@ -1121,7 +1123,7 @@
   }
 
   #FUNCTION {getAffectColor} {
-    #IF {"%0" == "1"} {#RETURN <128>} {#RETURN <118>}
+    #IF {"%0" == "1"} {#RETURN <028>} {#RETURN <118>}
   };
 
   #ALIAS {setActive %1 -- %2} {
@@ -1197,15 +1199,15 @@
 #CLASS {RealmOfMagic|Magic} {close}
 
 #CLASS {RealmOfMagic|Temp} {open}
-  #SUB {^You are naked}                     {You are <128>naked<088> (<128>0/10<088>)};
-  #SUB {^You are almost naked}              {You are <128>almost naked<088> (<128>1/10<088>)};
-  #SUB {^You are almost armored}            {You are <128>almost armored<088> (<128>2/10<088>)};
-  #SUB {^You are slightly armored}          {You are <128>slightly armored<088> (<128>3/10<088>)};
-  #SUB {^You are armored and}               {You are <128>armored<088> (<128>4/10<088>)};
-  #SUB {^You are completely armored}        {You are <128>completely armored<088> (<128>5/10<088>)};
-  #SUB {^You are heavily armored}           {You are <128>heavily armored<088> (<128>6/10<088>)};
-  #SUB {^You are very heavily armored}      {You are <128>very heavily armored<088> (<128>7/10<088>)};
-  #SUB {^You are extremely armored}         {You are <128>extremely armored<088> (<128>8/10<088>)};
-  #SUB {^You are extremely heavily armored} {You are <128>extremely heavily armored<088> (<128>9/10<088>)};
-  #SUB {^You are armored like a tank}       {You are <128>armored like a tank<088> (<128>10/10<088>)};
+  #SUB {^You are naked}                     {You are <028>naked<088> (<028>0/10<088>)};
+  #SUB {^You are almost naked}              {You are <028>almost naked<088> (<028>1/10<088>)};
+  #SUB {^You are almost armored}            {You are <028>almost armored<088> (<028>2/10<088>)};
+  #SUB {^You are slightly armored}          {You are <028>slightly armored<088> (<028>3/10<088>)};
+  #SUB {^You are armored and}               {You are <028>armored<088> (<028>4/10<088>)};
+  #SUB {^You are completely armored}        {You are <028>completely armored<088> (<028>5/10<088>)};
+  #SUB {^You are heavily armored}           {You are <028>heavily armored<088> (<028>6/10<088>)};
+  #SUB {^You are very heavily armored}      {You are <028>very heavily armored<088> (<028>7/10<088>)};
+  #SUB {^You are extremely armored}         {You are <028>extremely armored<088> (<028>8/10<088>)};
+  #SUB {^You are extremely heavily armored} {You are <028>extremely heavily armored<088> (<028>9/10<088>)};
+  #SUB {^You are armored like a tank}       {You are <028>armored like a tank<088> (<028>10/10<088>)};
 #CLASS {RealmOfMagic|Temp} {close}
