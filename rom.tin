@@ -23,6 +23,7 @@
   #VAR {player[tnl]}            {-1};
   #VAR {player[gold]}           {-1};
   #VAR {player[balance]}        {-1};
+  #VAR {player[armor-class]}    {-1};
   #VAR {target}                 {};
   #VAR {tickRemaining}          {-1};
   #VAR {xpMultiplierRemaining}  {-1};
@@ -134,6 +135,51 @@
     #IF {$player[balance] >= 0} {
       #MATH {player[balance]} {$player[balance] + %1};
     };
+  };
+
+  #ACTION {^You are naked} {
+    #VAR {player[armor-class]} {0};
+    #SUB {%0} {You are <028>naked<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are almost naked} {
+    #VAR {player[armor-class]} {1};
+    #SUB {%0} {You are <028>almost naked<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are almost armored} {
+    #VAR {player[armor-class]} {2};
+    #SUB {%0} {You are <028>almost armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are slightly armored} {
+    #VAR {player[armor-class]} {3};
+    #SUB {%0} {You are <028>slightly armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are armored and} {
+    #VAR {player[armor-class]} {4};
+    #SUB {%0} {You are <028>armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are completely armored} {
+    #VAR {player[armor-class]} {5};
+    #SUB {%0} {You are <028>completely armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are heavily armored} {
+    #VAR {player[armor-class]} {6};
+    #SUB {%0} {You are <028>heavily armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #ACTION {^You are very heavily armored} {
+    #VAR {player[armor-class]} {7};
+    #SUB {%0} {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #SUB {^You are extremely armored} {
+    #VAR {player[armor-class]} {8};
+    #SUB {%0} {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #SUB {^You are extremely heavily armored} {
+    #VAR {player[armor-class]} {9};
+    #SUB {%0} {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>)};
+  };
+  #SUB {^You are armored like a tank} {
+    #VAR {player[armor-class]} {10};
+    #SUB {%0} {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>)};
   };
 
   #SUB {^You are summonable by other players.$} {<118>%0<088>};
@@ -1188,17 +1234,3 @@
     tick;
   };
 #CLASS {RealmOfMagic|Magic} {close}
-
-#CLASS {RealmOfMagic|Temp} {open}
-  #SUB {^You are naked}                     {You are <028>naked<088> (<028>0/10<088>)};
-  #SUB {^You are almost naked}              {You are <028>almost naked<088> (<028>1/10<088>)};
-  #SUB {^You are almost armored}            {You are <028>almost armored<088> (<028>2/10<088>)};
-  #SUB {^You are slightly armored}          {You are <028>slightly armored<088> (<028>3/10<088>)};
-  #SUB {^You are armored and}               {You are <028>armored<088> (<028>4/10<088>)};
-  #SUB {^You are completely armored}        {You are <028>completely armored<088> (<028>5/10<088>)};
-  #SUB {^You are heavily armored}           {You are <028>heavily armored<088> (<028>6/10<088>)};
-  #SUB {^You are very heavily armored}      {You are <028>very heavily armored<088> (<028>7/10<088>)};
-  #SUB {^You are extremely armored}         {You are <028>extremely armored<088> (<028>8/10<088>)};
-  #SUB {^You are extremely heavily armored} {You are <028>extremely heavily armored<088> (<028>9/10<088>)};
-  #SUB {^You are armored like a tank}       {You are <028>armored like a tank<088> (<028>10/10<088>)};
-#CLASS {RealmOfMagic|Temp} {close}
