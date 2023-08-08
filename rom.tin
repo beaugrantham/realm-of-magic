@@ -24,6 +24,7 @@
   #VAR {player[gold]}           {-1};
   #VAR {player[balance]}        {-1};
   #VAR {player[armor-class]}    {-1};
+  #VAR {player[alignment]}      {};
   #VAR {target}                 {};
   #VAR {tickRemaining}          {-1};
   #VAR {xpMultiplierRemaining}  {-1};
@@ -137,49 +138,60 @@
     };
   };
 
-  #ACTION {^You are naked} {
+  #ACTION {^You are naked and your alignment is '%*'$} {
     #VAR {player[armor-class]} {0};
-    #SUB {%0} {You are <028>naked<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are almost naked} {
+  #ACTION {^You are almost naked and your alignment is '%*'$} {
     #VAR {player[armor-class]} {1};
-    #SUB {%0} {You are <028>almost naked<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>almost naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are almost armored} {
+  #ACTION {^You are almost armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {2};
-    #SUB {%0} {You are <028>almost armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>almost armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are slightly armored} {
+  #ACTION {^You are slightly armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {3};
-    #SUB {%0} {You are <028>slightly armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>slightly armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are armored and} {
+  #ACTION {^You are armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {4};
-    #SUB {%0} {You are <028>armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are completely armored} {
+  #ACTION {^You are completely armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {5};
-    #SUB {%0} {You are <028>completely armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>completely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are heavily armored} {
+  #ACTION {^You are heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {6};
-    #SUB {%0} {You are <028>heavily armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #ACTION {^You are very heavily armored} {
+  #ACTION {^You are very heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {7};
-    #SUB {%0} {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are extremely armored} {
+  #SUB {^You are extremely armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {8};
-    #SUB {%0} {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are extremely heavily armored} {
+  #SUB {^You are extremely heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {9};
-    #SUB {%0} {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are armored like a tank} {
+  #SUB {^You are armored like a tank and your alignment is '%*'$} {
     #VAR {player[armor-class]} {10};
-    #SUB {%0} {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>)};
+    #VAR {player[alignment]} {%1};
+    #SUB {%0} {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
 
   #SUB {^You are summonable by other players.$} {<118>%0<088>};
