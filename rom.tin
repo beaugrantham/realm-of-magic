@@ -95,55 +95,48 @@
 
   #ACTION {^You need %d exp to make level %d.$} {
     #VAR {player[tnl]} {%1};
-    #FORMAT {player[_tnl]} {%g} {$player[tnl]};
     #MATH {player[level]} {%2-1};
-  };
 
-  #SUB {^You need %d exp to make level %d.$} {
-    You need <028>$player[_tnl]<088> exp to make level <028>%2<088>.
+    #FORMAT {player[_tnl]} {%g} {$player[tnl]};
+    #SUB {^You need %d exp to make level %d.$} {
+      You need <028>$player[_tnl]<088> exp to make level <028>%2<088>.
+    };
   };
 
   #ACTION {^You have %d gold coins.$} {
     #VAR {player[gold]} {%1};
+
     #FORMAT {player[_gold]} {%g} {$player[gold]};
+    #FORMAT {player[_balance]} {%g} {$player[balance]};
+    #SUB {^You have %d gold coins.$} {
+      You have <028>$player[_gold]<088> (<028>$player[_balance]<088>) gold coins.
+    };
   };
 
   #ACTION {^You have %d gold coins and your balance is %d.$} {
     #VAR {player[gold]} {%1};
-    #FORMAT {player[_gold]} {%g} {$player[gold]};
     #VAR {player[balance]} {%2};
-    #FORMAT {player[_balance]} {%g} {$player[balance]};
-  }
 
-  #SUB {^You have %d gold coins and your balance is %d.$} {
-    You have <028>$player[_gold]<088> gold coins and your balance is <028>$player[_balance]<088>.
-  }
+    #FORMAT {player[_gold]} {%g} {$player[gold]};
+    #FORMAT {player[_balance]} {%g} {$player[balance]};
+    #SUB {^You have %d gold coins and your balance is %d.$} {
+      You have <028>$player[_gold]<088> gold coins and your balance is <028>$player[_balance]<088>.
+    };
+  };
 
   #ACTION {^Your current balance is %d coins.$} {
     #VAR {player[balance]} {%1};
-    #FORMAT {player[_balance]} {%g} {$player[balance]};
   };
 
-  #SUB {^You have %d gold coins.$} {
-    You have <028>$player[_gold]<088> (<028>$player[_balance]<088>) gold coins.
-  }
-
   #ACTION {^You withdraw %d coins.$} {
-    #IF {"$player[balance]" != ""} {
-      #MATH {player[balance]} {$player[balance]-%1}
-    }
+    #IF {$player[balance] >= 0} {
+      #MATH {player[balance]} {$player[balance] - %1};
+    };
   };
 
   #ACTION {^You deposit %d coins.$} {
-    #IF {"$player[balance]" != ""} {
-      #MATH {player[balance]} {$player[balance]+%1}
-    }
-  };
-
-  #ALIAS {setBalance} {
-    #IF {"%1" != ""} {
-      #VAR {player[balance]} {%1};
-      #FORMAT {player[_balance]} {%g} {$player[balance]};
+    #IF {$player[balance] >= 0} {
+      #MATH {player[balance]} {$player[balance] + %1};
     };
   };
 
@@ -251,7 +244,7 @@
   #ACTION {^You win a chessboard with pieces!$}                 {junk chess};
   #ACTION {^You win a crystal orb paperweight!$}                {junk orb};
   #ACTION {^You win a deck of "Mortal Cardmaster" cards!$}      {junk deck};
-  #ACTION {^You win a dictionary$}                              {junk dictionary};
+  #ACTION {^You win a dictionary}                               {junk dictionary};
   #ACTION {^You win a doll of Lilith (tm)!$}                    {junk doll};
   #ACTION {^You win a doll of Rosemary (tm)!$}                  {junk doll};
   #ACTION {^You win a game set of "Connect Four"!$}             {junk game};
@@ -469,6 +462,7 @@
 
   #VAR {_speedwalks[gomorrah][demonspace]} {disarm trap; u};
 
+  #VAR {_speedwalks[hercules][crystal-palace]}  {.nene2ne7nene}
   #VAR {_speedwalks[iaitanto][atalia]}          {.e2sw7s11ene5n21esen};
   #VAR {_speedwalks[iaitanto][ninja-hideout]}   {.en6w6ne2n2enwn};
 
@@ -502,7 +496,9 @@
   #VAR {_speedwalks[moonglow][atalia]}          {.s2e2n21esen};
   #VAR {_speedwalks[moonglow][camelot]}         {.s2e9n20e2n2w4n3esen2enenene2nesen4en2en3es4edsed8e5s2en};
   #VAR {_speedwalks[moonglow][castle-dragon]}   {.sese2sws26wnw17nw4n};
+  #VAR {_speedwalks[moonglow][crystal-palace]}  {.s2e10n7wn2w2nenene2ne7nene};
   #VAR {_speedwalks[moonglow][fanhir]}          {.s2e11n9wu3nwn};
+  #VAR {_speedwalks[moonglow][hercules]}        {.s2e10n7wn2w2ne};
   #VAR {_speedwalks[moonglow][iaitanto]}        {.s2ewe4s12w8nenw};
   #VAR {_speedwalks[moonglow][kerofk]}          {.s2en3wn2wn2w4n3e9n4e2nes};
   #VAR {_speedwalks[moonglow][lemuria]}         {.s5e5n5d};
@@ -990,6 +986,7 @@
   #ALIAS {catom}      {cast 'atomic blast'};
   #ALIAS {cbi}        {cast 'break invisibility'};
   #ALIAS {cblind}     {cast 'blindness'};
+  #ALIAS {ccd}        {cast 'call dragon'};
   #ALIAS {ccharm}     {cast 'charm person'};
   #ALIAS {cdome}      {cast 'dome of power'};
   #ALIAS {cfear}      {cast 'fear'};
