@@ -10,7 +10,6 @@
   #NOP -- ------------------------------------------------------------------------------------------
 
   #VAR {tickDuration}           {75};
-  #MATH {secondsPerTick}        {(59*1.000)/($tickDuration)}
 
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
@@ -22,11 +21,8 @@
   #VAR {player[position]}       {standing};
   #VAR {player[level]}          {-1};
   #VAR {player[tnl]}            {-1};
-  #VAR {player[_tnl]}           {-1}; #NOP for display (thousand commas)
   #VAR {player[gold]}           {-1};
-  #VAR {player[_gold]}          {-1}; #NOP for display (thousand commas)
   #VAR {player[balance]}        {-1};
-  #VAR {player[_balance]}       {-1}; #NOP for display (thousand commas)
   #VAR {target}                 {};
   #VAR {tickRemaining}          {-1};
   #VAR {xpMultiplierRemaining}  {-1};
@@ -188,7 +184,7 @@
 
   #VAR {isGrouped} {0};
 
-  #ALIAS {as} {assist}
+  #ALIAS {as} {assist};
   #ALIAS {of %+} {order fol %1};
   #ALIAS {ok %+} {
     setTarget %1;
@@ -462,7 +458,7 @@
 
   #VAR {_speedwalks[gomorrah][demonspace]} {disarm trap; u};
 
-  #VAR {_speedwalks[hercules][crystal-palace]}  {.nene2ne7nene}
+  #VAR {_speedwalks[hercules][crystal-palace]}  {.nene2ne7nene};
   #VAR {_speedwalks[iaitanto][atalia]}          {.e2sw7s11ene5n21esen};
   #VAR {_speedwalks[iaitanto][ninja-hideout]}   {.en6w6ne2n2enwn};
 
@@ -570,7 +566,7 @@
       #SHOWME {$_speedwalks[%1][%2]};
       $_speedwalks[%1][%2];
     };
-  }
+  };
 
   #ALIAS {speedwalks} {
     #SHOWME {----------};
@@ -597,7 +593,7 @@
     #ALIAS {south}  {s; #LIST {_speedwalk_path} {add} {s}};
     #ALIAS {up}     {u; #LIST {_speedwalk_path} {add} {u}};
     #ALIAS {west}   {w; #LIST {_speedwalk_path} {add} {w}};
-  }
+  };
 
   #ALIAS {replay} {
     #VAR {_replay_output}   {};
@@ -646,60 +642,60 @@
     #UNVAR {_replay_last};
     #UNVAR {_replay_output};
     #UNVAR {_speedwalk_path};
-  }
+  };
 
   #ALIAS {.%+} {speedwalk %1};
 #CLASS {RealmOfMagic|Speedwalks} {close}
 
 #CLASS {RealmOfMagic|AutoTrack} {open}
-  #VAR {_autoTrack[target]}  {0}
-  #VAR {_autoTrack[enabled]}  {0}
-  #VAR {_autoTrack[dir1]}    {0}
-  #VAR {_autoTrack[dir2]}    {0}
-  #VAR {_autoTrack[dir3]}    {0}
+  #VAR {_autoTrack[target]}  {0};
+  #VAR {_autoTrack[enabled]} {0};
+  #VAR {_autoTrack[dir1]}    {0};
+  #VAR {_autoTrack[dir2]}    {0};
+  #VAR {_autoTrack[dir3]}    {0};
 
   #ALIAS {strack %+} {
     _autoTrack_reset;
     #VAR {_autoTrack[enabled]}  {1};
     #VAR {_autoTrack[target]}  {%1};
     _autoTrack_track;
-  }
+  };
   #ALIAS {troff} {
     _autoTrack_reset;
     #VAR {_autoTrack[enabled]} {0};
-  }
+  };
 
   #ALIAS {_autoTrack_reset} {
     #VAR {_autoTrack[dir1]} {0};
     #VAR {_autoTrack[dir2]} {0};
     #VAR {_autoTrack[dir3]} {0};
-  }
+  };
   #ALIAS {_autoTrack_track} {
     track $_autoTrack[target];
     track $_autoTrack[target];
     track $_autoTrack[target];
-  }
+  };
   #ALIAS {_autoTrack_check} {
     #IF {$_autoTrack[enabled] == 1} {
-      #IF    {"$_autoTrack[dir1]" == "$_autoTrack[dir2]"} {$_autoTrack[dir1]};
+      #IF     {"$_autoTrack[dir1]" == "$_autoTrack[dir2]"} {$_autoTrack[dir1]};
       #ELSEIF {"$_autoTrack[dir1]" == "$_autoTrack[dir3]"} {$_autoTrack[dir1]};
       #ELSEIF {"$_autoTrack[dir2]" == "$_autoTrack[dir3]"} {$_autoTrack[dir2]};
 
       _autoTrack_reset;
       _autoTrack_track;
-    }
-  }
+    };
+  };
 
   #ACTION {^You sense a trail {north|south|east|west|up|down} from here!} {
     #IF {$_autoTrack[enabled] == 1} {
-      #IF    {"$_autoTrack[dir1]" == "0"} {#VAR {_autoTrack[dir1]} {%1}};
+      #IF     {"$_autoTrack[dir1]" == "0"} {#VAR {_autoTrack[dir1]} {%1}};
       #ELSEIF {"$_autoTrack[dir2]" == "0"} {#VAR {_autoTrack[dir2]} {%1}};
       #ELSEIF {"$_autoTrack[dir3]" == "0"} {#VAR {_autoTrack[dir3]} {%1}; _autoTrack_check};
-    }
-  }
+    };
+  };
 
-  #ACTION {^You're already in the same room!}      {troff}
-  #ACTION {^You can't sense a trail to %+ from here.}  {troff}
+  #ACTION {^You're already in the same room!}          {troff};
+  #ACTION {^You can't sense a trail to %+ from here.}  {troff};
 #CLASS {RealmOfMagic|AutoTrack} {close}
 
 #CLASS {RealmOfMagic|Thief} {open}
@@ -1062,6 +1058,8 @@
     #FOREACH {*affects[%*]} {affect} {
       #VAR {affects[$affect]} {0};
     };
+
+    #VAR {showSpells} {true};
   };
 
   #ACTION {^A dome of magical energy is protecting you.$}                           {setActive %0 -- dome-of-power};
@@ -1107,7 +1105,7 @@
           #SHOWME {$output};
           #LOCAL {loop} {0};
           #LOCAL {output} {};
-        }
+        };
       };
       #IF {$loop != 0} {
         #SHOWME {$output};
@@ -1115,12 +1113,8 @@
     };
   };
 
-  #ACTION {^You have explored} {
-    #VAR {showSpells} {true};
-  }
-
   #FUNCTION {getAffectColor} {
-    #IF {"%0" == "1"} {#RETURN <028>} {#RETURN <118>}
+    #IF {"%0" == "1"} {#RETURN <028>} {#RETURN <118>};
   };
 
   #ALIAS {setActive %1 -- %2} {
@@ -1155,7 +1149,7 @@
   #ACTION {^Everything looks solid again.$}                                   {endSpell %0 -- xray};
   #ACTION {^Suddenly people start talking gibberish again!$}                  {endSpell %0 -- clear tongues};
   #ACTION {^The ability to breathe water left you.$}                          {endSpell %0 -- water breathe};
-  #ACTION {^The aid you received is no longer present.$}                      {endSpell %0 -- aid}
+  #ACTION {^The aid you received is no longer present.$}                      {endSpell %0 -- aid};
   #ACTION {^The anti-magic shell about you flickers and is gone.$}            {endSpell %0 -- anti magic shell};
   #ACTION {^The aura around your body fades.$}                                {endSpell %0 -- sanctuary};
   #ACTION {^The bark covering your skin peels away and crumbles to dust.$}    {endSpell %0 -- barkskin};
@@ -1183,14 +1177,14 @@
   #ACTION {^Your wizard's eye fades away with a *pop*$}                       {endSpell %0 -- wizards eye};
 
   #ALIAS {endSpell %1 -- %2} {
-    #FORMAT {_magic} {[<118>%-19s<088>] %s} {%2} {%1};
-    #SUB {%1} {$_magic};
+    #FORMAT {_lastSpell} {[<118>%-19s<088>] %s} {%2} {%1};
+    #SUB {%1} {$_lastSpell};
     tick;
   };
 
   #ALIAS {warnSpell %1 -- %2} {
-    #FORMAT {_magic} {[<138>%-19s<088>] %s} {%2} {%1};
-    #SUB {%1} {$_magic};
+    #FORMAT {_lastSpell} {[<138>%-19s<088>] %s} {%2} {%1};
+    #SUB {%1} {$_lastSpell};
     tick;
   };
 #CLASS {RealmOfMagic|Magic} {close}
