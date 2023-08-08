@@ -18,13 +18,18 @@
   #NOP -- Initial setup
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #VAR {player[position]}       {standing};
+  #VAR {player[age]}            {-1};
+  #VAR {player[height]}         {-1};
   #VAR {player[level]}          {-1};
   #VAR {player[tnl]}            {-1};
   #VAR {player[gold]}           {-1};
   #VAR {player[balance]}        {-1};
   #VAR {player[armor-class]}    {-1};
+  #VAR {player[position]}       {standing};
+  #VAR {player[sex]}            {};
   #VAR {player[alignment]}      {};
+  #VAR {player[race]}           {};
+  #VAR {player[class]}          {};
   #VAR {target}                 {};
   #VAR {tickRemaining}          {-1};
   #VAR {xpMultiplierRemaining}  {-1};
@@ -66,6 +71,14 @@
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Stats
   #NOP -- ------------------------------------------------------------------------------------------
+
+  #ACTION {^You are a %d year old %w %w %w about %* m tall.$} {
+    #VAR {player[age]} {%1};
+    #VAR {player[sex]} {%2};
+    #VAR {player[race]} {%3};
+    #VAR {player[class]} {%4};
+    #VAR {player[height]} {%5};
+  };
 
   #ACTION {^|%dH %dM %dV} {
     #VAR {player[hp][current]}    {%1};
@@ -1112,7 +1125,7 @@
   #NOP -- 2. Look for, record, and gag active affects;
   #NOP -- 3. Display all affcets;
 
-  #ACTION {^You are a %d year old %w %w %w about %1 m tall.$} {
+  #ACTION {^This ranks you as %w the} {
     #FOREACH {*affects[%*]} {affect} {
       #VAR {affects[$affect]} {0};
     };
