@@ -137,6 +137,10 @@
 
   #ACTION {^Your current balance is %d coins.$} {
     #VAR {player[balance]} {%1};
+    #FORMAT {player[_balance]} {%g} {$player[balance]};
+    #SUB {^Your current balance is %d coins.$} {
+      Your current balance is $player[_balance] coins.
+    };
   };
 
   #ACTION {^You withdraw %d coins.$} {
@@ -191,17 +195,17 @@
     #VAR {player[alignment]} {%1};
     #SUB {%0} {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are extremely armored and your alignment is '%*'$} {
+  #ACTION {^You are extremely armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {8};
     #VAR {player[alignment]} {%1};
     #SUB {%0} {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are extremely heavily armored and your alignment is '%*'$} {
+  #ACTION {^You are extremely heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {9};
     #VAR {player[alignment]} {%1};
     #SUB {%0} {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
   };
-  #SUB {^You are armored like a tank and your alignment is '%*'$} {
+  #ACTION {^You are armored like a tank and your alignment is '%*'$} {
     #VAR {player[armor-class]} {10};
     #VAR {player[alignment]} {%1};
     #SUB {%0} {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
@@ -499,6 +503,8 @@
   #VAR {_speedwalks[atalia][vc]}          {.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eueswde7s2w4s3e3nws3e};
   #VAR {_speedwalks[atalia][weramak]}     {.swn5w4s4e11suses2e3n};
 
+  #VAR {_speedwalks[black-harbor][moonglow]}  {.e14s2wn};
+
   #VAR {_speedwalks[camelot][moonglow?]} {.9s2w5n8wuwnu4wn2ws3ws4wswnw2swswsws2wswn3w4s2e2s11w2s2wswsw4s7wn};
 
   #VAR {_speedwalks[demonspace][demonspace-stonering]}  {.ndnue};
@@ -526,6 +532,8 @@
   #VAR {_speedwalks[fanhir][moonglow]}  {.se3sd9e11s2wn};
 
   #VAR {_speedwalks[flying-citadel][demonspace]} {.2e};
+
+  #VAR {_speedwalks[geezer-village][moonglow]} {.2s2e2s2e3s2e3n2e14s2wn};
 
   #VAR {_speedwalks[gomorrah][demonspace]} {disarm trap; u};
 
@@ -561,10 +569,12 @@
   #VAR {_speedwalks[moonglow][alk]}             {.s2e4s3wnw3n4w9se47s};
   #VAR {_speedwalks[moonglow][aldur]}           {.s2en11w2sw};
   #VAR {_speedwalks[moonglow][atalia]}          {.s2e2n21esen};
+  #VAR {_speedwalks[moonglow][black-harbor]}    {.s2e14nw};
   #VAR {_speedwalks[moonglow][camelot]}         {.s2e9n20e2n2w4n3esen2enenene2nesen4en2en3es4edsed8e5s2en};
   #VAR {_speedwalks[moonglow][castle-dragon]}   {.sese2sws26wnw17nw4n};
   #VAR {_speedwalks[moonglow][crystal-palace]}  {.s2e10n7wn2w2nenene2ne7nene};
   #VAR {_speedwalks[moonglow][fanhir]}          {.s2e11n9wu3nwn};
+  #VAR {_speedwalks[moonglow][geezer-village]}  {.s2e10ns5n2w3s2w3n2w2n2w2nw};
   #VAR {_speedwalks[moonglow][hercules]}        {.s2e10n7wn2w2ne};
   #VAR {_speedwalks[moonglow][iaitanto]}        {.s2ewe4s12w8nenw};
   #VAR {_speedwalks[moonglow][kerofk]}          {.s2en3wn2wn2w4n3e9n4e2nes};
