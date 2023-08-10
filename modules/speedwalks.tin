@@ -1,0 +1,287 @@
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+
+#VARIABLE {_speedwalks} {
+  {alk} {
+    {moonglow}                 {.47nw9n5es2we2ses2ene3n2wn}
+  }
+  {atalia} {
+    {inken}                    {.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eue}
+    {lemuria}                  {.swn16w3n2w5d}
+    {midgaard}                 {.swn16w7n15e2n2w2nen}
+    {moonglow}                 {.swn21w2s2wn}
+    {pyramid}                  {.sen16enes7en11en}
+    {riva-south}               {.swn16w4n10wsws6w2s8w2n}
+    {rome}                     {.sen16enes7en2es}
+    {thalos}                   {.sen16enes7en9e2s5w}
+    {vc}                       {.sen5e4s4w11suse2swsusu2susu2swdw2s2ed5eueswde7s2w4s3e3nws3e}
+    {weramak}                  {.swn5w4s4e11suses2e3n}
+  }
+  {black-harbor} {
+    {moonglow}                 {.e14s2wn}
+  }
+  {camelot} {
+    {moonglow?}                {.9s2w5n8wuwnu4wn2ws3ws4wswnw2swswsws2wswn3w4s2e2s11w2s2wswsw4s7wn}
+  }
+  {demonspace} {
+    {demonspace-stonering}     {.ndnue}
+    {ebony-estate}             {.2swuw}
+    {flying-citadel}           {.3e}
+    {gomorrah}                 {.d; disarm trap}
+    {malifon}                  {.su2n}
+    {mirror-midgaard}          {.nw2uw}
+    {palace-of-greatch}        {.3nw2uw}
+    {palace-of-khorne}         {.2e2sue}
+    {palace-of-nurgle}         {.2e2us}
+    {palace-of-slaanesh}       {.wus}
+    {palace-of-winds}          {.n3u}
+    {space-needle}             {.2w4nuswdw}
+    {strange-island}           {.3euwn}
+    {tower-of-darkness}        {.nwuw}
+    {tutor-1}                  {.nnnnws; open trapdoor d; d; open trapdoor e; e}
+  }
+  {demonspace-stonering} {
+    {demonspace}               {.e2d3s}
+  }
+  {ebony-estate} {
+    {demonspace}               {.e2ned}
+  }
+  {fanhir} {
+    {atalia}                   {.s7e4s7e8s16esen}
+    {midgaard}                 {.s7e4s13es9e2n2w2nen}
+    {moonglow}                 {.se3sd9e11s2wn}
+  }
+  {flying-citadel} {
+    {demonspace}               {.2e}
+  }
+  {geezer-village} {
+    {moonglow}                 {.2s2e2s2e3s2e3n2e14s2wn}
+  }
+  {gomorrah} {
+    {demonspace}               {disarm trap; u}
+  }
+  {hercules} {
+    {crystal-palace}           {.nene2ne7nene}
+  }
+  {iaitanto} {
+    {atalia}                   {.e2sw7s11ene5n21esen}
+    {ninja-hideout}            {.en6w6ne2n2enwn}
+  }
+  {inken} {
+    {atalia}                   {.wd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn}
+    {sodom}                    {.wd5wuwsususwdsdw2ds2e3sw3sw}
+    {vc}                       {.swde7s2w4s3e3nws3e}
+  }
+  {kerofk} {
+    {moonglow}                 {.nw2s4w9s3w4s2es2es3es2wn}
+    {ofcol}                    {.nw2s4w9se2n9e}
+  }
+  {lemuria} {
+    {atalia}                   {.5u2e3s16esen}
+    {moonglow}                 {.5u5s5wn}
+  }
+  {lyta} {
+    {atalia}                   {.2eu5ws8ws7wnws16wswn}
+  }
+  {malifon} {
+    {demonspace}               {.edn}
+  }
+  {midgaard} {
+    {atalia}                   {.sw2s2e2s15w7s16esen}
+    {demonspace}               {.sws19e2u2w2u2eu4w; enter mirror}
+    {fanhir}                   {.sw2s2e2s9wn13w4n7wn}
+    {haon-dor-fishing-village} {.sws3wuwd19w4swn2wnwn3w2sw; squeeze gap}
+    {moonglow}                 {.sw2s2e2s20w9s2wn}
+    {shire}                    {.sws16w6n3en}
+  }
+  {mirror-midgaard} {
+    {demonspace}               {.2es2d}
+  }
+  {moon-goddess} {
+    {moonglow}                 {.3swd2nd2ed2sd2wd2nd2ed4se3n8en}
+  }
+  {moonglow} {
+    {aldur}                    {.s2en11w2sw}
+    {alk}                      {.s2e4s3wnw3n4w9se47s}
+    {atalia}                   {.s2e2n21esen}
+    {black-harbor}             {.s2e14nw}
+    {camelot}                  {.s2e9n20e2n2w4n3esen2enenene2nesen4en2en3es4edsed8e5s2en}
+    {castle-dragon}            {.sese2sws26wnw17nw4n}
+    {crystal-palace}           {.s2e10n7wn2w2nenene2ne7nene}
+    {fanhir}                   {.s2e11n9wu3nwn}
+    {geezer-village}           {.s2e10ns5n2w3s2w3n2w2n2w2nw}
+    {hercules}                 {.s2e10n7wn2w2ne}
+    {iaitanto}                 {.s2ewe4s12w8nenw}
+    {kerofk}                   {.s2en3wn2wn2w4n3e9n4e2nes}
+    {lemuria}                  {.s5e5n5d}
+    {midgaard}                 {.s2e9n20e2n2w2nen}
+    {midgaard-2}               {open door d; d; close door u; n; open curtain; n; close curtain; en tombstone; .en; en statue; e}
+    {moon-goddess}             {.s8w3swn; get amulet; unlock portal; open portal; drop amulet; .3nu2wu2su2eu2nu2wu2sue; open moon; .nnn}
+    {ofcol}                    {.s2e4n7w4s7e}
+    {riva-south}               {.s2e6n5w2s7w2s8w2n}
+    {tc}                       {.s2e10n9w2n3e6sd2s3w2un}
+  }
+  {ofcol} {
+    {kerofk}                   {.9w2sw9n4e2nes}
+    {lemuria}                  {.7w4n7en3e5d}
+    {moonglow}                 {.7w4n7e4s2wn}
+  }
+  {palace-of-greatch} {
+    {demonspace}               {.3ne2d}
+  }
+  {palace-of-khorne} {
+    {demonspace}               {.w2n2ed}
+  }
+  {palace-of-nurgle} {
+    {demonspace}               {.n2e2d}
+  }
+  {palace-of-slaanesh} {
+    {demonspace}               {.ned}
+  }
+  {palace-of-winds} {
+    {demonspace}               {.3n}
+  }
+  {pyramid} {
+    {atalia}                   {.s3wn8ws7wnws16wswn}
+  }
+  {riva-north} {
+    {atalia}                   {.2e5sd2sese2n13e4s16esen}
+    {moonglow}                 {.2e5sd2sese2n8e6s2wn}
+    {riva-south}               {.2e5sd2ses3w2s8w2n}
+  }
+  {riva-south} {
+    {atalia}                   {.2s8e2n4e2n13e4s16esen}
+    {brim}                     {.2s5w2nw6n2e}
+    {iaitano}                  {.2s8e2n3e4sw4s3w8nenw}
+    {inken}                    {.2s8e2n4e2n13e4s7e5s5e7susnse2swsusu2susu2swdw2s2ed5eue}
+    {lemuria}                  {.2s8e2n4e2n11es5d}
+    {moonglow}                 {.2s8e2n4e2n8e6s2wn}
+    {obelisk}                  {.2s5wn2wu3wsw2sws2dnw2n2w; knock portal -.. . .- - ....}
+    {riva-north}               {.2s5w2nw4n6e5ses; open gate s; .7s2w}
+    {rivan-monastary}          {.2s5w2nw6n2e3n}
+    {thieves-route}            {.2s5wn2w3s5w2swn; move stone; n; stand}
+  }
+  {rome} {
+    {atalia}                   {.n2ws7wnws16wswn}
+  }
+  {shire} {
+    {riva-south}               {.s3w13s7w2se4sw3s2wse6sws12w2s7w2s8w2n}
+  }
+  {space-needle} {
+    {demonspace}               {.4e}
+  }
+  {strange-island} {
+    {demonspace}               {.swd}
+  }
+  {tc} {
+    {moonglow}                 {.s2d3e3nu5n3w2s9e10s2wn}
+  }
+  {thalos} {
+    {atalia}                   {.5e2n3wn8ws7wnws16wswn}
+    {lyta}                     {.5ene2nd2w}
+  }
+  {tower-of-darkness} {
+    {demonspace}               {.2esd}
+  }
+  {tutor-1} {
+    {tutor-2}                  {open trapdoor n; n; open trapdoor u; .uww; open trapdoor d; d; open trapdoor d; d; open trapdoor e; e}
+  }
+  {vc} {
+    {atalia}                   {.3wnes3w4n2e7nwuenwd5wu2w2neue2ndnd2ndndne2nwnd11n4e4n5wswn}
+    {inken}                    {.3wnes3w4n2e7nwuen}
+  }
+  {weramak} {
+    {atalia}                   {.3s2wnwnd11n4e4n5wswn}
+  }
+  {xanth} {
+    {moonglow}                 {.ne2n2e3ne5n2e3n6wsw7n2ene2s3es22e9s2wn}
+  }
+};
+
+#ALIAS {sw %S %S} {speedwalk %1 %2};
+
+#ALIAS {speedwalk %S %S} {
+  #IF {"@isEmpty{$_speedwalks[%1][%2]; true}" == "true"} {
+    #SHOWME {No such speedwalk (%1 to %2)};
+  } {
+    #SHOWME {$_speedwalks[%1][%2]};
+    $_speedwalks[%1][%2];
+  };
+};
+
+#ALIAS {speedwalks} {
+  #SHOWME {----------};
+  #FOREACH {*_speedwalks[%*]} {_speedwalks_from} {
+    #FOREACH {$_speedwalks[$_speedwalks_from]} {_speedwalks_to} {
+      #IF {"@isEmpty{$_speedwalks[$_speedwalks_from][$_speedwalks_to]; true}" == "true"} {#CONTINUE};
+      #ELSE {
+        #FORMAT {_speedwalks_display} {%-20s %-20s %s} {$_speedwalks_from} {$_speedwalks_to} {$_speedwalks[$_speedwalks_from][$_speedwalks_to]};
+        #SHOWME {$_speedwalks_display};
+      };
+    };
+  };
+  #UNVAR {_speedwalks_display};
+  #UNVAR {_speedwalks_from};
+  #UNVAR {_speedwalks_to};
+};
+
+#ALIAS {record} {
+  #LIST {_speedwalk_path} {clear};
+
+  #ALIAS {down}   {d; #LIST {_speedwalk_path} {add} {d}};
+  #ALIAS {east}   {e; #LIST {_speedwalk_path} {add} {e}};
+  #ALIAS {north}  {n; #LIST {_speedwalk_path} {add} {n}};
+  #ALIAS {south}  {s; #LIST {_speedwalk_path} {add} {s}};
+  #ALIAS {up}     {u; #LIST {_speedwalk_path} {add} {u}};
+  #ALIAS {west}   {w; #LIST {_speedwalk_path} {add} {w}};
+};
+
+#ALIAS {replay} {
+  #VAR {_replay_output}   {};
+  #VAR {_replay_last}     {};
+  #VAR {_replay_cnt}      {1};
+
+  #FOREACH {$_speedwalk_path[%*]} {_replay_current} {
+    #IF {"$_replay_last" == ""} {
+      #VAR {_replay_last} {$_replay_current};
+      #CONTINUE;
+    };
+
+    #IF {"$_replay_last" == "$_replay_current"} {
+      #MATH {_replay_cnt} {$_replay_cnt + 1};
+      #VAR {_replay_last} {$_replay_current};
+      #CONTINUE;
+    };
+
+    #IF {$_replay_cnt > 1} {
+      #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
+      #VAR {_replay_cnt} {1};
+    };
+
+    #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
+
+    #VAR {_replay_last} {$_replay_current};
+  };
+
+  #IF {$_replay_cnt > 1} {
+    #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_cnt};
+  };
+
+  #FORMAT {_replay_output} {%s%s} {$_replay_output} {$_replay_last};
+
+  #SHOWME {$_replay_output};
+
+  #UNALIAS {down};
+  #UNALIAS {east};
+  #UNALIAS {north};
+  #UNALIAS {south};
+  #UNALIAS {up};
+  #UNALIAS {west};
+
+  #UNVAR {_replay_cnt};
+  #UNVAR {_replay_current};
+  #UNVAR {_replay_last};
+  #UNVAR {_replay_output};
+  #UNVAR {_speedwalk_path};
+};
+
+#ALIAS {.%+} {speedwalk %1};

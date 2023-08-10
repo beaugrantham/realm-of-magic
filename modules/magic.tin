@@ -1,0 +1,246 @@
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+
+#NOP -- Initial setup;
+
+#VAR {affects[aid]}                 {0};
+#VAR {affects[anti-magic-shell]}    {0};
+#VAR {affects[armor]}               {0};
+#VAR {affects[barkskin]}            {0};
+#VAR {affects[bless]}               {0};
+#VAR {affects[clear-tongues]}       {0};
+#VAR {affects[death-ward]}          {0};
+#VAR {affects[deflect]}             {0};
+#VAR {affects[detect-aggressive]}   {0};
+#VAR {affects[detect-alignment]}    {0};
+#VAR {affects[detect-invisible]}    {0};
+#VAR {affects[detect-magic]}        {0};
+#VAR {affects[detect-trap]}         {0};
+#VAR {affects[dispel-darkness]}     {0};
+#VAR {affects[dome-of-power]}       {0};
+#VAR {affects[fly]}                 {0};
+#VAR {affects[focus]}               {0};
+#VAR {affects[haste]}               {0};
+#VAR {affects[invisibility]}        {0};
+#VAR {affects[natural-protection]}  {0};
+#VAR {affects[night-vision]}        {0};
+#VAR {affects[peace]}               {0};
+#VAR {affects[sanctuary]}           {0};
+#VAR {affects[sense-life]}          {0};
+#VAR {affects[stone-skin]}          {0};
+#VAR {affects[thorns]}              {0};
+#VAR {affects[water-breathe]}       {0};
+#VAR {affects[wizards-eye]}         {0};
+#VAR {affects[xray]}                {0};
+
+#NOP -- Shortcuts;
+
+#ALIAS {cacid}      {cast 'acid splash'};
+#ALIAS {catom}      {cast 'atomic blast'};
+#ALIAS {cbi}        {cast 'break invisibility'};
+#ALIAS {cblind}     {cast 'blindness'};
+#ALIAS {ccd}        {cast 'call dragon'};
+#ALIAS {ccharm}     {cast 'charm person'};
+#ALIAS {cdome}      {cast 'dome of power'};
+#ALIAS {cfear}      {cast 'fear'};
+#ALIAS {cgold}      {cast 'create gold'};
+#ALIAS {chold}      {cast 'hold'};
+#ALIAS {cid}        {cast 'identify'};
+#ALIAS {cla}        {cast 'locate all'};
+#ALIAS {clb}        {cast 'lightning bolt'};
+#ALIAS {clo}        {cast 'locate object'};
+#ALIAS {clp}        {cast 'locate person'};
+#ALIAS {cmm}        {cast 'magic missile'};
+#ALIAS {cms}        {cast 'mass sleep'};
+#ALIAS {crecharge}  {cast 'recharge'};
+#ALIAS {crift}      {cast 'rift'};
+#ALIAS {crs}        {cast 'remove sanctuary'};
+#ALIAS {crsanc}     {cast 'remove sanctuary'};
+#ALIAS {csilence}   {cast 'silence'};
+#ALIAS {csleep}     {cast 'sleep'};
+#ALIAS {csum}       {cast 'summon'};
+#ALIAS {ctp}        {cast 'teleport to person'};
+
+#ALIAS {caid}       {cast 'aid' @ifEmpty{%1; self}};
+#ALIAS {carmor}     {cast 'armor' @ifEmpty{%1; self}};
+#ALIAS {ccb}        {cast 'cure blind' @ifEmpty{%1; self}};
+#ALIAS {ccounter}   {cast 'counter magic' @ifEmpty{%1; self}};
+#ALIAS {cfly}       {cast 'fly' @ifEmpty{%1; self}};
+#ALIAS {cheal}      {cast 'heal' @ifEmpty{%1; self}};
+#ALIAS {ci}         {cast 'invisibility' @ifEmpty{%1; self}};
+#ALIAS {crest}      {cast 'rest' @ifEmpty{%1; self}};
+#ALIAS {crp}        {cast 'remove poison' @ifEmpty{%1; self}};
+#ALIAS {csanc}      {cast 'sanctuary' @ifEmpty{%1; self}};
+#ALIAS {cshell}     {cast 'anti magic shell' @ifEmpty{%1; self}};
+#ALIAS {cwater}     {cast 'water breathe' @ifEmpty{%1; self}};
+#ALIAS {cinvis}     {cast 'invisibility' @ifEmpty{%1; self}};
+#ALIAS {cyouth}     {cast 'return youth' @ifEmpty{%1; self}};
+
+#ALIAS {cdag}       {cast 'detect aggressive'};
+#ALIAS {cdal}       {cast 'detect alignment'};
+#ALIAS {cdd}        {cast 'dispel darkness'};
+#ALIAS {cdeflect}   {cast 'deflect'};
+#ALIAS {cdi}        {cast 'detect invisibility'};
+#ALIAS {cdm}        {cast 'detect magic'};
+#ALIAS {cdt}        {cast 'detect trap'};
+#ALIAS {cfood}      {cast 'food and water'};
+#ALIAS {cnv}        {cast 'night vision'};
+#ALIAS {cpeace}     {cast 'peace'};
+#ALIAS {crecall}    {cast 'word of recall'};
+#ALIAS {csl}        {cast 'sense life'};
+#ALIAS {cwiz}       {cast 'wizards eye'};
+#ALIAS {cxray}      {cast 'xray'};
+
+#ALIAS {blind}      {cblind};
+#ALIAS {csil}       {csilence};
+#ALIAS {charm}      {ccharm};
+#ALIAS {counter}    {ccounter};
+#ALIAS {goto}       {ctp};
+#ALIAS {silence}    {csilence};
+#ALIAS {sum}        {csum};
+
+
+#NOP -- Enhance display of harmful affects;
+
+#SUB {^You are silenced!}                           {[silence            ] %0};
+#SUB {^You think that you just can't wake up now.}  {[sleep              ] %0};
+#SUB {^Your feet have turned to stone!}             {[hold               ] %0};
+
+
+#NOP -- Enhance display of helpful affects;
+#NOP -- 1. Reset all affects to 0 (inactive);
+#NOP -- 2. Look for, record, and gag active affects;
+#NOP -- 3. Display all affcets;
+
+#ACTION {^This ranks you as %w the} {
+  #FOREACH {*affects[%*]} {affect} {
+    #VAR {affects[$affect]} {0};
+  };
+
+  #VAR {showSpells} {true};
+};
+
+#ACTION {^A dome of magical energy is protecting you.$}                           {setActive %0 -- dome-of-power};
+#ACTION {^A globe preventing all magic surrounds you.$}                           {setActive %0 -- anti-magic-shell};
+#ACTION {^A magical ward protecting you from death slowly circles around you.$}   {setActive %0 -- death-ward};
+#ACTION {^All foreign tongues are clear to you.$}                                 {setActive %0 -- clear-tongues};
+#ACTION {^An invisible barrier before you tries to deflect magic.$}               {setActive %0 -- deflect};
+#ACTION {^No creature can hide from you in the dark.$}                            {setActive %0 -- night-vision};
+#ACTION {^Sharp thorns and spikes protrude out of your body.$}                    {setActive %0 -- thorns};
+#ACTION {^The difference between good and evil is very clear to you.$}            {setActive %0 -- detect-alignment};
+#ACTION {^The tingle of nature's protection races through your body.$}            {setActive %0 -- natural-protection};
+#ACTION {^You are flying.$}                                                       {setActive %0 -- fly};
+#ACTION {^You are in tune with nature.$}                                          {setActive %0 -- focus};
+#ACTION {^You are invisible.$}                                                    {setActive %0 -- invisibility};
+#ACTION {^You are protected by Sanctuary.$}                                       {setActive %0 -- sanctuary};
+#ACTION {^You are sensitive to the presence of invisible things.$}                {setActive %0 -- detect-invisible};
+#ACTION {^You are sensitive to the presence of magical things.$}                  {setActive %0 -- detect-magic};
+#ACTION {^You can breathe in water.$}                                             {setActive %0 -- water-breathe};
+#ACTION {^You can feel the aggressiveness of other beings.$}                      {setActive %0 -- detect-aggressive};
+#ACTION {^You can feel the presence of living beings around you.$}                {setActive %0 -- sense-life};
+#ACTION {^You can see what lies ahead.$}                                          {setActive %0 -- wizards-eye};
+#ACTION {^You emit light - chasing the darkness away.$}                           {setActive %0 -- dispel-darkness};
+#ACTION {^You feel protected.$}                                                   {setActive %0 -- armor};
+#ACTION {^You feel righteous.$}                                                   {setActive %0 -- bless};
+#ACTION {^You feel very quick and agile.$}                                        {setActive %0 -- haste};
+#ACTION {^You have been aided.$}                                                  {setActive %0 -- aid};
+#ACTION {^You have skin as tough as stone.$}                                      {setActive %0 -- stone-skin};
+#ACTION {^Your eyes are keen and piercing.$}                                      {setActive %0 -- xray};
+#ACTION {^Your senses are keen.$}                                                 {setActive %0 -- detect-trap};
+#ACTION {^Your skin is covered with a thick layer of bark.$}                      {setActive %0 -- barkskin};
+#ACTION {^You're spreading an aura of peace.$}                                    {setActive %0 -- peace};
+
+#ACTION {^{You still need to recover|You finished}} {
+  #IF {"$showSpells" == "true"} {
+    #VAR {showSpells} {false};
+    #LOCAL {loop} {0};
+    #LOCAL {output} {};
+    #FOREACH {*affects[%*]} {affect} {
+      #MATH {loop} {$loop + 1};
+      #FORMAT {output} {$output<088>[@getAffectColor{$affects[$affect]}%-19s<088>] } {$affect};
+      #REPLACE {output} {-} { };
+      #IF {$loop == 3} {
+        #SHOWME {$output};
+        #LOCAL {loop} {0};
+        #LOCAL {output} {};
+      };
+    };
+    #IF {$loop != 0} {
+      #SHOWME {$output};
+    };
+  };
+};
+
+#FUNCTION {getAffectColor} {
+  #IF {"%0" == "1"} {#RETURN <028>} {#RETURN <118>};
+};
+
+#ALIAS {setActive %1 -- %2} {
+  #LOCAL {affect} {%2};
+  #VAR affects[$affect] {1};
+
+  #LOCAL {description} {%1};
+  #REPLACE {description} { -- $affect$} {};
+  #GAG {$description};
+};
+
+#NOP -- ------------------------------------------------------------------------------------------
+#NOP -- Spell warnings
+#NOP -- ------------------------------------------------------------------------------------------
+
+#ACTION {^The anti-magic shell around you sparks.$}                         {warnSpell %0 -- anti magic shell};
+#ACTION {^The aura around your body flickers slightly.$}                    {warnSpell %0 -- sanctuary};
+#ACTION {^The bark covering your skin starts peeling away in places.$}      {warnSpell %0 -- barkskin};
+#ACTION {^The peace around you is about to fade.$}                          {warnSpell %0 -- peace};
+#ACTION {^The ward circling around you fades in and out of existence.$}     {warnSpell %0 -- death ward};
+#ACTION {^You feel heavier now, your flying ability is leaving you.$}       {warnSpell %0 -- fly};
+#ACTION {^You lose control of your wizard's eye for a moment.$}             {warnSpell %0 -- wizards eye};
+#ACTION {^Your ability to breathe water is leaving you.$}                   {warnSpell %0 -- water breathe};
+#ACTION {^Your ability to judge behaviour is leaving you.$}                 {warnSpell %0 -- detect aggressive};
+#ACTION {^Your infravision begins to fade.$}                                {warnSpell %0 -- night vision};
+#ACTION {^Your walk on water spell starts to wear off$}                     {warnSpell %0 -- walk on water};
+
+#ACTION {^Your stomach rumbles.$}                                           {warnSpell %0 -- food and water};
+#ACTION {^Your throat feels a bit dry again.$}                              {warnSpell %0 -- food and water};
+
+#ACTION {^Everything around you speeds up again.$}                          {endSpell %0 -- haste};
+#ACTION {^Everything looks solid again.$}                                   {endSpell %0 -- xray};
+#ACTION {^Suddenly people start talking gibberish again!$}                  {endSpell %0 -- clear tongues};
+#ACTION {^The ability to breathe water left you.$}                          {endSpell %0 -- water breathe};
+#ACTION {^The aid you received is no longer present.$}                      {endSpell %0 -- aid};
+#ACTION {^The anti-magic shell about you flickers and is gone.$}            {endSpell %0 -- anti magic shell};
+#ACTION {^The aura around your body fades.$}                                {endSpell %0 -- sanctuary};
+#ACTION {^The bark covering your skin peels away and crumbles to dust.$}    {endSpell %0 -- barkskin};
+#ACTION {^The darkness is no longer afraid of you.$}                        {endSpell %0 -- dispel darkness};
+#ACTION {^The detect invisible wears off.$}                                 {endSpell %0 -- detect invisible};
+#ACTION {^The detect magic wears off.$}                                     {endSpell %0 -- detect magic};
+#ACTION {^The invisible barrier around you has disappeared.$}               {endSpell %0 -- deflect};
+#ACTION {^The magical ward circling around you disappears in a FLASH!$}     {endSpell %0 -- death ward};
+#ACTION {^The peace around you is gone.$}                                   {endSpell %0 -- peace};
+#ACTION {^The sharp spikes and spines protruding from your skin retract.$}  {endSpell %0 -- thorns};
+#ACTION {^You can no longer see in the dark.$}                              {endSpell %0 -- night vision};
+#ACTION {^You cough and release that frog.$}                                {endSpell %0 -- silence};
+#ACTION {^You feel heavier now, your flying ability is gone.$}              {endSpell %0 -- fly};
+#ACTION {^You feel less aware.$}                                            {endSpell %0 -- detect trap};
+#ACTION {^You feel less aware of what lies ahead.$}                         {endSpell %0 -- detect aggressive};
+#ACTION {^You feel less aware of your surroundings.$}                       {endSpell %0 -- sense life};
+#ACTION {^You feel less protected.$}                                        {endSpell %0 -- armor};
+#ACTION {^You feel less righteous.$}                                        {endSpell %0 -- bless};
+#ACTION {^You feel weaker.$}                                                {endSpell %0 -- strength};
+#ACTION {^You feel your skin again.$}                                       {endSpell %0 -- stone skin};
+#ACTION {^You no longer feel a tingle in your skin.$}                       {endSpell %0 -- natural protection};
+#ACTION {^You sense the red in your vision disappear.$}                     {endSpell %0 -- detect alignment};
+#ACTION {^Your dome of power fades away.$}                                  {endSpell %0 -- dome of power};
+#ACTION {^Your focus with nature fades.$}                                   {endSpell %0 -- focus};
+#ACTION {^Your wizard's eye fades away with a *pop*$}                       {endSpell %0 -- wizards eye};
+
+#ALIAS {endSpell %1 -- %2} {
+  #FORMAT {_lastSpell} {[<118>%-19s<088>] %s} {%2} {%1};
+  #SUB {%1} {$_lastSpell};
+  tick;
+};
+
+#ALIAS {warnSpell %1 -- %2} {
+  #FORMAT {_lastSpell} {[<138>%-19s<088>] %s} {%2} {%1};
+  #SUB {%1} {$_lastSpell};
+  tick;
+};
