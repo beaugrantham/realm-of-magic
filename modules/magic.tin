@@ -2,6 +2,8 @@
 
 #NOP -- Initial setup;
 
+#LIST {castingQueue} {clear};
+
 #VAR {affects[aid]}                 {0};
 #VAR {affects[anti-magic-shell]}    {0};
 #VAR {affects[armor]}               {0};
@@ -192,21 +194,23 @@
 #ACTION {^The bark covering your skin starts peeling away in places.$}      {warnSpell %0 -- barkskin};
 #ACTION {^The peace around you is about to fade.$}                          {warnSpell %0 -- peace};
 #ACTION {^The ward circling around you fades in and out of existence.$}     {warnSpell %0 -- death ward};
+#ACTION {^You feel a bit weaker.$}                                          {warnSpell %0 -- strength};
 #ACTION {^You feel heavier now, your flying ability is leaving you.$}       {warnSpell %0 -- fly};
 #ACTION {^You lose control of your wizard's eye for a moment.$}             {warnSpell %0 -- wizards eye};
 #ACTION {^Your ability to breathe water is leaving you.$}                   {warnSpell %0 -- water breathe};
 #ACTION {^Your ability to judge behaviour is leaving you.$}                 {warnSpell %0 -- detect aggressive};
 #ACTION {^Your infravision begins to fade.$}                                {warnSpell %0 -- night vision};
-#ACTION {^Your walk on water spell starts to wear off$}                     {warnSpell %0 -- walk on water};
-
 #ACTION {^Your stomach rumbles.$}                                           {warnSpell %0 -- food and water};
 #ACTION {^Your throat feels a bit dry again.$}                              {warnSpell %0 -- food and water};
+#ACTION {^Your walk on water spell starts to wear off$}                     {warnSpell %0 -- walk on water};
 
 #ACTION {^Everything around you speeds up again.$}                          {endSpell %0 -- haste};
 #ACTION {^Everything looks solid again.$}                                   {endSpell %0 -- xray};
 #ACTION {^Suddenly people start talking gibberish again!$}                  {endSpell %0 -- clear tongues};
 #ACTION {^The ability to breathe water left you.$}                          {endSpell %0 -- water breathe};
 #ACTION {^The aid you received is no longer present.$}                      {endSpell %0 -- aid};
+#ACTION {^You are hungry.$}                                                 {endSpell %0 -- food and water};
+#ACTION {^You are thirsty.$}                                                {endSpell %0 -- food and water};
 #ACTION {^The anti-magic shell about you flickers and is gone.$}            {endSpell %0 -- anti magic shell};
 #ACTION {^The aura around your body fades.$}                                {endSpell %0 -- sanctuary};
 #ACTION {^The bark covering your skin peels away and crumbles to dust.$}    {endSpell %0 -- barkskin};
@@ -217,6 +221,7 @@
 #ACTION {^The magical ward circling around you disappears in a FLASH!$}     {endSpell %0 -- death ward};
 #ACTION {^The peace around you is gone.$}                                   {endSpell %0 -- peace};
 #ACTION {^The sharp spikes and spines protruding from your skin retract.$}  {endSpell %0 -- thorns};
+#ACTION {^You break the spell of invisibility.$}                            {endSpell %0 -- invisibility};
 #ACTION {^You can no longer see in the dark.$}                              {endSpell %0 -- night vision};
 #ACTION {^You cough and release that frog.$}                                {endSpell %0 -- silence};
 #ACTION {^You feel heavier now, your flying ability is gone.$}              {endSpell %0 -- fly};
@@ -243,4 +248,111 @@
   #FORMAT {_lastSpell} {[<138>%-19s<088>] %s} {%2} {%1};
   #SUB {%1} {$_lastSpell};
   tick;
+};
+
+
+#NOP -- ------------------------------------------------------------------------------------------
+#NOP -- Spell failure/success
+#NOP -- ------------------------------------------------------------------------------------------
+
+#ACTION {^A small blue light irritates you. Your concentration is gone!$}                   {failSpell %0};
+#ACTION {^A pink elephant appears in front of you, that's confusing!$}                      {failSpell %0};
+#ACTION {^As you start to concentrate, a small lightning hits you! *Ouch*$}                 {failSpell %0};
+#ACTION {^As you start to concentrate, someone tickles you - HE HE HE !$}                   {failSpell %0};
+#ACTION {^Blue sparks fly from your fingers, hitting you in the face! *Ouch*$}              {failSpell %0};
+#ACTION {^Concentration is not your strongest side. It leaves you NOW!$}                    {failSpell %0};
+#ACTION {^Impossible, your concentration left you, as a fly crawled in your ear!$}          {failSpell %0};
+#ACTION {^Mother Mary comes to you, speaking words of wisdom: 'Let it be!'$}                {failSpell %0};
+#ACTION {^Segmentation violation, mana dumped.$}                                            {failSpell %0};
+#ACTION {^Someone snaps his fingers in front of you, and you lose your concentration!$}     {failSpell %0};
+#ACTION {^You can't concentrate as a small frog jumps around you, croaking annoying!$}      {failSpell %0};
+#ACTION {^You lost your concentration! Stupid thing, silly git.$}                           {failSpell %0};
+#ACTION {^You make the heaven green, but you feel that's not the thing you wanted to do!$}  {failSpell %0};
+#ACTION {^You make your thoughts disappear! What did you want to cast?$}                    {failSpell %0};
+#ACTION {^You sizzle with energy, but then you forget the thing you wanted to cast!$}       {failSpell %0};
+#ACTION {^Your brain vanishes, as you try to cast! Wait a little bit, maybe it reappears.$} {failSpell %0};
+#ACTION {^Your mind is drifting away as you start uttering the words!$}                     {failSpell %0};
+
+#ACTION {^Possible arguments:$} {
+  failSpell %0;
+};
+
+#ACTION {^You can't concentrate enough while resting.$} {
+  failSpell %0;
+};
+
+#ACTION {^Impossible!  You can't concentrate enough!$} {
+  failSpell %0;
+};
+
+#ACTION {^Your magic fizzles against your anti-magic shell!$} {
+  failSpell %0;
+};
+
+#ACTION {^Arcane powers prevent you from using magic.$} {
+  failSpell %0;
+};
+
+#ALIAS {failSpell} {
+  #LOCAL {output} {};
+  #FORMAT {output} {[<118>%-19s<088>] %s} {$castingQueue[1]} {%0};
+  #SHOWME {$output};
+  #LINE GAG;
+
+  #LIST {castingQueue} {delete} {1};
+};
+
+#ACTION {^A nearly opaque dome of pure energy crackles into existence around you.$} {succeedSpell %0 -- dome of power};
+#ACTION {^A peaceful feeling surrounds you.$}                        {succeedSpell %0 -- peace};
+#ACTION {^A relaxing feeling fills your body.$}                      {succeedSpell %0 -- rest};
+#ACTION {^A warm feeling runs through your body.$}                   {succeedSpell %0 -- remove poison};
+#ACTION {^An invisible barrier forms around you.$}                   {succeedSpell %0 -- deflect};
+#ACTION {^Burp! You are full!$}                                      {succeedSpell %0 -- food and water};
+#ACTION {^Some gold appears.$}                                       {succeedSpell %0 -- create gold};
+#ACTION {^With a gesture of your hand you chase the darkness away.$} {succeedSpell %0 -- dispel darkness};
+#ACTION {^You create a distortion in the fabric of time and space.$} {succeedSpell %0 -- rift};
+#ACTION {^You erect an anti-magic globe about yourself.$}            {succeedSpell %0 -- anti magic shell};
+#ACTION {^You feel someone protecting you.$}                         {succeedSpell %0 -- armor};
+#ACTION {^You feel stronger.$}                                       {succeedSpell %0 -- strength};
+#ACTION {^You feel that you can breathe in water.$}                  {succeedSpell %0 -- water breathe};
+#ACTION {^You feel your awareness improve.$}                         {succeedSpell %0 -- sense life};
+#ACTION {^You have been aided by %1.$}                               {succeedSpell %0 -- aid};
+#ACTION {^You vanish.$}                                              {succeedSpell %0 -- invisibility};
+#ACTION {^Your awareness improves.$}                                 {succeedSpell %0 -- detect aggressive};
+#ACTION {^Your feet rise up off the ground.$}                        {succeedSpell %0 -- fly};
+#ACTION {^Your fly-spell's duration is increased.$}                  {succeedSpell %0 -- fly};
+#ACTION {^Your perception improves.$}                                {succeedSpell %0 -- detect trap};
+#ACTION {^You start glowing.$}                                       {succeedSpell %0 -- sanctuary};
+#NOP -- this is 'night vision', 'detet magic', 'detect alignment', and 'xray'...
+#ACTION {^Your eyes tingle.$}                                        {succeedSpell %0 -- ugh...};
+
+#ACTION {^Ok.$} {
+  #LIST {castingQueue} {size} {_castingQueueSize};
+  #IF {"$_castingQueueSize" != "0"} {
+    #LOCAL {spell} {};
+    #FORMAT {spell} {%s} {$castingQueue[1]};
+    #REPLACE {spell} {'%+'%*} {&1};
+
+    #LIST {castingQueue} {delete} {1};
+
+    succeedSpell %0 -- $spell;
+  };
+
+  #UNVAR {_castingQueueSize};
+};
+
+#ALIAS {succeedSpell %1 -- %2} {
+  #LOCAL {spell} {%2};
+
+  #LOCAL {output} {};
+  #FORMAT {output} {[<028>%-19s<088>] %s} {$spell} {%1};
+  #SHOWME {$output};
+  #LINE GAG;
+};
+
+#ALIAS {cast} {
+  #LOCAL {spell} {%0};
+  #REPLACE {spell} {'%+'%*} {&1};
+  #LIST {castingQueue} {add} {$spell};
+  #SEND cast %0;
 };
