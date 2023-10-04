@@ -61,7 +61,7 @@
 #SUB {a potion of detect invisibility%*} {%0 <068>[detect invisibility]<900>};
 #SUB {a cyan potion of strength%*}       {%0 <068>[strength]<900>};
 
-# NOP --
+#NOP --
 #SUB {a black potion%*} {%0 <068>[curse, wither strike, blindness]<900>};
 #SUB {a power potion%*} {%0 <068>[cure serious woulds, cure critical wounds]<900>};
 #SUB {a strange potion made from a vampire's essence%*} {%0 <068>[mana, restore, aid]<900>};
