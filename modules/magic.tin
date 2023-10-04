@@ -273,25 +273,12 @@
 #ACTION {^Your brain vanishes, as you try to cast! Wait a little bit, maybe it reappears.$} {failSpell %0};
 #ACTION {^Your mind is drifting away as you start uttering the words!$}                     {failSpell %0};
 
-#ACTION {^Possible arguments:$} {
-  failSpell %0;
-};
-
-#ACTION {^You can't concentrate enough while resting.$} {
-  failSpell %0;
-};
-
-#ACTION {^Impossible!  You can't concentrate enough!$} {
-  failSpell %0;
-};
-
-#ACTION {^Your magic fizzles against your anti-magic shell!$} {
-  failSpell %0;
-};
-
-#ACTION {^Arcane powers prevent you from using magic.$} {
-  failSpell %0;
-};
+#ACTION {^Arcane powers prevent you from using magic.$}       {failSpell %0};
+#ACTION {^Impossible!  You can't concentrate enough!$}        {failSpell %0};
+#ACTION {^Possible arguments:$}                               {failSpell %0};
+#ACTION {^Spell can only be used on safe grounds.$}           {failSpell %0};
+#ACTION {^You can't concentrate enough while resting.$}       {failSpell %0};
+#ACTION {^Your magic fizzles against your anti-magic shell!$} {failSpell %0};
 
 #ALIAS {failSpell} {
   #LOCAL {output} {};
