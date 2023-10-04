@@ -520,3 +520,4 @@
 #CLASS {RealmOfMagic|AutoTrack} {read} {modules/autotrack.tin};
 #CLASS {RealmOfMagic|Alchemy} {read} {modules/alchemy.tin};
 #CLASS {RealmOfMagic|Magic} {read} {modules/magic.tin};
+#CLASS {RealmOfMagic|Items} {read} {modules/items.tin};

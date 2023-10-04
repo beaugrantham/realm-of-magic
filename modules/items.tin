@@ -1,0 +1,69 @@
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+
+#NOP -- Crika Merdahyl (Riva South), Gurgel (Moonglow)
+#SUB {some garlic dust%*}      {%0 <068>[+str 8hrs]<900>};
+#SUB {a pile of spider-eyes%*} {%0 <068>[-save vs breath attacks 11hrs]<900>};
+#SUB {some herbal broth%*}     {%0 <068>[-age 11hrs, poison]<900>};
+#SUB {a cup of melita%*}       {%0 <068>[+weight 23hrs]<900>};
+#SUB {some bunny herb%*}       {%0 <068>[+mv 28hrs]<900>};
+#SUB {a chipmunk brain%*}      {%0 <068>[+mana 29hrs]<900>};
+
+#NOP -- Gambling
+#SUB {a Potion of Restoration%*}      {%0 <068>[restore]<900>}
+#SUB {a Potion of Full Vigor%*}       {%0 <068>[mana, heal]<900>};
+#SUB {a Potion of Arcane Magicks%*}   {%0 <068>[mana]<900>};
+#SUB {a Potion of Safetiness%*}       {%0 <068>[recall]<900>};
+#SUB {a potion of preparation%*}      {%0 <068>[witherstrike, slow, weaken]<900>};
+#SUB {a bottle of greek fire%*}       {%0 <068>[fireball, fireball, fireball]<900>};
+
+#NOP -- Can Abe (Fanhir)
+#SUB {an antidote%*}           {%0 <068>[remove poison]<900>};
+#SUB {Stone herbs%*}           {%0 <068>[-save against death 22hrs]<900>};
+#SUB {Anagathic herbs%*}       {%0 <068>[-age 753 hrs]<900>};
+#SUB {the manual of poisons%*} {%0 <068>[detect poison]<900>};
+#SUB {Berserk weed%*}          {%0 <068>[+damage probability 2hrs, poison]<900>};
+#SUB {a well rolled joint%*}   {%0 <068>[cure light wounds, rest, weaken]<900>};
+
+#NOP -- Hype Stitious (Fanhir)
+#SUB {Staff of black cat fur%*}    {%0 <068>[1x sanctuary]<900>};
+#SUB {Cat bone%*}                  {%0 <068>[3x bless]<900>};
+#SUB {a blood-splattered scroll%*} {%0 <068>[curse, curse, curse]<900>};
+#SUB {a white scroll%*}            {%0 <068>[remove curse]<900>};
+#SUB {hare paw%*}                  {%0 <068>[clear tongues]<900>};
+#SUB {an obscure potion%*}         {%0 <068>[sanctuary]<900>};
+
+#NOP -- Val Luta (Fanhir)
+#SUB {the wand of the eagle%*} {%0 <068>[3x wizards eye]<900>};
+#SUB {a 'Limbo Eye' potion%*}  {%0 <068>[detect invisibility, sense life, xray]<900>};
+
+#NOP -- Mara Thom (Fanhir)
+#SUB {the energy drink%*}    {%0 <068>[rest, fly, strength]<900>};
+#SUB {a can of Coke Light%*} {%0 <068>[rest]<900>};
+#SUB {Coca leaves%*}         {%0 <068>[+con 28hrs]<900>};
+#SUB {an emergency brake%*}  {%0 <068>[1x recall]<900>};
+
+#NOP -- Kessira (North of Atalia)
+#SUB {a caraffe of a special wine%*} {%0 <068>[heal]<900>};
+#SUB {a transparent potion%*}        {%0 <068>[mana]<900>};
+#SUB {an ugly pink potion%*}         {%0 <068>[restore]<900>};
+
+#NOP -- Common
+#SUB {a sparkling potion of youth%*}     {%0 <068>[return youth]<900>};
+#SUB {a wand of invisibility%*}          {%0 <068>[2x invisibility]<900>};
+#SUB {a staff of sleep%*}                {%0 <068>[1x sleep]<900>};
+#SUB {a scroll of identify%*}            {%0 <068>[identify]<900>};
+#SUB {a scroll of recall%*}              {%0 <068>[recall]<900>};
+#SUB {a scroll of protection%*}          {%0 <068>[armor]<900>};
+#SUB {a violet potion of sense life%*}   {%0 <068>[sense life, sense life]<900>};
+#SUB {a potion of cure blindness%*}      {%0 <068>[cure blindness]<900>};
+#SUB {a potion of cure poison%*}         {%0 <068>[remove poison]<900>};
+#SUB {a potion of healing%*}             {%0 <068>[cure light wounds]<900>};
+#SUB {a potion of detect invisibility%*} {%0 <068>[detect invisibility]<900>};
+#SUB {a cyan potion of strength%*}       {%0 <068>[strength]<900>};
+
+# NOP --
+#SUB {a black potion%*} {%0 <068>[curse, wither strike, blindness]<900>};
+#SUB {a power potion%*} {%0 <068>[cure serious woulds, cure critical wounds]<900>};
+#SUB {a strange potion made from a vampire's essence%*} {%0 <068>[mana, restore, aid]<900>};
+#SUB {a bar of radiant beauty soap%*} {%0 <068>[sanctuary]<900>};
+#SUB {a silver flute%*} {%0 <068>[2x charm]<900>};
