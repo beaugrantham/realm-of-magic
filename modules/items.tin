@@ -15,6 +15,7 @@
 #SUB {a Potion of Safetiness%*}       {%0 <068>[recall]<900>};
 #SUB {a potion of preparation%*}      {%0 <068>[witherstrike, slow, weaken]<900>};
 #SUB {a bottle of greek fire%*}       {%0 <068>[fireball, fireball, fireball]<900>};
+#SUB {a Potion of Healing%*}          {%0 <068>[heal]<900>};
 
 #NOP -- Can Abe (Fanhir)
 #SUB {an antidote%*}           {%0 <068>[remove poison]<900>};
