@@ -14,6 +14,11 @@
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
 
+  #VAR {color[green]}           {<028>};
+  #VAR {color[yellow]}          {<138>};
+  #VAR {color[red]}             {<118>};
+  #VAR {color[reset]}           {<088>};
+
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Initial setup
   #NOP -- ------------------------------------------------------------------------------------------
@@ -36,6 +41,13 @@
   #VAR {xpMultiplierRemaining}  {-1};
   #VAR {warcryRemaining}        {-1};
   #VAR {cooldown[neptun]}       {0};
+  #VAR {time[hour]}             {-1};
+  #VAR {time[minute]}           {0};
+
+  #VAR {timeSinceLastTick}      {0};
+
+  #VAR {dayStarts}              {-1};
+  #VAR {nightStarts}            {-1};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Spam
@@ -79,6 +91,11 @@
     #VAR {player[race]} {%3};
     #VAR {player[class]} {%4};
     #VAR {player[height]} {%5};
+  };
+
+  #ACTION {^You are a %w of %w %w and you are regarded as %w.} {
+    #SHOWME {You are a %1 of %2 $color[green]%3$color[reset] and you are regarded as $color[green]%4$color[reset].};
+    #LINE GAG;
   };
 
   #ACTION {^|%dH %dM %dV} {
@@ -335,12 +352,25 @@
   #ALIAS {tick} {
     #IF {"%1" != ""} {#SUB {%0} {[TICK] %0}};
 
+    #IF {$timeSinceLastTick > 2} {
+      #IF {$time[hour] >= 0} {
+        #MATH {time[hour]} {($time[hour] + 1) % 24};
+        #VAR {time[minute]} {0};
+      };
+    };
+
+    #VAR {timeSinceLastTick} {0};
     #VAR {tickRemaining} {$tickDuration};
   };
 
   #TICK {eachSecond} {
+    #MATH {timeSinceLastTick} {$timeSinceLastTick + 1};
+
     #IF {$tickRemaining == 0} {tick};
-    #ELSEIF {$tickRemaining > 0} {#MATH {tickRemaining} {$tickRemaining - 1}};
+    #ELSEIF {$tickRemaining > 0} {
+      #MATH {tickRemaining} {$tickRemaining - 1};
+      #MATH {time[minute]} {($tickDuration - $tickRemaining) * (59.000/$tickDuration)};
+    };
 
     #IF {$xpMultiplierRemaining > 0} {
       #MATH {xpMultiplierRemaining} {$xpMultiplierRemaining - 1};
@@ -350,9 +380,30 @@
       #MATH {warcryRemaining} {$warcryRemaining - 1};
     };
 
+    #LOCAL {clock} {};
+    #VAR {clock[countdownColor]} {<088>};
+    #IF {$time[hour] >= $dayStarts && $time[hour] < $nightStarts} {
+      #VAR {clock[color]} {$color[yellow]};
+      #MATH {clock[countdown]} {$nightStarts -1 - $time[hour]};
+    };
+    #ELSE {
+      #VAR {clock[color]} {$color[red]};
+
+      #IF {$time[hour] >= $nightStarts} {
+        #MATH {clock[countdown]} {$dayStarts - 1 + (24 - $time[hour])}
+      };
+      #ELSEIF {$time[hour] <= $dayStarts} {
+        #MATH {clock[countdown]} {$dayStarts - 1 - $time[hour]}
+      };
+
+      #IF {$clock[countdown] == 0} {
+        #VAR {clock[countdownColor]} {<518>};
+      };
+    };
+
     #ECHO {
-      {(TICK:%02d)--(2XP:%03d)--(warcry:%03d)----------------------------------------------} {-2}
-    } {$tickRemaining} {$xpMultiplierRemaining} {$warcryRemaining};
+      {[%s%02d:%02d<088>](%s%02d<088>)-------------(2XP:%03d)--(warcry:%03d)-----------------------------------} {-2}
+    } {$clock[color]} {$time[hour]} {$time[minute]} {$clock[countdownColor]} {$clock[countdown]} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -411,6 +462,75 @@
   #ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
     tick %0;
     #VAR {xpMultiplierRemaining} {$xpMultiplierDuration};
+  };
+
+  #NOP -- ------------------------------------------------------------------------------------------
+  #NOP -- Time
+  #NOP -- ------------------------------------------------------------------------------------------
+
+  #FUNCTION {getDayNight} {
+    #IF {"%1" == "8"} {
+      #RETURN 18;
+    };
+    #IF {"%1" == "18"} {
+      #RETURN 8;
+    };
+
+    #IF {"%1" == "10"} {
+      #RETURN 17;
+    };
+    #IF {"%1" == "17"} {
+      #RETURN 10;
+    };
+
+    #SHOWME {FIXME - Unexpected day/night cycle - %1};
+    #RETURN -1;
+  };
+
+  #ALIAS {time} {
+    #VAR {time[hoursTillDay]} {-1};
+    #VAR {time[hoursTillNight]} {-1};
+    #SEND {time};
+  };
+
+  #ACTION {^The sun is setting in %d hours.$} {
+    #MATH {time[hoursTillNight]} {%1};
+  };
+  #ACTION {^The sun is setting.$} {
+    #VAR {time[hoursTillNight]} {0};
+  };
+
+  #ACTION {^The sun is rising in %d hours.$} {
+    #MATH {time[hoursTillDay]} {%1 + 1};
+  };
+  #ACTION {^The sun is rising.$} {
+    #VAR {time[hoursTillDay]} {1};
+  };
+
+  #ACTION {^It is %d o'clock a.m., on} {
+    #MATH {time[hour]} {%1 % 12};
+
+    #IF {$time[hoursTillNight] >= 0} {
+      #MATH {nightStarts} {$time[hour] + $time[hoursTillNight]};
+      #VAR {dayStarts} {@getDayNight{$nightStarts}};
+    };
+    #ELSE {
+      #MATH {dayStarts} {$time[hour] + $time[hoursTillDay]};
+      #VAR {nightStarts} {@getDayNight{$dayStarts}};
+    };
+  };
+
+  #ACTION {^It is %d o'clock p.m., on} {
+    #MATH {time[hour]} {(%1 % 12) + 12};
+
+    #IF {$time[hoursTillNight] >= 0} {
+      #MATH {nightStarts} {$time[hour] + $time[hoursTillNight]};
+      #VAR {dayStarts} {@getDayNight{$nightStarts}};
+    };
+    #ELSE {
+      #MATH {dayStarts} {($time[hour] + $time[hoursTillDay]) % 24};
+      #VAR {nightStarts} {@getDayNight{$dayStarts}};
+    };
   };
 
   #NOP -- ------------------------------------------------------------------------------------------
