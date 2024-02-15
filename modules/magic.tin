@@ -64,12 +64,14 @@
 
 #ALIAS {caid}       {cast 'aid' @ifEmpty{%1; self}};
 #ALIAS {carmor}     {cast 'armor' @ifEmpty{%1; self}};
+#ALIAS {cbless}     {cast 'bless' @ifEmpty{%1; self}};
 #ALIAS {ccb}        {cast 'cure blind' @ifEmpty{%1; self}};
 #ALIAS {ccounter}   {cast 'counter magic' @ifEmpty{%1; self}};
 #ALIAS {cfly}       {cast 'fly' @ifEmpty{%1; self}};
 #ALIAS {cheal}      {cast 'heal' @ifEmpty{%1; self}};
 #ALIAS {ci}         {cast 'invisibility' @ifEmpty{%1; self}};
 #ALIAS {crest}      {cast 'rest' @ifEmpty{%1; self}};
+#ALIAS {crestore}   {cast 'restore' @ifEmpty{%1; self}};
 #ALIAS {crp}        {cast 'remove poison' @ifEmpty{%1; self}};
 #ALIAS {csanc}      {cast 'sanctuary' @ifEmpty{%1; self}};
 #ALIAS {cshell}     {cast 'anti magic shell' @ifEmpty{%1; self}};
@@ -113,7 +115,7 @@
 #NOP -- 2. Look for, record, and gag active affects;
 #NOP -- 3. Display all affcets;
 
-#ACTION {^This ranks you as %w the} {
+#ACTION {^This ranks you as %w} {
   #FOREACH {*affects[%*]} {affect} {
     #VAR {affects[$affect]} {0};
   };
@@ -209,8 +211,8 @@
 #ACTION {^Suddenly people start talking gibberish again!$}                  {endSpell %0 -- clear tongues};
 #ACTION {^The ability to breathe water left you.$}                          {endSpell %0 -- water breathe};
 #ACTION {^The aid you received is no longer present.$}                      {endSpell %0 -- aid};
-#ACTION {^You are hungry.$}                                                 {endSpell %0 -- food and water};
-#ACTION {^You are thirsty.$}                                                {endSpell %0 -- food and water};
+#NOP #ACTION {^You are hungry.$}                                                 {endSpell %0 -- food and water};
+#NOP #ACTION {^You are thirsty.$}                                                {endSpell %0 -- food and water};
 #ACTION {^The anti-magic shell about you flickers and is gone.$}            {endSpell %0 -- anti magic shell};
 #ACTION {^The aura around your body fades.$}                                {endSpell %0 -- sanctuary};
 #ACTION {^The bark covering your skin peels away and crumbles to dust.$}    {endSpell %0 -- barkskin};
@@ -280,6 +282,9 @@
 #ACTION {^You can't concentrate enough while resting.$}       {failSpell %0};
 #ACTION {^Your magic fizzles against your anti-magic shell!$} {failSpell %0};
 
+#NOP #ACTION {^Divine forces prevent you from calling %w.$} {failSpell %0};
+#NOP #ACTION {^Your victim seems to be immune to it.$}      {failSpell %0};
+
 #ALIAS {failSpell} {
   #LOCAL {output} {};
   #FORMAT {output} {[<118>%-19s<088>] %s} {$castingQueue[1]} {%0};
@@ -290,28 +295,30 @@
 };
 
 #ACTION {^A nearly opaque dome of pure energy crackles into existence around you.$} {succeedSpell %0 -- dome of power};
-#ACTION {^A peaceful feeling surrounds you.$}                        {succeedSpell %0 -- peace};
-#ACTION {^A relaxing feeling fills your body.$}                      {succeedSpell %0 -- rest};
-#ACTION {^A warm feeling runs through your body.$}                   {succeedSpell %0 -- remove poison};
-#ACTION {^An invisible barrier forms around you.$}                   {succeedSpell %0 -- deflect};
-#ACTION {^Burp! You are full!$}                                      {succeedSpell %0 -- food and water};
-#ACTION {^Some gold appears.$}                                       {succeedSpell %0 -- create gold};
-#ACTION {^With a gesture of your hand you chase the darkness away.$} {succeedSpell %0 -- dispel darkness};
-#ACTION {^You create a distortion in the fabric of time and space.$} {succeedSpell %0 -- rift};
-#ACTION {^You erect an anti-magic globe about yourself.$}            {succeedSpell %0 -- anti magic shell};
-#ACTION {^You feel someone protecting you.$}                         {succeedSpell %0 -- armor};
-#ACTION {^You feel stronger.$}                                       {succeedSpell %0 -- strength};
-#ACTION {^You feel that you can breathe in water.$}                  {succeedSpell %0 -- water breathe};
-#ACTION {^You feel your awareness improve.$}                         {succeedSpell %0 -- sense life};
-#ACTION {^You have been aided by %1.$}                               {succeedSpell %0 -- aid};
-#ACTION {^You vanish.$}                                              {succeedSpell %0 -- invisibility};
-#ACTION {^Your awareness improves.$}                                 {succeedSpell %0 -- detect aggressive};
-#ACTION {^Your feet rise up off the ground.$}                        {succeedSpell %0 -- fly};
-#ACTION {^Your fly-spell's duration is increased.$}                  {succeedSpell %0 -- fly};
-#ACTION {^Your perception improves.$}                                {succeedSpell %0 -- detect trap};
-#ACTION {^You start glowing.$}                                       {succeedSpell %0 -- sanctuary};
+#ACTION {^A peaceful feeling surrounds you.$}                         {succeedSpell %0 -- peace};
+#ACTION {^A relaxing feeling fills your body.$}                       {succeedSpell %0 -- rest};
+#ACTION {^A warm feeling runs through your body.$}                    {succeedSpell %0 -- remove poison};
+#ACTION {^An invisible barrier forms around you.$}                    {succeedSpell %0 -- deflect};
+#ACTION {^Burp! You are full!$}                                       {succeedSpell %0 -- food and water};
+#ACTION {^Some gold appears.$}                                        {succeedSpell %0 -- create gold};
+#ACTION {^The peoples' mumblings suddenly become clear and understandable!} {succeedSpell %0 -- clear tongues};
+#ACTION {^With a gesture of your hand you chase the darkness away.$}  {succeedSpell %0 -- dispel darkness};
+#ACTION {^You create a distortion in the fabric of time and space.$}  {succeedSpell %0 -- rift};
+#ACTION {^You erect an anti-magic globe about yourself.$}             {succeedSpell %0 -- anti magic shell};
+#ACTION {^You feel someone protecting you.$}                          {succeedSpell %0 -- armor};
+#ACTION {^You feel stronger.$}                                        {succeedSpell %0 -- strength};
+#ACTION {^You feel that you can breathe in water.$}                   {succeedSpell %0 -- water breathe};
+#ACTION {^You feel your awareness improve.$}                          {succeedSpell %0 -- sense life};
+#ACTION {^You feel your skin turning into stone. You are protected.$} {succeedSpell %0 -- stone skin};
+#ACTION {^You have been aided by %1.$}                                {succeedSpell %0 -- aid};
+#ACTION {^You vanish.$}                                               {succeedSpell %0 -- invisibility};
+#ACTION {^Your awareness improves.$}                                  {succeedSpell %0 -- detect aggressive};
+#ACTION {^Your feet rise up off the ground.$}                         {succeedSpell %0 -- fly};
+#ACTION {^Your fly-spell's duration is increased.$}                   {succeedSpell %0 -- fly};
+#ACTION {^Your perception improves.$}                                 {succeedSpell %0 -- detect trap};
+#ACTION {^You start glowing.$}                                        {succeedSpell %0 -- sanctuary};
 #NOP -- this is 'night vision', 'detet magic', 'detect alignment', and 'xray'...
-#ACTION {^Your eyes tingle.$}                                        {succeedSpell %0 -- ugh...};
+#ACTION {^Your eyes tingle.$}                                         {succeedSpell %0 -- ugh...};
 
 #ACTION {^Ok.$} {
   #LIST {castingQueue} {size} {_castingQueueSize};
