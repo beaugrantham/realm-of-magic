@@ -30,6 +30,7 @@
   #VAR {player[alignment]}      {};
   #VAR {player[race]}           {};
   #VAR {player[class]}          {};
+  #VAR {player[deaths]}         {-1};
   #VAR {target}                 {};
   #VAR {tickRemaining}          {-1};
   #VAR {xpMultiplierRemaining}  {-1};
@@ -108,39 +109,42 @@
     #VAR {player[tnl]} {%1};
     #MATH {player[level]} {%2-1};
 
-    #FORMAT {player[_tnl]} {%g} {$player[tnl]};
-    #SUB {^You need %d exp to make level %d.$} {
-      You need <028>$player[_tnl]<088> exp to make level <028>%2<088>.
-    };
+    #LOCAL {tnl} {};
+    #FORMAT {tnl} {%g} {$player[tnl]};
+    #SHOWME {You need <028>$tnl<088> exp to make level <028>%2<088>.};
+    #LINE GAG;
   };
 
   #ACTION {^You have %d gold coins.$} {
     #VAR {player[gold]} {%1};
 
-    #FORMAT {player[_gold]} {%g} {$player[gold]};
-    #FORMAT {player[_balance]} {%g} {$player[balance]};
-    #SUB {^You have %d gold coins.$} {
-      You have <028>$player[_gold]<088> (<028>$player[_balance]<088>) gold coins.
-    };
+    #LOCAL {gold} {};
+    #LOCAL {balance} {};
+    #FORMAT {gold} {%g} {$player[gold]};
+    #FORMAT {balance} {%g} {$player[balance]};
+    #SHOWME {You have <028>$gold<088> (<028>$balance<088>) gold coins.};
+    #LINE GAG;
   };
 
   #ACTION {^You have %d gold coins and your balance is %d.$} {
     #VAR {player[gold]} {%1};
     #VAR {player[balance]} {%2};
 
-    #FORMAT {player[_gold]} {%g} {$player[gold]};
-    #FORMAT {player[_balance]} {%g} {$player[balance]};
-    #SUB {^You have %d gold coins and your balance is %d.$} {
-      You have <028>$player[_gold]<088> gold coins and your balance is <028>$player[_balance]<088>.
-    };
+    #LOCAL {gold} {};
+    #LOCAL {balance} {};
+    #FORMAT {gold} {%g} {$player[gold]};
+    #FORMAT {balance} {%g} {$player[balance]};
+    #SHOWME {You have <028>$gold<088> gold coins and your balance is <028>$balance<088>.};
+    #LINE GAG;
   };
 
   #ACTION {^Your current balance is %d coins.$} {
     #VAR {player[balance]} {%1};
-    #FORMAT {player[_balance]} {%g} {$player[balance]};
-    #SUB {^Your current balance is %d coins.$} {
-      Your current balance is $player[_balance] coins.
-    };
+
+    #LOCAL {balance} {};
+    #FORMAT {balance} {%g} {$player[balance]};
+    #SHOWME {Your current balance is $balance coins.};
+    #LINE GAG;
   };
 
   #ACTION {^You withdraw %d coins.$} {
@@ -155,129 +159,83 @@
     };
   };
 
+  #ACTION {^It should concern you that you have had %d traumatic death experiences so far.$} {
+    #VAR {player[deaths]} {%1};
+    #SHOWME {It should concern you that you have had <028>$player[deaths]<088> traumatic death experiences so far.};
+    #LINE GAG;
+  };
+
   #ACTION {^You are naked and your alignment is '%*'$} {
     #VAR {player[armor-class]} {0};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are almost naked and your alignment is '%*'$} {
     #VAR {player[armor-class]} {1};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>almost naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>almost naked<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are almost armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {2};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>almost armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>almost armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are slightly armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {3};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>slightly armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>slightly armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {4};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are completely armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {5};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>completely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>completely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {6};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are very heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {7};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>very heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are extremely armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {8};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>extremely armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are extremely heavily armored and your alignment is '%*'$} {
     #VAR {player[armor-class]} {9};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>extremely heavily armored<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
   #ACTION {^You are armored like a tank and your alignment is '%*'$} {
     #VAR {player[armor-class]} {10};
     #VAR {player[alignment]} {%1};
-    #SUB {%0} {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #SHOWME {You are <028>armored like a tank<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'};
+    #LINE GAG;
   };
 
   #SUB {^You are summonable by other players.$} {<118>%0<088>};
 
   #ALIAS {stats} {#VAR player};
 
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Looting
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #ALIAS {gg} {get gold};
-  #ALIAS {ggc} {gg corpse; exa corpse};
-
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Looting (gold, etc)
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #ACTION {^A huge mound of gold coins is lying here.$}                                 {gg};
-  #ACTION {^A pile of gold coins is lying here.$}                                       {gg};
-  #ACTION {^A large heap of gold coins is lying here.$}                                 {gg};
-  #ACTION {^A sand dollar lies here.$}                                                  {get dollar};
-  #ACTION {^A token of the wind has fallen on the ground here - ready to be taken...}   {get token};
-  #ACTION {^Some gold coins are piled up on the floor}                                  {gg};
-  #ACTION {^You gain %d experience points for killing this opponent.$}                  {ggc};
-  #ACTION {^You gain one measly exp for this fight.$}                                   {ggc};
-  #ACTION {^You skillfully spin around and your edge meets %* neck}                     {ggc};
-
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Looting (items for gambling)
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #ACTION {^A beautiful deep blue ball gown is here, waiting to be worn.$}     {get all.gown};
-  #ACTION {^A dark blue shimmering can be seen in the corner.$}                {get all.cloak};
-  #ACTION {^Something silver glitters in the corner of your eye.$}             {get all.pendant};
-
-  #NOP -- Vampire Castle
-  #ACTION {^Your blood freezes as you hear the Vampire King's death cry.$}     {get suit corpse};
-  #ACTION {^Some black metal is lying on the ground, looking really heavy.}    {get all.suit};
-
-  #ACTION {^Your blood freezes as you hear the Vampire Prince's death cry.$}   {get plate corpse};
-  #ACTION {^A plate made of Iridium is shining in the light.}                  {get all.plate};
-
-  #ACTION {^Your blood freezes as you hear the Vampire Princess's death cry.$} {get gown corpse};
-  #ACTION {^A beautiful gown has been dropped here.}                           {get all.gown};
-
-  #ACTION {^Your blood freezes as you hear Pie'o'pah's death cry.$}            {get tongue corpse};
-  #ACTION {^A piece of meat is lying on the ground, it seems to be a tongue.}  {get all.tongue};
-
-  #ACTION {^Your blood freezes as you hear the Vampire Queen's death cry.$}    {get gown corpse};
-  #ACTION {^Someone has forgotten a piece of black velvet.}                    {get all.gown};
-
-  #ACTION {^Your blood freezes as you hear a smith's death cry.$}              {get bracelet corpse};
-  #ACTION {^A dark bracelet is here, calling for his master.}                  {get all.bracelet};
-
-  #ACTION {^Your blood freezes as you hear an armorer's death cry.$}           {get robe corpse};
-  #ACTION {^A shining red robe glitters here as if it was metal.}              {get all.robe};
-
-  #NOP -- Lemuria
-  #ACTION {^Your blood freezes as you hear the Domeguard's death cry.$}        {get sleeves corpse; get armor corpse};
-  #ACTION {^Cyan sleeves are lying here.}                                      {get all.sleeves};
-  #ACTION {^A cyan thing has been dropped here.}                               {get all.armor};
-
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Looting (items worth money)
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #NOP -- Vampire Castle
-  #ACTION {^Your blood freezes as you hear a wizard's death cry.$}             {get book corpse};
-  #ACTION {^A book is lying on the floor, emitting a dark aura.}               {get all.book};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Group
@@ -327,40 +285,6 @@
   #ALIAS {uds}  {ud s; ods};
   #ALIAS {udu}  {ud u; odu};
   #ALIAS {udw}  {ud w; odw};
-
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Gambling
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #ACTION {^You can <spin> the <wheel> now!$}                   {spin wheel};
-
-  #ACTION {^You win a %+ rose!$}                                {junk rose};
-  #ACTION {^You win a bottle of champagne!$}                    {junk champagne};
-  #ACTION {^You win a bottle of wine!$}                         {junk wine};
-  #ACTION {^You win a bucket of popcorn!$}                      {junk popcorn};
-  #ACTION {^You win a chessboard with pieces!$}                 {junk chess};
-  #ACTION {^You win a crystal orb paperweight!$}                {junk orb};
-  #ACTION {^You win a deck of "Mortal Cardmaster" cards!$}      {junk deck};
-  #ACTION {^You win a dictionary}                               {junk dictionary};
-  #ACTION {^You win a doll of Lilith (tm)!$}                    {junk doll};
-  #ACTION {^You win a doll of Rosemary (tm)!$}                  {junk doll};
-  #ACTION {^You win a game set of "Connect Four"!$}             {junk game};
-  #ACTION {^You win a gingerbread heart!$}                      {junk gingerbread};
-  #ACTION {^You win a jade necklace!$}                          {junk jade};
-  #ACTION {^You win a luxurious pen!$}                          {junk pen};
-  #ACTION {^You win a Ring of Random Teleportation!$}           {junk ring};
-  #ACTION {^You win a small wind-up turtle!$}                   {junk turtle};
-  #ACTION {^You win a stick of cotton candy!$}                  {junk candy};
-  #ACTION {^You win a teddy bear!$}                             {junk bear};
-  #ACTION {^You win a 'Mon Cherie' gift box!$}                  {junk box};
-  #ACTION {^You win an Andrew (tm) action figure!$}             {junk figure};
-  #ACTION {^You win an Olorin (tm) action figure!$}             {junk figure};
-  #ACTION {^You win the Axe of Wounding!$}                      {junk axe};
-  #ACTION {^You win the King Welmar Special Collector Coin!$}   {junk coin};
-  #ACTION {^You win the Staff 'Party Brightener'!$}             {junk staff};
-  #ACTION {^You win the Staff of Nutrition!$}                   {junk staff};
-  #ACTION {^You win the Sword of Mysteries!$}                   {junk sword};
-  #ACTION {^You win Ragaddon's double-eyepatch!$}               {junk patch};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Retry
@@ -418,16 +342,16 @@
     #IF {$tickRemaining == 0} {tick};
     #ELSEIF {$tickRemaining > 0} {#MATH {tickRemaining} {$tickRemaining - 1}};
 
-    #IF {$xpMultiplierRemaining >= 0} {
+    #IF {$xpMultiplierRemaining > 0} {
       #MATH {xpMultiplierRemaining} {$xpMultiplierRemaining - 1};
     };
 
-    #IF {$warcryRemaining >= 0} {
+    #IF {$warcryRemaining > 0} {
       #MATH {warcryRemaining} {$warcryRemaining - 1};
     };
 
     #ECHO {
-      {(%+2s)--(%+3s)--(%+2s)---------------------------------------------------------------} {-2}
+      {(TICK:%02d)--(2XP:%03d)--(warcry:%03d)----------------------------------------------} {-2}
     } {$tickRemaining} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
@@ -484,7 +408,7 @@
   #ACTION {^You have been idle, and are pulled into a void.$}             {tick %0};
   #ACTION {^A quivering horde of maggots consumes the corpse.$}           {tick %0};
 
-  #ACTION {^The surroundings seem to slow down, doubling your experience.$} {
+  #ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
     tick %0;
     #VAR {xpMultiplierRemaining} {$xpMultiplierDuration};
   };
@@ -515,6 +439,7 @@
   };
 #CLASS {RealmOfMagic} {close}
 
+#CLASS {RealmOfMagic|Loot} {read} {modules/loot.tin};
 #CLASS {RealmOfMagic|Speedwalks} {read} {modules/speedwalks.tin};
 #CLASS {RealmOfMagic|Thief} {read} {modules/thief.tin};
 #CLASS {RealmOfMagic|AutoTrack} {read} {modules/autotrack.tin};
