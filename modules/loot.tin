@@ -63,6 +63,11 @@
 #ACTION {^Your blood freezes as you hear an armorer's death cry.$}           {get robe corpse};
 #ACTION {^A shining red robe glitters here as if it was metal.}              {get all.robe};
 
+#ACTION {^Your blood freezes as you hear Dracul's death cry.$}               {get cape corpse};
+#ACTION {^A black something is floating through the room.}                   {get all.cape};
+
+#ACTION {^Your blood freezes as you hear the phoenix's death cry.$}          {get wings corpse};
+
 #NOP -- Lemuria
 #ACTION {^Your blood freezes as you hear the Domeguard's death cry.$} {
   get sleeves corpse;
@@ -73,6 +78,16 @@
 
 #NOP -- Pyramid
 #ACTION {^Massive leggings formed from the body of a sphinx stand here.}     {get leggings};
+
+#NOP -- Wandering
+#ACTION {^Your blood freezes as you hear a warlock scout's death cry.$}      {get tunic corpse};
+#ACTION {^A bright blue-grey checkered tunic is lying on the ground here.}   {get all.tunic};
+#ACTION {^Your blood freezes as you hear an avatar scout's death cry.$}      {get tunic corpse};
+#ACTION {^A bright red-yellow checkered tunic is lying on the ground here.}  {get all.tunic};
+#ACTION {^Your blood freezes as you hear a wardancer scout's death cry.$}    {get tunic corpse};
+#ACTION {^A blue tunic with green stripes is lying on the ground here.}      {get all.tunic};
+#ACTION {^Your blood freezes as you hear a nightblade scout's death cry.$}   {get tunic corpse};
+#ACTION {^A black tunic with yellow stripes is lying on the ground here.}    {get all.tunic};
 
 #NOP -- ------------------------------------------------------------------------------------------
 #NOP -- Gambling

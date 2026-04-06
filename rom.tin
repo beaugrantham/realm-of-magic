@@ -286,7 +286,6 @@
   #NOP -- ------------------------------------------------------------------------------------------
 
   #ALIAS {od}   {open door};
-
   #ALIAS {odd}  {od d};
   #ALIAS {ode}  {od e};
   #ALIAS {odn}  {od n};
@@ -295,13 +294,20 @@
   #ALIAS {odw}  {od w};
 
   #ALIAS {ud}   {unlock door};
-
   #ALIAS {udd}  {ud d; odd};
   #ALIAS {ude}  {ud e; ode};
   #ALIAS {udn}  {ud n; odn};
   #ALIAS {uds}  {ud s; ods};
   #ALIAS {udu}  {ud u; odu};
   #ALIAS {udw}  {ud w; odw};
+
+  #ALIAS {wd}   {wedge door};
+  #ALIAS {wdd}  {wd d};
+  #ALIAS {wde}  {wd e};
+  #ALIAS {wdn}  {wd n};
+  #ALIAS {wds}  {wd s};
+  #ALIAS {wdu}  {wd u};
+  #ALIAS {wdw}  {wd w};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Retry

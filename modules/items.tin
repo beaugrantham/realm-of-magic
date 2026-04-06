@@ -1,12 +1,12 @@
 #NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
 
 #NOP -- Crika Merdahyl (Riva South), Gurgel (Moonglow)
-#SUB {some garlic dust%*}      {%0 <068>[+str 8hrs]<900>};
-#SUB {a pile of spider-eyes%*} {%0 <068>[-save vs breath attacks 11hrs]<900>};
-#SUB {some herbal broth%*}     {%0 <068>[-age 11hrs, poison]<900>};
-#SUB {a cup of melita%*}       {%0 <068>[+weight 23hrs]<900>};
-#SUB {some bunny herb%*}       {%0 <068>[+mv 28hrs]<900>};
-#SUB {a chipmunk brain%*}      {%0 <068>[+mana 29hrs]<900>};
+#SUB {some garlic dust%*}      {%0 <058>[+str 8hrs]<900>};
+#SUB {a pile of spider-eyes%*} {%0 <058>[-save vs breath attacks 11hrs]<900>};
+#SUB {some herbal broth%*}     {%0 <058>[-age 11hrs, poison]<900>};
+#SUB {a cup of melita%*}       {%0 <058>[+weight 23hrs]<900>};
+#SUB {some bunny herb%*}       {%0 <058>[+mv 28hrs]<900>};
+#SUB {a chipmunk brain%*}      {%0 <058>[+mana 29hrs]<900>};
 
 #NOP -- Gambling
 #SUB {a Potion of Restoration%*}      {%0 <068>[restore]<900>}
@@ -19,10 +19,10 @@
 
 #NOP -- Can Abe (Fanhir)
 #SUB {an antidote%*}           {%0 <068>[remove poison]<900>};
-#SUB {Stone herbs%*}           {%0 <068>[-save against death 22hrs]<900>};
-#SUB {Anagathic herbs%*}       {%0 <068>[-age 753 hrs]<900>};
+#SUB {Stone herbs%*}           {%0 <058>[-save against death 22hrs]<900>};
+#SUB {Anagathic herbs%*}       {%0 <058>[-age 753 hrs]<900>};
 #SUB {the manual of poisons%*} {%0 <068>[detect poison]<900>};
-#SUB {Berserk weed%*}          {%0 <068>[+damage probability 2hrs, poison]<900>};
+#SUB {Berserk weed%*}          {%0 <058>[+damage probability 2hrs, poison]<900>};
 #SUB {a well rolled joint%*}   {%0 <068>[cure light wounds, rest, weaken]<900>};
 
 #NOP -- Hype Stitious (Fanhir)
@@ -40,13 +40,26 @@
 #NOP -- Mara Thom (Fanhir)
 #SUB {the energy drink%*}    {%0 <068>[rest, fly, strength]<900>};
 #SUB {a can of Coke Light%*} {%0 <068>[rest]<900>};
-#SUB {Coca leaves%*}         {%0 <068>[+con 28hrs]<900>};
+#SUB {Coca leaves%*}         {%0 <058>[+con 28hrs]<900>};
 #SUB {an emergency brake%*}  {%0 <068>[1x recall]<900>};
 
 #NOP -- Kessira (North of Atalia)
 #SUB {a caraffe of a special wine%*} {%0 <068>[heal]<900>};
 #SUB {a transparent potion%*}        {%0 <068>[mana]<900>};
 #SUB {an ugly pink potion%*}         {%0 <068>[restore]<900>};
+
+#NOP -- Jose Cheetos (Moonglow)
+#SUB {a slice of cheddar cheese%*}    {%0 <058>[+50 mana 53hrs]<900>};
+#SUB {a slice of Psychocheese (tm)%*} {%0 <058>[-armour class 50hrs]<900>};
+#SUB {a slice of Beastcheese (tm)%*}  {%0 <058>[+dam 54hrs]<900>};
+
+#NOP -- Urul (Moonglow)
+#SUB {a glowing scroll%*}   {%0 <068>[fly]<900>};
+#SUB {a Blue John potion%*} {%0 <068>[strength, cure blind, remove poison]<900>};
+#SUB {a larrita herb%*}     {%0 <058>[+hit probability 29hrs]<900>};
+
+#NOP -- Urul the Elder (Moonglow)
+#SUB {a herb named 'Criscal's Delight'%*} {%0 <058>[-age 498hrs]<900>};
 
 #NOP -- Common
 #SUB {a sparkling potion of youth%*}     {%0 <068>[return youth]<900>};
@@ -68,3 +81,4 @@
 #SUB {a strange potion made from a vampire's essence%*} {%0 <068>[mana, restore, aid]<900>};
 #SUB {a bar of radiant beauty soap%*} {%0 <068>[sanctuary]<900>};
 #SUB {a silver flute%*} {%0 <068>[2x charm]<900>};
+#SUB {a bound potion%*} {%0 <068>[detect alignment, detect invisibility, detect magic]<900>};

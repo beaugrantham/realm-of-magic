@@ -1,6 +1,6 @@
 #NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
 
-#VAR {alchemy[container]} {holding};
+#VAR {alchemy[container]} {pouch};
 
 #ALIAS {_getAlchemy} {
   get types.ingredient;
