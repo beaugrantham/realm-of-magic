@@ -198,12 +198,12 @@
       #DEFAULT                            {#VAR {player[armor-class]} {-1}};
     };
     #VAR {player[alignment]} {%2};
-    #SHOWME {oux are <028>%1<088> (<028>$player[armor-class]/10<088>) and your alignment is '<028>$player[alignment]<088>'.};
+    #SHOWME {You are $color[green]%1$color[reset] ($color[green]$player[armor-class]/10$color[reset]) and your alignment is '$color[green]$player[alignment]$color[reset]'.};
     #LINE GAG;
   };
 
-  #SUB {^You are summonable by other players.$} {<118>%0<088>};
-  #SUB {^You are summonable into battle arenas.$} {<118>%0<088>};
+  #SUB {^You are summonable by other players.$} {$color[red]%0$color[reset]};
+  #SUB {^You are summonable into battle arenas.$} {$color[red]%0$color[reset]};
 
   #ALIAS {stats} {#VAR player};
 
