@@ -362,8 +362,8 @@
     };
 
     #ECHO {
-      {[%s%02d:%02d<088>](%s%02d<088>)-------------(2XP:%03d)--(warcry:%03d)-----------------------------------} {-2}
-    } {$clock[color]} {$time[hour]} {$time[minute]} {$clock[countdownColor]} {$clock[countdown]} {$xpMultiplierRemaining} {$warcryRemaining};
+      {[%s%s<088>](%s%02d<088>)-------------(2XP:%03d)--(warcry:%03d)-----------------------------------} {-2}
+    } {$clock[color]} {@getTwentyFourHourTime{}} {$clock[countdownColor]} {$clock[countdown]} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -429,6 +429,7 @@
   #NOP -- ------------------------------------------------------------------------------------------
 
   #FUNCTION {getDayNight} {
+    #NOP - 01234567|8901234567|890123;
     #IF {"%1" == "8"} {
       #RETURN 18;
     };
@@ -436,6 +437,7 @@
       #RETURN 8;
     };
 
+    #NOP - 0123456789|0123456|7890123;
     #IF {"%1" == "10"} {
       #RETURN 17;
     };
@@ -467,7 +469,17 @@
     #VAR {time[hoursTillDay]} {1};
   };
 
-  #ACTION {^It is %d o'clock a.m., on} {
+  #FUNCTION {getTwentyFourHourTime} {
+    #FORMAT {_twentyFourHourTime} {%%02d:%%02d} {$time[hour]} {$time[minute]};
+    #RETURN {$_twentyFourHourTime};
+  };
+
+  #FUNCTION {formatTimeOutput} {
+    #FORMAT {_formatTimeOutput} {It is %s on %0.} {@getTwentyFourHourTime{}};
+    #RETURN {$_formatTimeOutput};
+  };
+
+  #ACTION {^It is %d o'clock a.m., on %*} {
     #MATH {time[hour]} {%1 % 12};
 
     #IF {$time[hoursTillNight] >= 0} {
@@ -478,9 +490,12 @@
       #MATH {dayStarts} {$time[hour] + $time[hoursTillDay]};
       #VAR {nightStarts} {@getDayNight{$dayStarts}};
     };
+
+    #SHOWME {@formatTimeOutput{%2}};
+    #LINE GAG;
   };
 
-  #ACTION {^It is %d o'clock p.m., on} {
+  #ACTION {^It is %d o'clock p.m., on %*} {
     #MATH {time[hour]} {(%1 % 12) + 12};
 
     #IF {$time[hoursTillNight] >= 0} {
@@ -491,7 +506,36 @@
       #MATH {dayStarts} {($time[hour] + $time[hoursTillDay]) % 24};
       #VAR {nightStarts} {@getDayNight{$dayStarts}};
     };
+
+    #SHOWME {@formatTimeOutput{%2}};
+    #LINE GAG;
   };
+
+  #SUB {Month of Winter}               {%0 (1/17)};
+  #SUB {Month of the Winter Wolf}      {%0 (2/17)};
+  #SUB {Month of the Frost Giant}      {%0 (3/17)};
+  #SUB {Month of the Old Forces}       {%0 (4/17)};
+  #SUB {Month of the Grand Struggle}   {%0 (5/17)};
+  #SUB {Month of the Spring}           {%0 (6/17)};
+  #SUB {Month of Nature}               {%0 (7/17)};
+  #SUB {Month of Futility}             {%0 (8/17)};  #NOP - 01234567|8901234567|890123;
+  #SUB {Month of the Dragon}           {%0 (9/17)};
+  #SUB {Month of the Sun}              {%0 (10/17)};
+  #SUB {Month of the Heat}             {%0 (11/17)};
+  #SUB {Month of the Battle}           {%0 (12/17)};
+  #SUB {Month of the Dark Shades}      {%0 (13/17)};
+  #SUB {Month of the Shadows}          {%0 (14/17)};
+  #SUB {Month of the Long Shadows}     {%0 (15/17)};
+  #SUB {Month of the Ancient Darkness} {%0 (16/17)};
+  #SUB {Month of the Great Evil}       {%0 (17/17)};
+
+  #SUB {Day of the Moon}        {%0 (1/7)};
+  #SUB {Day of the Bull}        {%0 (2/7)};
+  #SUB {Day of the Deception}   {%0 (3/7)};
+  #SUB {Day of Thunder}         {%0 (4/7)};
+  #SUB {Day of Freedom}         {%0 (5/7)};
+  #SUB {day of the Great Gods}  {%0 (6/7)};
+  #SUB {Day of the Sun}         {%0 (7/7)};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
