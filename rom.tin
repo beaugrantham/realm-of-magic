@@ -9,7 +9,10 @@
   #NOP -- Constants
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #VAR {tickDuration}           {75};
+  #VAR {tickDuration}           {75}; #NOP real-life seconds per game tick;
+
+  #VAR {daysPerWeek}            {7};  #NOP game days per game week;
+  #VAR {daysPerMonth}           {35}; #NOP game days per game month;
 
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
@@ -128,7 +131,7 @@
 
     #LOCAL {tnl} {};
     #FORMAT {tnl} {%g} {$player[tnl]};
-    #SHOWME {You need <028>$tnl<088> exp to make level <028>%2<088>.};
+    #SHOWME {You need $color[green]$tnl$color[reset] exp to make level $color[green]%2$color[reset].};
     #LINE GAG;
   };
 
@@ -139,7 +142,7 @@
     #LOCAL {balance} {};
     #FORMAT {gold} {%g} {$player[gold]};
     #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have <028>$gold<088> (<028>$balance<088>) gold coins.};
+    #SHOWME {You have $color[green]$gold$color[reset] ($color[green]$balance$color[reset]) gold coins.};
     #LINE GAG;
   };
 
@@ -151,7 +154,7 @@
     #LOCAL {balance} {};
     #FORMAT {gold} {%g} {$player[gold]};
     #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have <028>$gold<088> gold coins and your balance is <028>$balance<088>.};
+    #SHOWME {You have $color[green]$gold$color[reset] gold coins and your balance is $color[green]$balance$color[reset].};
     #LINE GAG;
   };
 
@@ -178,7 +181,7 @@
 
   #ACTION {^It should concern you that you have had %d traumatic death experiences so far.$} {
     #VAR {player[deaths]} {%1};
-    #SHOWME {It should concern you that you have had <028>$player[deaths]<088> traumatic death experiences so far.};
+    #SHOWME {It should concern you that you have had $color[green]$player[deaths]$color[reset] traumatic death experiences so far.};
     #LINE GAG;
   };
 
@@ -341,7 +344,7 @@
     };
 
     #LOCAL {clock} {};
-    #VAR {clock[countdownColor]} {<088>};
+    #VAR {clock[countdownColor]} {$color[reset]};
     #IF {$time[hour] >= $dayStarts && $time[hour] < $nightStarts} {
       #VAR {clock[color]} {$color[yellow]};
       #MATH {clock[countdown]} {$nightStarts -1 - $time[hour]};
@@ -362,8 +365,8 @@
     };
 
     #ECHO {
-      {[%s%s<088>](%s%02d<088>)-------------(2XP:%03d)--(warcry:%03d)-----------------------------------} {-2}
-    } {$clock[color]} {@getTwentyFourHourTime{}} {$clock[countdownColor]} {$clock[countdown]} {$xpMultiplierRemaining} {$warcryRemaining};
+      {[%s%s%s](%s%02d%s)--(2XP:%03d)--(warcry:%03d)----------------------------------------------} {-2}
+    } {$clock[color]} {@getTwentyFourHourTime{}} {$color[reset]} {$clock[countdownColor]} {$clock[countdown]} {$color[reset]} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -425,11 +428,15 @@
   };
 
   #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Time
+  #NOP -- Time and date
+  #NOP --
+  #NOP -- WIP - day/night cycles observed:
+  #NOP -- 01234567|8901234567|890123 (month 8)
+  #NOP -- 012345|67890123456789|0123 (month 9)
+  #NOP -- 0123456789|0123456|7890123 (month ?)
   #NOP -- ------------------------------------------------------------------------------------------
 
   #FUNCTION {getDayNight} {
-    #NOP - 01234567|8901234567|890123;
     #IF {"%1" == "8"} {
       #RETURN 18;
     };
@@ -437,7 +444,6 @@
       #RETURN 8;
     };
 
-    #NOP - 0123456789|0123456|7890123;
     #IF {"%1" == "10"} {
       #RETURN 17;
     };
@@ -445,7 +451,7 @@
       #RETURN 10;
     };
 
-    #SHOWME {FIXME - Unexpected day/night cycle - %1};
+    #SHOWME {WARNING - Unexpected day/night cycle - %1};
     #RETURN -1;
   };
 
@@ -470,11 +476,13 @@
   };
 
   #FUNCTION {getTwentyFourHourTime} {
+    #LOCAL {_twentyFourHourTime} {};
     #FORMAT {_twentyFourHourTime} {%%02d:%%02d} {$time[hour]} {$time[minute]};
     #RETURN {$_twentyFourHourTime};
   };
 
   #FUNCTION {formatTimeOutput} {
+    #LOCAL {_formatTimeOutput} {};
     #FORMAT {_formatTimeOutput} {It is %s on %0.} {@getTwentyFourHourTime{}};
     #RETURN {$_formatTimeOutput};
   };
@@ -519,7 +527,7 @@
   #SUB {Month of the Spring}           {%0 (6/17)};
   #SUB {Month of Nature}               {%0 (7/17)};
   #SUB {Month of Futility}             {%0 (8/17)};  #NOP - 01234567|8901234567|890123;
-  #SUB {Month of the Dragon}           {%0 (9/17)};
+  #SUB {Month of the Dragon}           {%0 (9/17)};  #NOP - 012345|67890123456789|0123;
   #SUB {Month of the Sun}              {%0 (10/17)};
   #SUB {Month of the Heat}             {%0 (11/17)};
   #SUB {Month of the Battle}           {%0 (12/17)};
