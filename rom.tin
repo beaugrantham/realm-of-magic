@@ -519,11 +519,14 @@
     #LINE GAG;
   };
 
+  #NOP - "The sun is rising." is the last hour of darkness.
+  #NOP - "The sun is setting." is the first hour of darkness.
+
   #SUB {Month of Winter}               {%0 (1/17)};
   #SUB {Month of the Winter Wolf}      {%0 (2/17)};
   #SUB {Month of the Frost Giant}      {%0 (3/17)};
-  #SUB {Month of the Old Forces}       {%0 (4/17)};
-  #SUB {Month of the Grand Struggle}   {%0 (5/17)};
+  #SUB {Month of the Old Forces}       {%0 (4/17)};  #NOP - 0123456789|012345|67890123;
+  #SUB {Month of the Grand Struggle}   {%0 (5/17)};  #NOP - 01234567|8901234567|890123;
   #SUB {Month of the Spring}           {%0 (6/17)};
   #SUB {Month of Nature}               {%0 (7/17)};
   #SUB {Month of Futility}             {%0 (8/17)};  #NOP - 01234567|8901234567|890123;
@@ -534,8 +537,8 @@
   #SUB {Month of the Dark Shades}      {%0 (13/17)};
   #SUB {Month of the Shadows}          {%0 (14/17)};
   #SUB {Month of the Long Shadows}     {%0 (15/17)};
-  #SUB {Month of the Ancient Darkness} {%0 (16/17)};
-  #SUB {Month of the Great Evil}       {%0 (17/17)};
+  #SUB {Month of the Ancient Darkness} {%0 (16/17)}; #NOP - 01234567|8901234567|890123;
+  #SUB {Month of the Great Evil}       {%0 (17/17)}; #NOP - 0123456789|012345|67890123;
 
   #SUB {Day of the Moon}        {%0 (1/7)};
   #SUB {Day of the Bull}        {%0 (2/7)};
