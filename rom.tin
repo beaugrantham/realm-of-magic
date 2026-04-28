@@ -9,10 +9,10 @@
   #NOP -- Constants
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #VAR {tickDuration}           {75}; #NOP real-life seconds per game tick;
+  #VAR {tickDuration}           {75}; /* real-life seconds per game tick */
 
-  #VAR {daysPerWeek}            {7};  #NOP game days per game week;
-  #VAR {daysPerMonth}           {35}; #NOP game days per game month;
+  #VAR {daysPerWeek}            {7};  /* game days per game week */
+  #VAR {daysPerMonth}           {35}; /* game days per game month */
 
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
@@ -97,7 +97,7 @@
   };
 
   #ACTION {^You are a %w of %w %w and you are regarded as %w.} {
-    #SHOWME {You are a %1 of %2 $color[green]%3$color[reset] and you are regarded as $color[green]%4$color[reset].};
+    #SHOWME {You are a %1 of %2 @green{%3} and you are regarded as @green{%4}.};
     #LINE GAG;
   };
 
@@ -131,7 +131,7 @@
 
     #LOCAL {tnl} {};
     #FORMAT {tnl} {%g} {$player[tnl]};
-    #SHOWME {You need $color[green]$tnl$color[reset] exp to make level $color[green]%2$color[reset].};
+    #SHOWME {You need @green{$tnl} exp to make level @green{%2}.};
     #LINE GAG;
   };
 
@@ -142,7 +142,7 @@
     #LOCAL {balance} {};
     #FORMAT {gold} {%g} {$player[gold]};
     #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have $color[green]$gold$color[reset] ($color[green]$balance$color[reset]) gold coins.};
+    #SHOWME {You have @green{$gold} (@green{$balance}) gold coins.};
     #LINE GAG;
   };
 
@@ -154,7 +154,7 @@
     #LOCAL {balance} {};
     #FORMAT {gold} {%g} {$player[gold]};
     #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have $color[green]$gold$color[reset] gold coins and your balance is $color[green]$balance$color[reset].};
+    #SHOWME {You have @green{$gold} gold coins and your balance is @green{$balance}.};
     #LINE GAG;
   };
 
@@ -181,32 +181,33 @@
 
   #ACTION {^It should concern you that you have had %d traumatic death experiences so far.$} {
     #VAR {player[deaths]} {%1};
-    #SHOWME {It should concern you that you have had $color[green]$player[deaths]$color[reset] traumatic death experiences so far.};
+    #SHOWME {It should concern you that you have had @green{$player[deaths]} traumatic death experiences so far.};
     #LINE GAG;
   };
 
+  /* Display the armor-class index (e.g., 4/10) after the description. */
   #ACTION {^You are %* and your alignment is '%*'$} {
     #SWITCH {"%1"} {
-      #CASE {"naked"}                     {#VAR {player[armor-class]} {0}};
-      #CASE {"almost naked"}              {#VAR {player[armor-class]} {1}};
-      #CASE {"almost armored"}            {#VAR {player[armor-class]} {2}};
-      #CASE {"slightly armored"}          {#VAR {player[armor-class]} {3}};
-      #CASE {"armored"}                   {#VAR {player[armor-class]} {4}};
-      #CASE {"completely armored"}        {#VAR {player[armor-class]} {5}};
-      #CASE {"heavily armored"}           {#VAR {player[armor-class]} {6}};
-      #CASE {"very heavily armored"}      {#VAR {player[armor-class]} {7}};
-      #CASE {"extremely armored"}         {#VAR {player[armor-class]} {8}};
-      #CASE {"extremely heavily armored"} {#VAR {player[armor-class]} {9}};
-      #CASE {"armored like a tank"}       {#VAR {player[armor-class]} {10}};
+      #CASE {"naked"}                     {#VAR {player[armor-class]} {0}; #BREAK;};
+      #CASE {"almost naked"}              {#VAR {player[armor-class]} {1}; #BREAK;};
+      #CASE {"almost armored"}            {#VAR {player[armor-class]} {2}; #BREAK;};
+      #CASE {"slightly armored"}          {#VAR {player[armor-class]} {3}; #BREAK;};
+      #CASE {"armored"}                   {#VAR {player[armor-class]} {4}; #BREAK;};
+      #CASE {"completely armored"}        {#VAR {player[armor-class]} {5}; #BREAK;};
+      #CASE {"heavily armored"}           {#VAR {player[armor-class]} {6}; #BREAK;};
+      #CASE {"very heavily armored"}      {#VAR {player[armor-class]} {7}; #BREAK;};
+      #CASE {"extremely armored"}         {#VAR {player[armor-class]} {8}; #BREAK;};
+      #CASE {"extremely heavily armored"} {#VAR {player[armor-class]} {9}; #BREAK;};
+      #CASE {"armored like a tank"}       {#VAR {player[armor-class]} {10}; #BREAK;};
       #DEFAULT                            {#VAR {player[armor-class]} {-1}};
     };
     #VAR {player[alignment]} {%2};
-    #SHOWME {You are $color[green]%1$color[reset] ($color[green]$player[armor-class]/10$color[reset]) and your alignment is '$color[green]$player[alignment]$color[reset]'.};
+    #SHOWME {You are @green{%1} (@green{$player[armor-class]/10}) and your alignment is '@green{$player[alignment]}'.};
     #LINE GAG;
   };
 
-  #SUB {^You are summonable by other players.$} {$color[red]%0$color[reset]};
-  #SUB {^You are summonable into battle arenas.$} {$color[red]%0$color[reset]};
+  #SUB {^You are summonable by other players.$} {@red{%0}};
+  #SUB {^You are summonable into battle arenas.$} {@red{%0}};
 
   #ALIAS {stats} {#VAR player};
 
@@ -522,7 +523,7 @@
     }
   };
 
-  /* Display month index (e.g., 4/17) after month name. */
+  /* Display the month index (e.g., 4/17) after month name. */
   #LOOP {1} {&monthList[]} {index} {
     #LINE SUBSTITUTE variables {
       #SUB {$monthList[$index][name]} {$monthList[$index][name] ($index/&monthList[])};
@@ -587,6 +588,13 @@
   #FUNCTION {ifEmpty} {
     #IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
   };
+
+  #FUNCTION {red} {
+    #FORMAT {result} {%s%s%s} {$color[red]%0$color[reset]};
+  }
+  #FUNCTION {green} {
+    #FORMAT {result} {%s%s%s} {$color[green]%0$color[reset]};
+  }
 #CLASS {RealmOfMagic} {close}
 
 #CLASS {RealmOfMagic|Loot} {read} {modules/loot.tin};
