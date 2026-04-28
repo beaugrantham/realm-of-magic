@@ -430,116 +430,106 @@
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Time and date
   #NOP --
-  #NOP -- WIP - day/night cycles observed:
-  #NOP -- 01234567|8901234567|890123 (month 8)
-  #NOP -- 012345|67890123456789|0123 (month 9)
-  #NOP -- 0123456789|0123456|7890123 (month ?)
+  #NOP -- "The sun is rising." is the last hour of darkness.
+  #NOP -- "The sun is setting." is the first hour of darkness.
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #FUNCTION {getDayNight} {
-    #IF {"%1" == "8"} {
-      #RETURN 18;
+  #LIST {monthList} {CREATE} {
+    {
+      {name}        {Month of Winter}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Winter Wolf}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Frost Giant}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Old Forces}
+      {dayStarts}   {10}
+      {nightStarts} {16}
+    }
+    {
+      {name}        {Month of the Grand Struggle}
+      {dayStarts}   {8}
+      {nightStarts} {18}
+    }
+    {
+      {name}        {Month of the Spring}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of Nature}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of Futility}
+      {dayStarts}   {8}
+      {nightStarts} {18}
+    }
+    {
+      {name}        {Month of the Dragon}
+      {dayStarts}   {6}
+      {nightStarts} {20}
+    }
+    {
+      {name}        {Month of the Sun}
+      {dayStarts}   {6}
+      {nightStarts} {20}
+    }
+    {
+      {name}        {Month of the Heat}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Battle}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Dark Shades}
+      {dayStarts}   {-1}
+      {nightStarts} {-1}
+    }
+    {
+      {name}        {Month of the Shadows}
+      {dayStarts}   {8}
+      {nightStarts} {18}
+    }
+    {
+      {name}        {Month of the Long Shadows}
+      {dayStarts}   {8}
+      {nightStarts} {18}
+    }
+    {
+      {name}        {Month of the Ancient Darkness}
+      {dayStarts}   {8}
+      {nightStarts} {18}
+    }
+    {
+      {name}        {Month of the Great Evil}
+      {dayStarts}   {10}
+      {nightStarts} {16}
+    }
+  };
+
+  /* Display month index (e.g., 4/17) after month name. */
+  #LOOP {1} {&monthList[]} {index} {
+    #LINE SUBSTITUTE variables {
+      #SUB {$monthList[$index][name]} {$monthList[$index][name] ($index/&monthList[])};
     };
-    #IF {"%1" == "18"} {
-      #RETURN 8;
-    };
-
-    #IF {"%1" == "10"} {
-      #RETURN 17;
-    };
-    #IF {"%1" == "17"} {
-      #RETURN 10;
-    };
-
-    #SHOWME {WARNING - Unexpected day/night cycle - %1};
-    #RETURN -1;
   };
 
-  #ALIAS {time} {
-    #VAR {time[hoursTillDay]} {-1};
-    #VAR {time[hoursTillNight]} {-1};
-    #SEND {time};
-  };
-
-  #ACTION {^The sun is setting in %d hours.$} {
-    #MATH {time[hoursTillNight]} {%1};
-  };
-  #ACTION {^The sun is setting.$} {
-    #VAR {time[hoursTillNight]} {0};
-  };
-
-  #ACTION {^The sun is rising in %d hours.$} {
-    #MATH {time[hoursTillDay]} {%1 + 1};
-  };
-  #ACTION {^The sun is rising.$} {
-    #VAR {time[hoursTillDay]} {1};
-  };
-
-  #FUNCTION {getTwentyFourHourTime} {
-    #LOCAL {_twentyFourHourTime} {};
-    #FORMAT {_twentyFourHourTime} {%%02d:%%02d} {$time[hour]} {$time[minute]};
-    #RETURN {$_twentyFourHourTime};
-  };
-
-  #FUNCTION {formatTimeOutput} {
-    #LOCAL {_formatTimeOutput} {};
-    #FORMAT {_formatTimeOutput} {It is %s on %0.} {@getTwentyFourHourTime{}};
-    #RETURN {$_formatTimeOutput};
-  };
-
-  #ACTION {^It is %d o'clock a.m., on %*} {
-    #MATH {time[hour]} {%1 % 12};
-
-    #IF {$time[hoursTillNight] >= 0} {
-      #MATH {nightStarts} {$time[hour] + $time[hoursTillNight]};
-      #VAR {dayStarts} {@getDayNight{$nightStarts}};
-    };
-    #ELSE {
-      #MATH {dayStarts} {$time[hour] + $time[hoursTillDay]};
-      #VAR {nightStarts} {@getDayNight{$dayStarts}};
-    };
-
-    #SHOWME {@formatTimeOutput{%2}};
-    #LINE GAG;
-  };
-
-  #ACTION {^It is %d o'clock p.m., on %*} {
-    #MATH {time[hour]} {(%1 % 12) + 12};
-
-    #IF {$time[hoursTillNight] >= 0} {
-      #MATH {nightStarts} {$time[hour] + $time[hoursTillNight]};
-      #VAR {dayStarts} {@getDayNight{$nightStarts}};
-    };
-    #ELSE {
-      #MATH {dayStarts} {($time[hour] + $time[hoursTillDay]) % 24};
-      #VAR {nightStarts} {@getDayNight{$dayStarts}};
-    };
-
-    #SHOWME {@formatTimeOutput{%2}};
-    #LINE GAG;
-  };
-
-  #NOP - "The sun is rising." is the last hour of darkness.
-  #NOP - "The sun is setting." is the first hour of darkness.
-
-  #SUB {Month of Winter}               {%0 (1/17)};
-  #SUB {Month of the Winter Wolf}      {%0 (2/17)};
-  #SUB {Month of the Frost Giant}      {%0 (3/17)};
-  #SUB {Month of the Old Forces}       {%0 (4/17)};  #NOP - 0123456789|012345|67890123;
-  #SUB {Month of the Grand Struggle}   {%0 (5/17)};  #NOP - 01234567|8901234567|890123;
-  #SUB {Month of the Spring}           {%0 (6/17)};
-  #SUB {Month of Nature}               {%0 (7/17)};
-  #SUB {Month of Futility}             {%0 (8/17)};  #NOP - 01234567|8901234567|890123;
-  #SUB {Month of the Dragon}           {%0 (9/17)};  #NOP - 012345|67890123456789|0123;
-  #SUB {Month of the Sun}              {%0 (10/17)};
-  #SUB {Month of the Heat}             {%0 (11/17)};
-  #SUB {Month of the Battle}           {%0 (12/17)};
-  #SUB {Month of the Dark Shades}      {%0 (13/17)};
-  #SUB {Month of the Shadows}          {%0 (14/17)};
-  #SUB {Month of the Long Shadows}     {%0 (15/17)};
-  #SUB {Month of the Ancient Darkness} {%0 (16/17)}; #NOP - 01234567|8901234567|890123;
-  #SUB {Month of the Great Evil}       {%0 (17/17)}; #NOP - 0123456789|012345|67890123;
-
+  /* Display the day index (e.g., 4/7) after day name. */
   #SUB {Day of the Moon}        {%0 (1/7)};
   #SUB {Day of the Bull}        {%0 (2/7)};
   #SUB {Day of the Deception}   {%0 (3/7)};
@@ -547,6 +537,31 @@
   #SUB {Day of Freedom}         {%0 (5/7)};
   #SUB {day of the Great Gods}  {%0 (6/7)};
   #SUB {Day of the Sun}         {%0 (7/7)};
+
+  #FUNCTION {getTwentyFourHourTime} {
+    #LOCAL {_twentyFourHourTime} {};
+    #FORMAT {_twentyFourHourTime} {%%02d:%%02d} {$time[hour]} {$time[minute]};
+    #RETURN {$_twentyFourHourTime};
+  };
+
+  #ACTION {^It is %d o'clock %+, on %*} {
+    #MATH {time[hour]} {%1 % 12};
+    #IF {"%2" == "p.m."} {#MATH {time[hour]} {$time[hour] + 12}};
+
+    #SHOWME {It is @getTwentyFourHourTime{} on %3};
+    #LINE GAG;
+  };
+
+  /* Use the current month to determine the day/night cycle. */
+  #ACTION {^The %+ Day of the %+, Year %d.$} {
+    #LIST {monthList} {indexate} {name};
+    #LIST {monthList} {find} {%2} {_index};
+
+    #VAR {dayStarts}   {$monthList[$_index][dayStarts]};
+    #VAR {nightStarts} {$monthList[$_index][nightStarts]};
+
+    #UNVAR {_index};
+  };
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
