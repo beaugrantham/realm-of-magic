@@ -1,4 +1,4 @@
-#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
 #VARIABLE {_speedwalks} {
   {alk} {

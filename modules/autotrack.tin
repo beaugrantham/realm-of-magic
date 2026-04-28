@@ -1,4 +1,4 @@
-#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
 #VAR {_autoTrack[target]}  {0};
 #VAR {_autoTrack[enabled]} {0};

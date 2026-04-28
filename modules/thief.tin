@@ -1,4 +1,4 @@
-#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
 #VAR {thief[auto][flee]} {0};
 #VAR {thief[auto][backstab]} {0};
@@ -47,19 +47,19 @@
   knockout $target;
 };
 
-#ACTION {^{He|She|It} laughs at your clumsy feint.  En Garde!$}            {_fail};
-#ACTION {^You manage to hit {him|her|it}, but not quite where you wanted.$}      {_fail};
+#ACTION {^{He|She|It} laughs at your clumsy feint.  En Garde!$}             {_fail};
+#ACTION {^You manage to hit {him|her|it}, but not quite where you wanted.$} {_fail};
 
 #ACTION {^Looks like you didn't even manage to hit {him|her|it}.$}          {knockout $target};
 
-#ACTION {^Knockout who?$}                              {_reset};
-#ACTION {^Hmmm... Looks like you don't know where to hit}              {_reset};
-#ACTION {makes a strange sound but is suddenly very silent as you place}      {_reset};
+#ACTION {^Knockout who?$}                                                   {_reset};
+#ACTION {^Hmmm... Looks like you don't know where to hit}                   {_reset};
+#ACTION {makes a strange sound but is suddenly very silent as you place}    {_reset};
 
-#ACTION {^You throw some nasty judo on}                       {_succeedKO};
-#ACTION {s already out cold.$}                            {_succeedKO};
+#ACTION {^You throw some nasty judo on}                                     {_succeedKO};
+#ACTION {s already out cold.$}                                              {_succeedKO};
 
-#ACTION {makes a strange sound as you place %+ in {his|her} back!$}          {_succeedBS};
+#ACTION {makes a strange sound as you place %+ in {his|her} back!$}         {_succeedBS};
 
 #ACTION {^No way!  You're fighting for your life!} {
   #IF {$thief[auto][flee] == 1} {flee};

@@ -1,4 +1,4 @@
-#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
 #NOP -- Initial setup;
 
@@ -280,6 +280,7 @@
 #ACTION {^Possible arguments:$}                               {failSpell %0};
 #ACTION {^Spell can only be used on safe grounds.$}           {failSpell %0};
 #ACTION {^You can't concentrate enough while resting.$}       {failSpell %0};
+#ACTION {^You can't summon enough energy to cast the spell.$} {failSpell %0};
 #ACTION {^Your magic fizzles against your anti-magic shell!$} {failSpell %0};
 
 #NOP #ACTION {^Divine forces prevent you from calling %w.$} {failSpell %0};
