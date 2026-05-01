@@ -26,7 +26,8 @@
   #NOP -- Initial setup
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #VAR {player[age]}            {-1};
+  #VAR {player[age][apparent]}  {-1};
+  #VAR {player[age][real]}      {-1};
   #VAR {player[height]}         {-1};
   #VAR {player[level]}          {-1};
   #VAR {player[tnl]}            {-1};
@@ -88,16 +89,30 @@
   #NOP -- Stats
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #ACTION {^You are a %d year old %w %w %w about %* m tall.$} {
-    #VAR {player[age]} {%1};
+  #ACTION {^You are a %d year old %w %w %w about %+ m tall.$} {
+    #VAR {player[age][apparent]} {%1};
     #VAR {player[sex]} {%2};
     #VAR {player[race]} {%3};
     #VAR {player[class]} {%4};
     #VAR {player[height]} {%5};
+
+    #SHOWME {You are a @green{$player[age][apparent]} (@green{$player[age][real]}) year old @green{$player[sex]} @green{$player[race]} @green{$player[class]} about @green{$player[height]} m tall.};
+    #LINE GAG;
   };
 
+  #ACTION {^Your %d birthday is in} {
+    #VAR {player[age][real]} {%1};
+  };
+
+  /*
+   * Color the important parts of this line.
+   *
+   * Note that the ignore is necessary to avoid re-triggering the same action.
+   */
   #ACTION {^You are a %w of %w %w and you are regarded as %w.} {
-    #SHOWME {You are a %1 of %2 @green{%3} and you are regarded as @green{%4}.};
+    #LINE {ignore} {
+      #SHOWME {You are a @red{%1} of %2 @green{%3} and you are regarded as @green{%4}.};
+    };
     #LINE GAG;
   };
 
@@ -309,6 +324,24 @@
 
   #ACTION {^The holy sword Sikanda stirs in its sheath but does not yet move into your hand...$} {#send};
 
+  #ACTION {Accidentally you drop your weapon!} {
+    get types.weapon;
+  };
+
+  #ACTION {^You flee head over heels.$} {
+    #NOP - placeholder;
+  };
+
+  #ACTION {^You skillfully retreat from battle.$} {
+    #NOP - placeholder;
+  };
+
+  #ACTION {^Only backstabber weapons can be used for backstabbing.$} {
+    #NOP - placeholder;
+  };
+
+  #SUB {misses} {$color[green]misses<900>};
+
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Tick activities
   #NOP -- ------------------------------------------------------------------------------------------
@@ -463,13 +496,13 @@
     }
     {
       {name}        {Month of the Spring}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {8}
+      {nightStarts} {18}
     }
     {
       {name}        {Month of Nature}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {8}
+      {nightStarts} {18}
     }
     {
       {name}        {Month of Futility}
@@ -488,8 +521,8 @@
     }
     {
       {name}        {Month of the Heat}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {6}
+      {nightStarts} {20}
     }
     {
       {name}        {Month of the Battle}
@@ -528,6 +561,7 @@
     #LINE SUBSTITUTE variables {
       #SUB {$monthList[$index][name]} {$monthList[$index][name] ($index/&monthList[])};
     };
+    #UNVAR {index};
   };
 
   /* Display the day index (e.g., 4/7) after day name. */
@@ -540,9 +574,7 @@
   #SUB {Day of the Sun}         {%0 (7/7)};
 
   #FUNCTION {getTwentyFourHourTime} {
-    #LOCAL {_twentyFourHourTime} {};
-    #FORMAT {_twentyFourHourTime} {%%02d:%%02d} {$time[hour]} {$time[minute]};
-    #RETURN {$_twentyFourHourTime};
+    #FORMAT {result} {%%02d:%%02d} {$time[hour]} {$time[minute]};
   };
 
   #ACTION {^It is %d o'clock %+, on %*} {
@@ -563,6 +595,14 @@
 
     #UNVAR {_index};
   };
+
+  #NOP -- ------------------------------------------------------------------------------------------
+  #NOP -- Shopping
+  #NOP -- ------------------------------------------------------------------------------------------
+
+  #ACTION {^%1 exclaims, 'Come back at}                          {bribe %1};
+  #ACTION {^%1%* exclaims, 'Sorry we have closed, but maybe try} {bribe %1};
+  #ACTION {^%1 bellows, 'Sorry we have closed, but maybe try}    {bribe %1};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
