@@ -526,8 +526,8 @@
     }
     {
       {name}        {Month of the Battle}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {6}
+      {nightStarts} {20}
     }
     {
       {name}        {Month of the Dark Shades}
