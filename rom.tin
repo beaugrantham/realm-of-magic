@@ -32,7 +32,9 @@
   #VAR {player[level]}          {-1};
   #VAR {player[tnl]}            {-1};
   #VAR {player[gold]}           {-1};
-  #VAR {player[balance]}        {-1};
+  #VAR {player[balance][gold]}  {-1};
+  #VAR {player[balance][qp]}    {-1};
+  #VAR {player[balance][qt]}    {-1};
   #VAR {player[armor-class]}    {-1};
   #VAR {player[position]}       {standing};
   #VAR {player[sex]}            {};
@@ -144,54 +146,84 @@
     #VAR {player[tnl]} {%1};
     #MATH {player[level]} {%2-1};
 
-    #LOCAL {tnl} {};
-    #FORMAT {tnl} {%g} {$player[tnl]};
-    #SHOWME {You need @green{$tnl} exp to make level @green{%2}.};
+    #ECHO {You need @green{%g} exp to make level @green{%d}.} {$player[tnl]} {%2};
     #LINE GAG;
   };
 
   #ACTION {^You have %d gold coins.$} {
     #VAR {player[gold]} {%1};
 
-    #LOCAL {gold} {};
-    #LOCAL {balance} {};
-    #FORMAT {gold} {%g} {$player[gold]};
-    #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have @green{$gold} (@green{$balance}) gold coins.};
+    #ECHO {You have @green{%g} (@green{%g}) gold coins.} {$player[gold]} {$player[balance][gold]};
     #LINE GAG;
   };
 
   #ACTION {^You have %d gold coins and your balance is %d.$} {
     #VAR {player[gold]} {%1};
-    #VAR {player[balance]} {%2};
+    #VAR {player[balance][gold]} {%2};
 
-    #LOCAL {gold} {};
-    #LOCAL {balance} {};
-    #FORMAT {gold} {%g} {$player[gold]};
-    #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {You have @green{$gold} gold coins and your balance is @green{$balance}.};
+    #ECHO {You have @green{%g} gold coins and your balance is @green{%g}.} {$player[gold]} {$player[balance][gold]};
     #LINE GAG;
   };
 
   #ACTION {^Your current balance is %d coins.$} {
-    #VAR {player[balance]} {%1};
+    #VAR {player[balance][gold]} {%1};
 
-    #LOCAL {balance} {};
-    #FORMAT {balance} {%g} {$player[balance]};
-    #SHOWME {Your current balance is $balance coins.};
+    #ECHO {Your current balance is @green{%g} coins.} {$player[balance][gold]};
+    #LINE GAG;
+  };
+
+  #ACTION {^Your questpoints are piled up to %d items.$} {
+    #VAR {player[balance][qp]} {%1};
+    #ECHO {Your questpoints are piled up to @green{%d} items.} {$player[balance][qp]};
+    #LINE GAG;
+  };
+
+  #ACTION {^You have no questpoints stored.$} {
+    #VAR {player[balance][qp]} {0};
+    #ECHO {You have @red{no} questpoints stored.};
+    #LINE GAG;
+  };
+
+  #ACTION {^You have no quest tokens stored.$} {
+    #VAR {player[balance][qt]} {0};
+    #ECHO {You have @red{no} quest tokens stored.};
+    #LINE GAG;
+  };
+
+  #ACTION {^You withdraw %d questpoints.} {
+    #IF {$player[balance][qp] >= 0} {
+      #MATH {player[balance][qp]} {$player[balance][qp] - %1};
+    };
+
+    #ECHO {You withdraw @green{%d} questpoints.} {%1};
+    #LINE GAG;
+  };
+
+  #ACTION {^You store %d quest points.} {
+    #IF {$player[balance][qp] >= 0} {
+      #MATH {player[balance][qp]} {$player[balance][qp] + %1};
+    };
+
+    #ECHO {You store @green{%d} quest points.} {%1};
     #LINE GAG;
   };
 
   #ACTION {^You withdraw %d coins.$} {
-    #IF {$player[balance] >= 0} {
-      #MATH {player[balance]} {$player[balance] - %1};
+    #IF {$player[balance][gold] >= 0} {
+      #MATH {player[balance][gold]} {$player[balance][gold] - %1};
     };
+
+    #ECHO {You withdraw @green{%g} coins.} {%1};
+    #LINE GAG;
   };
 
   #ACTION {^You deposit %d coins.$} {
-    #IF {$player[balance] >= 0} {
-      #MATH {player[balance]} {$player[balance] + %1};
+    #IF {$player[balance][gold] >= 0} {
+      #MATH {player[balance][gold]} {$player[balance][gold] + %1};
     };
+
+    #ECHO {You deposit @green{%g} coins.} {%1};
+    #LINE GAG;
   };
 
   #ACTION {^It should concern you that you have had %d traumatic death experiences so far.$} {
@@ -531,8 +563,8 @@
     }
     {
       {name}        {Month of the Dark Shades}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {8}
+      {nightStarts} {18}
     }
     {
       {name}        {Month of the Shadows}
@@ -603,6 +635,17 @@
   #ACTION {^%1 exclaims, 'Come back at}                          {bribe %1};
   #ACTION {^%1%* exclaims, 'Sorry we have closed, but maybe try} {bribe %1};
   #ACTION {^%1 bellows, 'Sorry we have closed, but maybe try}    {bribe %1};
+
+
+  #NOP -- ------------------------------------------------------------------------------------------
+  #NOP -- Misc
+  #NOP -- ------------------------------------------------------------------------------------------
+
+  #ACTION {^The current money balance of the order is %d coins.$} {
+    #ECHO {The current money balance of the order is @green{%g} coins.} {%1};
+    #LINE GAG;
+  };
+
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
