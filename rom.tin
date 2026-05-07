@@ -226,14 +226,21 @@
     #LINE GAG;
   };
 
+  /*
+   * Color the important part of this line. Store as a stat.
+   *
+   * Note that the ignore is necessary to avoid re-triggering the same action.
+   */
   #ACTION {^It should concern you that you have had %d traumatic death experiences so far.$} {
     #VAR {player[deaths]} {%1};
-    #SHOWME {It should concern you that you have had @green{$player[deaths]} traumatic death experiences so far.};
+    #LINE {ignore} {
+      #SHOWME {It should concern you that you have had @green{$player[deaths]} traumatic death experiences so far.};
+    };
     #LINE GAG;
   };
 
   /* Display the armor-class index (e.g., 4/10) after the description. */
-  #ACTION {^You are %* and your alignment is '%*'$} {
+  #ACTION {^You are %+ and your alignment is '%+'$} {
     #SWITCH {"%1"} {
       #CASE {"naked"}                     {#VAR {player[armor-class]} {0}; #BREAK;};
       #CASE {"almost naked"}              {#VAR {player[armor-class]} {1}; #BREAK;};
@@ -257,7 +264,6 @@
   #SUB {^You are summonable into battle arenas.$} {@red{%0}};
 
   #ALIAS {stats} {#VAR player};
-
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Group
@@ -283,6 +289,9 @@
   #ACTION {^You have disbanded the group.$}   {#VAR {isGrouped} {0}};
 
   #ACTION {^There were %d coins.} {
+    #ECHO {There were @green{%g} coins.} {%1};
+    #LINE GAG;
+
     #IF {$isGrouped == 1} {split %1};
   };
 
@@ -503,8 +512,8 @@
   #LIST {monthList} {CREATE} {
     {
       {name}        {Month of Winter}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {10}
+      {nightStarts} {16}
     }
     {
       {name}        {Month of the Winter Wolf}
@@ -636,7 +645,6 @@
   #ACTION {^%1%* exclaims, 'Sorry we have closed, but maybe try} {bribe %1};
   #ACTION {^%1 bellows, 'Sorry we have closed, but maybe try}    {bribe %1};
 
-
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Misc
   #NOP -- ------------------------------------------------------------------------------------------
@@ -645,7 +653,6 @@
     #ECHO {The current money balance of the order is @green{%g} coins.} {%1};
     #LINE GAG;
   };
-
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
