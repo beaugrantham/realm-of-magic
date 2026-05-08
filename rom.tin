@@ -517,13 +517,13 @@
     }
     {
       {name}        {Month of the Winter Wolf}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {10}
+      {nightStarts} {16}
     }
     {
       {name}        {Month of the Frost Giant}
-      {dayStarts}   {-1}
-      {nightStarts} {-1}
+      {dayStarts}   {10}
+      {nightStarts} {16}
     }
     {
       {name}        {Month of the Old Forces}
