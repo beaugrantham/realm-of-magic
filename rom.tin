@@ -24,6 +24,56 @@
   #VAR {color[reset]}           {<088>};
 
   #NOP -- ------------------------------------------------------------------------------------------
+  #NOP -- Preferences
+  #NOP -- ------------------------------------------------------------------------------------------
+
+  #VAR {clockPrefs} {
+    {day} {
+      {color} {$color[yellow]}
+      {symbol} {☼}
+    }
+    {night} {
+      {color} {$color[red]}
+      {symbol} {☽}
+    }
+  };
+
+  #LIST {practicePrefs} {CREATE} {
+    {
+      {howWell} {not learned}
+      {color}   {$color[reset]}
+    }
+    {
+      {howWell} {bad}
+      {color}   {$color[red]}
+    }
+    {
+      {howWell} {poor}
+      {color}   {$color[red]}
+    }
+    {
+      {howWell} {average}
+      {color}   {$color[yellow]}
+    }
+    {
+      {howWell} {fair}
+      {color}   {$color[yellow]}
+    }
+    {
+      {howWell} {good}
+      {color}   {$color[green]}
+    }
+    {
+      {howWell} {very good}
+      {color}   {$color[green]}
+    }
+    {
+      {howWell} {Superb}
+      {color}   {$color[cyan]}
+    }
+  };
+
+  #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Initial setup
   #NOP -- ------------------------------------------------------------------------------------------
 
@@ -119,10 +169,10 @@
     #LINE GAG;
   };
 
-  #ACTION {^|%dH %dM %dV} {
-    #VAR {player[hp][current]}    {%1};
-    #VAR {player[mana][current]}  {%2};
-    #VAR {player[mv][current]}    {%3};
+  #ACTION {^|%*%dH %dM %dV} {
+    #VAR {player[hp][current]}    {%2};
+    #VAR {player[mana][current]}  {%3};
+    #VAR {player[mv][current]}    {%4};
   };
 
   #ACTION {^You have %d(%d) hit, %d(%d) mana and %d(%d) movement points.$} {
@@ -426,12 +476,12 @@
 
     #LOCAL {clock} {};
     #VAR {clock[countdownColor]} {$color[reset]};
+
     #IF {$time[hour] >= $dayStarts && $time[hour] < $nightStarts} {
-      #VAR {clock[color]} {$color[yellow]};
+      #VAR {clock[phase]} {day};
       #MATH {clock[countdown]} {$nightStarts -1 - $time[hour]};
-    };
-    #ELSE {
-      #VAR {clock[color]} {$color[red]};
+    } {
+      #VAR {clock[phase]} {night};
 
       #IF {$time[hour] >= $nightStarts} {
         #MATH {clock[countdown]} {$dayStarts - 1 + (24 - $time[hour])}
@@ -446,8 +496,9 @@
     };
 
     #ECHO {
-      {[%s%s%s](%s%02d%s)--(2XP:%03d)--(warcry:%03d)----------------------------------------------} {-2}
-    } {$clock[color]} {@getTwentyFourHourTime{}} {$color[reset]} {$clock[countdownColor]} {$clock[countdown]} {$color[reset]} {$xpMultiplierRemaining} {$warcryRemaining};
+      {[%s%s %s%s %s%02d%s]--(2XP:%03d)--(warcry:%03d)---------------------------------------------} {-2}
+    }
+    {$clockPrefs[$clock[phase]][color]} {@getTwentyFourHourTime{}} {$clockPrefs[$clock[phase]][symbol]} {$color[reset]} {$clock[countdownColor]} {$clock[countdown]} {$color[reset]} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -660,52 +711,25 @@
     #LINE GAG;
   };
 
-  #LIST {practiceList} {CREATE} {
-    {
-      {howWell} {not learned}
-      {color}   {$color[reset]}
-    }
-    {
-      {howWell} {bad}
-      {color}   {$color[red]}
-    }
-    {
-      {howWell} {poor}
-      {color}   {$color[red]}
-    }
-    {
-      {howWell} {average}
-      {color}   {$color[yellow]}
-    }
-    {
-      {howWell} {fair}
-      {color}   {$color[yellow]}
-    }
-    {
-      {howWell} {good}
-      {color}   {$color[green]}
-    }
-    {
-      {howWell} {very good}
-      {color}   {$color[green]}
-    }
-    {
-      {howWell} {Superb}
-      {color}   {$color[cyan]}
-    }
-  };
-
   /* Color (and lowercase) how well a skill or spell is practiced */
-  #LOOP {1} {&practiceList[]} {index} {
+  #LOOP {1} {&practicePrefs[]} {index} {
     #LOCAL {_howWellLowercase} {};
-    #FORMAT {_howWellLowercase} {%l} {$practiceList[$index][howWell]};
+    #FORMAT {_howWellLowercase} {%l} {$practicePrefs[$index][howWell]};
     #LINE SUBSTITUTE variables {
-      #SUB {($practiceList[$index][howWell])} {($practiceList[$index][color]$_howWellLowercase$color[reset])};
+      #SUB {($practicePrefs[$index][howWell])} {($practicePrefs[$index][color]$_howWellLowercase$color[reset])};
     };
     #UNVAR {index};
   };
 
   #SUB {(nodrop)} { (nodrop)};
+
+  #ALIAS {init} {
+    tnb;
+    gold;
+    time;
+    score;
+    who;
+  };
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities
