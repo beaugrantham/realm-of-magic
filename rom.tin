@@ -17,9 +17,10 @@
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
 
+  #VAR {color[red]}             {<118>};
   #VAR {color[green]}           {<028>};
   #VAR {color[yellow]}          {<138>};
-  #VAR {color[red]}             {<118>};
+  #VAR {color[cyan]}            {<068>};
   #VAR {color[reset]}           {<088>};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -293,6 +294,11 @@
     #LINE GAG;
 
     #IF {$isGrouped == 1} {split %1};
+  };
+
+  #ACTION {^You split %d coins among %d members; %d coins each.$} {
+    #ECHO {You split @green{%g} coins among %d members\; @green{%g} coins each.} {%1} {%2} {%3};
+    #LINE GAG;
   };
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -653,6 +659,53 @@
     #ECHO {The current money balance of the order is @green{%g} coins.} {%1};
     #LINE GAG;
   };
+
+  #LIST {practiceList} {CREATE} {
+    {
+      {howWell} {not learned}
+      {color}   {$color[reset]}
+    }
+    {
+      {howWell} {bad}
+      {color}   {$color[red]}
+    }
+    {
+      {howWell} {poor}
+      {color}   {$color[red]}
+    }
+    {
+      {howWell} {average}
+      {color}   {$color[yellow]}
+    }
+    {
+      {howWell} {fair}
+      {color}   {$color[yellow]}
+    }
+    {
+      {howWell} {good}
+      {color}   {$color[green]}
+    }
+    {
+      {howWell} {very good}
+      {color}   {$color[green]}
+    }
+    {
+      {howWell} {Superb}
+      {color}   {$color[cyan]}
+    }
+  };
+
+  /* Color (and lowercase) how well a skill or spell is practiced */
+  #LOOP {1} {&practiceList[]} {index} {
+    #LOCAL {_howWellLowercase} {};
+    #FORMAT {_howWellLowercase} {%l} {$practiceList[$index][howWell]};
+    #LINE SUBSTITUTE variables {
+      #SUB {($practiceList[$index][howWell])} {($practiceList[$index][color]$_howWellLowercase$color[reset])};
+    };
+    #UNVAR {index};
+  };
+
+  #SUB {(nodrop)} { (nodrop)};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Utilities

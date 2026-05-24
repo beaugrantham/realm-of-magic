@@ -175,7 +175,7 @@
 };
 
 #FUNCTION {getAffectColor} {
-  #IF {"%0" == "1"} {#RETURN <028>} {#RETURN <118>};
+  #IF {"%0" == "1"} {#RETURN <028>} {#RETURN $color[red]};
 };
 
 #ALIAS {setActive %1 -- %2} {
@@ -241,7 +241,7 @@
 #ACTION {^Your wizard's eye fades away with a *pop*$}                       {endSpell %0 -- wizards eye};
 
 #ALIAS {endSpell %1 -- %2} {
-  #FORMAT {_lastSpell} {[<118>%-19s<088>] %s} {%2} {%1};
+  #FORMAT {_lastSpell} {[$color[red]%-19s<088>] %s} {%2} {%1};
   #SUB {%1} {$_lastSpell};
   tick;
 };
@@ -288,7 +288,7 @@
 
 #ALIAS {failSpell} {
   #LOCAL {output} {};
-  #FORMAT {output} {[<118>%-19s<088>] %s} {$castingQueue[1]} {%0};
+  #FORMAT {output} {[$color[red]%-19s<088>] %s} {$castingQueue[1]} {%0};
   #SHOWME {$output};
   #LINE GAG;
 
