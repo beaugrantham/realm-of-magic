@@ -70,13 +70,14 @@
 #ALIAS {cfly}       {cast 'fly' @ifEmpty{%1; self}};
 #ALIAS {cheal}      {cast 'heal' @ifEmpty{%1; self}};
 #ALIAS {ci}         {cast 'invisibility' @ifEmpty{%1; self}};
+#ALIAS {cinvis}     {cast 'invisibility' @ifEmpty{%1; self}};
 #ALIAS {crest}      {cast 'rest' @ifEmpty{%1; self}};
 #ALIAS {crestore}   {cast 'restore' @ifEmpty{%1; self}};
 #ALIAS {crp}        {cast 'remove poison' @ifEmpty{%1; self}};
 #ALIAS {csanc}      {cast 'sanctuary' @ifEmpty{%1; self}};
 #ALIAS {cshell}     {cast 'anti magic shell' @ifEmpty{%1; self}};
+#ALIAS {css}        {cast 'stone skin' @ifEmpty{%1; self}};
 #ALIAS {cwater}     {cast 'water breathe' @ifEmpty{%1; self}};
-#ALIAS {cinvis}     {cast 'invisibility' @ifEmpty{%1; self}};
 #ALIAS {cyouth}     {cast 'return youth' @ifEmpty{%1; self}};
 
 #ALIAS {cdag}       {cast 'detect aggressive'};
