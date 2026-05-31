@@ -323,10 +323,10 @@
   #VAR {isGrouped} {0};
 
   #ALIAS {as} {assist};
-  #ALIAS {of %+} {order fol %1};
+  #ALIAS {of %+} {order followers %1};
   #ALIAS {ok %+} {
     setTarget %1;
-    order fol kill $target;
+    order followers kill $target;
   };
   #ALIAS {gk %+ %+} {
     setTarget %1;
