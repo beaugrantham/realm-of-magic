@@ -17,7 +17,7 @@
   #MATH {xpMultiplierDuration}  {5 * $tickDuration};
   #MATH {warcryDuration}        {2 * $tickDuration};
 
-  #VAR {color[red]}             {<118>};
+  #VAR {color[red]}             {<018>};
   #VAR {color[green]}           {<028>};
   #VAR {color[yellow]}          {<138>};
   #VAR {color[cyan]}            {<068>};

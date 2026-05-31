@@ -27,9 +27,20 @@
 #ACTION {^You skillfully spin around and your edge meets %* neck}                     {ggc};
 #ACTION {^The massive treasure of the sphinx lies here in a big pile.$}               {get treasure};
 
+#NOP -- Vampire Castle
+#ACTION {^Your blood freezes as you hear a wizard's death cry.$}                      {gg};
+
 #NOP -- ------------------------------------------------------------------------------------------
 #NOP -- Looting (items for gambling)
 #NOP -- ------------------------------------------------------------------------------------------
+
+#LIST {gamblingList} {create}
+#ALIAS {gamblingAdd} {
+  #LIST {gamblingList} {add} {%1};
+};
+#ALIAS {gambling} {
+  #VAR {gamblingList};
+};
 
 #NOP -- Tower of the Moon Goddess
 #ACTION {^Your blood freezes as you hear the Goddess of the Moon's death cry.$} {
@@ -38,6 +49,8 @@
 };
 #ACTION {^A dark blue shimmering can be seen in the corner.}                 {get all.cloak};
 #ACTION {^A long, heavy sword is here, absorbing light.}                     {get all.sword};
+#ACTION {^You get the cloak of the Moon Goddess}                             {gamblingAdd moon};
+#ACTION {^You get the Sword of the Dark Moon}                                {gamblingAdd moon};
 
 #ACTION {^Your blood freezes as you hear the High Priestess of the Goddess of the Moon's death cry.$} {
   get gown corpse;
@@ -45,28 +58,37 @@
 };
 #ACTION {^A beautiful deep blue ball gown is here, waiting to be worn.}      {get all.gown};
 #ACTION {^Something silver glitters in the corner of your eye.}              {get all.pendant};
+#ACTION {^You get a beautiful deep blue ball gown}                           {gamblingAdd gown};
+#ACTION {^You get a silver half-moon pendant}                                {gamblingAdd moon};
 
 #NOP -- Vampire Castle
 #ACTION {^Your blood freezes as you hear the Vampire King's death cry.$}     {get suit corpse};
 #ACTION {^Some black metal is lying on the ground, looking really heavy.}    {get all.suit};
+#ACTION {^You get a black palladium suit}                                    {gamblingAdd palladium};
 
 #ACTION {^Your blood freezes as you hear the Vampire Prince's death cry.$}   {get plate corpse};
 #ACTION {^A plate made of Iridium is shining in the light.}                  {get all.plate};
+#ACTION {^You get an iridium plate}                                          {gamblingAdd iridium};
 
 #ACTION {^Your blood freezes as you hear the Vampire Queen's death cry.$}    {get gown corpse};
 #ACTION {^Someone has forgotten a piece of black velvet.}                    {get all.gown};
+#ACTION {^You get a gown made of black velvet}                               {gamblingAdd velvet};
 
 #ACTION {^Your blood freezes as you hear the Vampire Princess's death cry.$} {get gown corpse};
 #ACTION {^A beautiful gown has been dropped here.}                           {get all.gown};
+#ACTION {^You get a vermillion gown}                                         {gamblingAdd gown};
 
 #ACTION {^Your blood freezes as you hear Pie'o'pah's death cry.$}            {get tongue corpse};
 #ACTION {^A piece of meat is lying on the ground, it seems to be a tongue.}  {get all.tongue};
+#ACTION {^You get a dragon's tongue}                                         {gamblingAdd tongue};
 
-#ACTION {^Your blood freezes as you hear a smith's death cry.$}              {get bracelet corpse};
+#ACTION {^Your blood freezes as you hear a smith's death cry.$}              {get bracelet corpse; gg;};
 #ACTION {^A dark bracelet is here, calling for his master.}                  {get all.bracelet};
+#ACTION {^You get a black palladium bracelet}                                {gamblingAdd palladium};
 
-#ACTION {^Your blood freezes as you hear an armorer's death cry.$}           {get robe corpse};
+#ACTION {^Your blood freezes as you hear an armorer's death cry.$}           {get robe corpse; gg;};
 #ACTION {^A shining red robe glitters here as if it was metal.}              {get all.robe};
+#ACTION {^You get a rubidium robe}                                           {gamblingAdd rubidium};
 
 #ACTION {^Your blood freezes as you hear Dracul's death cry.$}               {get cape corpse};
 #ACTION {^A black something is floating through the room.}                   {get all.cape};
@@ -80,13 +102,17 @@
 };
 #ACTION {^Cyan sleeves are lying here.}                                      {get all.sleeves};
 #ACTION {^A cyan thing has been dropped here.}                               {get all.armor};
+#ACTION {^You get the cyan armor}                                            {gamblingAdd cyan};
+#ACTION {^You get the cyan sleeves}                                          {gamblingAdd cyan};
 
 #NOP -- Pyramid
 #ACTION {^Massive leggings formed from the body of a sphinx stand here.}     {get leggings};
+#ACTION {^You get a pair of sphinxian leggings}                              {gamblingAdd sphinxian};
 
 #NOP -- Wandering
 #ACTION {^Your blood freezes as you hear a warlock scout's death cry.$}      {get tunic corpse};
 #ACTION {^A bright blue-grey checkered tunic is lying on the ground here.}   {get all.tunic};
+#ACTION {^You get a grey-blue checkered tunic}                               {gamblingAdd tunic};
 #ACTION {^Your blood freezes as you hear an avatar scout's death cry.$}      {get tunic corpse};
 #ACTION {^A bright red-yellow checkered tunic is lying on the ground here.}  {get all.tunic};
 #ACTION {^Your blood freezes as you hear a wardancer scout's death cry.$}    {get tunic corpse};
@@ -98,32 +124,50 @@
 #NOP -- Gambling
 #NOP -- ------------------------------------------------------------------------------------------
 
+#ALIAS {gambleAll} {
+  #IF {&gamblingList[] > 0} {
+    gamble $gamblingList[&gamblingList[]];
+    #LIST {gamblingList} {delete} {&gamblingList[]};
+  };
+};
+
 #ACTION {^You can <spin> the <wheel> now!$}                   {spin wheel};
 
-#ACTION {^You win a %+ rose!$}                                {junk rose};
-#ACTION {^You win a bottle of champagne!$}                    {junk champagne};
-#ACTION {^You win a bottle of wine!$}                         {junk wine};
-#ACTION {^You win a bucket of popcorn!$}                      {junk popcorn};
-#ACTION {^You win a chessboard with pieces!$}                 {junk chess};
-#ACTION {^You win a crystal orb paperweight!$}                {junk orb};
-#ACTION {^You win a deck of "Mortal Cardmaster" cards!$}      {junk deck};
-#ACTION {^You win a dictionary}                               {junk dictionary};
-#ACTION {^You win a doll of Lilith (tm)!$}                    {junk doll};
-#ACTION {^You win a doll of Rosemary (tm)!$}                  {junk doll};
-#ACTION {^You win a game set of "Connect Four"!$}             {junk game};
-#ACTION {^You win a gingerbread heart!$}                      {junk gingerbread};
-#ACTION {^You win a jade necklace!$}                          {junk jade};
-#ACTION {^You win a luxurious pen!$}                          {junk pen};
-#ACTION {^You win a Ring of Random Teleportation!$}           {junk ring};
-#ACTION {^You win a small wind-up turtle!$}                   {junk turtle};
-#ACTION {^You win a stick of cotton candy!$}                  {junk candy};
-#ACTION {^You win a teddy bear!$}                             {junk bear};
-#ACTION {^You win a 'Mon Cherie' gift box!$}                  {junk box};
-#ACTION {^You win an Andrew (tm) action figure!$}             {junk figure};
-#ACTION {^You win an Olorin (tm) action figure!$}             {junk figure};
-#ACTION {^You win the Axe of Wounding!$}                      {junk axe};
-#ACTION {^You win the King Welmar Special Collector Coin!$}   {junk coin};
-#ACTION {^You win the Staff 'Party Brightener'!$}             {junk staff};
-#ACTION {^You win the Staff of Nutrition!$}                   {junk staff};
-#ACTION {^You win the Sword of Mysteries!$}                   {junk sword};
-#ACTION {^You win Ragaddon's double-eyepatch!$}               {junk patch};
+#ACTION {^You win a Camunda (tm) action figure!$}             {gambleAll};
+#ACTION {^You win a set of full vigor potions!$}              {gambleAll};
+#ACTION {^You win a set of greek fire bottles!$}              {gambleAll};
+#ACTION {^You win a set of healing potions!$}                 {gambleAll};
+#ACTION {^You win a set of restoration potions!$}             {gambleAll};
+#ACTION {^You win one quest point!$}                          {gambleAll};
+#ACTION {^You win three quest points!$}                       {gambleAll};
+#ACTION {^You win two quest points!$}                         {gambleAll};
+#ACTION {^You win a doll of Cailean (tm)!$}                   {gambleAll};
+
+#ACTION {^You win a %+ rose!$}                                {junk rose;        gambleAll;};
+#ACTION {^You win a bottle of champagne!$}                    {junk champagne;   gambleAll;};
+#ACTION {^You win a bottle of wine!$}                         {junk wine;        gambleAll;};
+#ACTION {^You win a bucket of popcorn!$}                      {junk popcorn;     gambleAll;};
+#ACTION {^You win a chessboard with pieces!$}                 {junk chess;       gambleAll;};
+#ACTION {^You win a crystal orb paperweight!$}                {junk orb;         gambleAll;};
+#ACTION {^You win a deck of "Mortal Cardmaster" cards!$}      {junk deck;        gambleAll;};
+#ACTION {^You win a dictionary}                               {junk dictionary;  gambleAll;};
+#ACTION {^You win a doll of Lilith (tm)!$}                    {junk doll;        gambleAll;};
+#ACTION {^You win a doll of Rosemary (tm)!$}                  {junk doll;        gambleAll;};
+#ACTION {^You win a game set of "Connect Four"!$}             {junk game;        gambleAll;};
+#ACTION {^You win a gingerbread heart!$}                      {junk gingerbread; gambleAll;};
+#ACTION {^You win a jade necklace!$}                          {junk jade;        gambleAll;};
+#ACTION {^You win a luxurious pen!$}                          {junk pen;         gambleAll;};
+#ACTION {^You win a Ring of Random Teleportation!$}           {junk ring;        gambleAll;};
+#ACTION {^You win a small wind-up turtle!$}                   {junk turtle;      gambleAll;};
+#ACTION {^You win a stick of cotton candy!$}                  {junk candy;       gambleAll;};
+#ACTION {^You win a teddy bear!$}                             {junk bear;        gambleAll;};
+#ACTION {^You win a 'Mon Cherie' gift box!$}                  {junk box;         gambleAll;};
+#ACTION {^You win an Andrew (tm) action figure!$}             {junk figure;      gambleAll;};
+#ACTION {^You win an Criscal (tm) action figure!$}            {junk figure;      gambleAll;};
+#ACTION {^You win an Olorin (tm) action figure!$}             {junk figure;      gambleAll;};
+#ACTION {^You win the Axe of Wounding!$}                      {junk axe;         gambleAll;};
+#ACTION {^You win the King Welmar Special Collector Coin!$}   {junk coin;        gambleAll;};
+#ACTION {^You win the Staff 'Party Brightener'!$}             {junk staff;       gambleAll;};
+#ACTION {^You win the Staff of Nutrition!$}                   {junk staff;       gambleAll;};
+#ACTION {^You win the Sword of Mysteries!$}                   {junk sword;       gambleAll;};
+#ACTION {^You win Ragaddon's double-eyepatch!$}               {junk patch;       gambleAll;};
