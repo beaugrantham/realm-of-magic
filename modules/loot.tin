@@ -42,6 +42,14 @@
   #VAR {gamblingList};
 };
 
+#NOP -- Vale of Aldur
+#ACTION {^The great Sledgehammer is at the wall.}                            {get sledgehammer};
+#ACTION {^You get the great two-handed Sledgehammer}                         {gamblingAdd sledgehammer};
+
+#ACTION {^Your blood freezes as you hear Polgara the Sorceress's death cry.$} {get gown corpse};
+#ACTION {^An extremely beautiful gown is stocked here. Made for a lady.$}     {get all.gown};
+#ACTION {^You get a silver-trimmed blue gown}                                 {gamblingAdd gown};
+
 #NOP -- Tower of the Moon Goddess
 #ACTION {^Your blood freezes as you hear the Goddess of the Moon's death cry.$} {
   get cloak corpse;
@@ -134,6 +142,8 @@
 #ACTION {^You can <spin> the <wheel> now!$}                   {spin wheel};
 
 #ACTION {^You win a Camunda (tm) action figure!$}             {gambleAll};
+#ACTION {^You win a doll of Cailean (tm)!$}                   {gambleAll};
+#ACTION {^You win a set of arcane magick potions!$}           {gambleAll};
 #ACTION {^You win a set of full vigor potions!$}              {gambleAll};
 #ACTION {^You win a set of greek fire bottles!$}              {gambleAll};
 #ACTION {^You win a set of healing potions!$}                 {gambleAll};
@@ -141,13 +151,15 @@
 #ACTION {^You win one quest point!$}                          {gambleAll};
 #ACTION {^You win three quest points!$}                       {gambleAll};
 #ACTION {^You win two quest points!$}                         {gambleAll};
-#ACTION {^You win a doll of Cailean (tm)!$}                   {gambleAll};
+
+#ACTION {^You win a Bag of Holding!$}                         {donate holding;   gambleAll;};
 
 #ACTION {^You win a %+ rose!$}                                {junk rose;        gambleAll;};
 #ACTION {^You win a bottle of champagne!$}                    {junk champagne;   gambleAll;};
 #ACTION {^You win a bottle of wine!$}                         {junk wine;        gambleAll;};
 #ACTION {^You win a bucket of popcorn!$}                      {junk popcorn;     gambleAll;};
 #ACTION {^You win a chessboard with pieces!$}                 {junk chess;       gambleAll;};
+#ACTION {^You win a Criscal (tm) action figure!$}             {junk figure;      gambleAll;};
 #ACTION {^You win a crystal orb paperweight!$}                {junk orb;         gambleAll;};
 #ACTION {^You win a deck of "Mortal Cardmaster" cards!$}      {junk deck;        gambleAll;};
 #ACTION {^You win a dictionary}                               {junk dictionary;  gambleAll;};
@@ -163,9 +175,9 @@
 #ACTION {^You win a teddy bear!$}                             {junk bear;        gambleAll;};
 #ACTION {^You win a 'Mon Cherie' gift box!$}                  {junk box;         gambleAll;};
 #ACTION {^You win an Andrew (tm) action figure!$}             {junk figure;      gambleAll;};
-#ACTION {^You win an Criscal (tm) action figure!$}            {junk figure;      gambleAll;};
 #ACTION {^You win an Olorin (tm) action figure!$}             {junk figure;      gambleAll;};
 #ACTION {^You win the Axe of Wounding!$}                      {junk axe;         gambleAll;};
+#ACTION {^You win the Celestial Armor!$}                      {junk armor;       gambleAll;};
 #ACTION {^You win the King Welmar Special Collector Coin!$}   {junk coin;        gambleAll;};
 #ACTION {^You win the Staff 'Party Brightener'!$}             {junk staff;       gambleAll;};
 #ACTION {^You win the Staff of Nutrition!$}                   {junk staff;       gambleAll;};
