@@ -277,6 +277,12 @@
     #LINE GAG;
   };
 
+  /* Guapo's mana fountain */
+  #ACTION {^The current balance is %d.$} {
+    #ECHO {The current balance is @green{%g}.} {%1};
+    #LINE GAG;
+  };
+
   /*
    * Color the important part of this line. Store as a stat.
    *
@@ -324,9 +330,12 @@
 
   #ALIAS {as} {assist};
   #ALIAS {of %+} {order followers %1};
+  #ALIAS {oa} {of assist};
+  #ALIAS {oer} {of enter rift};
+  #ALIAS {os} {of stand};
   #ALIAS {ok %+} {
     setTarget %1;
-    order followers kill $target;
+    of kill $target;
   };
   #ALIAS {gk %+ %+} {
     setTarget %1;
@@ -379,6 +388,8 @@
   #ALIAS {wdu}  {wd u};
   #ALIAS {wdw}  {wd w};
 
+  #ALIAS {er}   {enter rift};
+
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Retry
   #NOP -- ------------------------------------------------------------------------------------------
@@ -425,16 +436,8 @@
     get types.weapon;
   };
 
-  #ACTION {^You flee head over heels.$} {
-    #NOP - placeholder;
-  };
-
-  #ACTION {^You skillfully retreat from battle.$} {
-    #NOP - placeholder;
-  };
-
-  #ACTION {^Only backstabber weapons can be used for backstabbing.$} {
-    #NOP - placeholder;
+  #ACTION {^...striking the elbow and the weapon out of the hand.$} {
+    get types.weapon;
   };
 
   #SUB {misses} {$color[green]misses<900>};
