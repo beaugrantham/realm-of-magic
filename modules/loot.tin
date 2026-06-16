@@ -18,12 +18,17 @@
 #ACTION {^A token of the wind has fallen on the ground here - ready to be taken...}   {get token};
 #ACTION {^Some gold coins are piled up on the floor}                                  {gg};
 #ACTION {^You gain %d experience points for killing this opponent.$} {
-  #ECHO {You gain @green{%g} experience points for killing this opponent.$} {%1};
+  #ECHO {You gain @cyan{%g} experience points for killing this opponent.} {%1};
   #LINE GAG;
 
   ggc;
 }
-#ACTION {^You gain one measly exp for this fight.$}                                   {ggc};
+#ACTION {^You gain one measly exp for this fight.$}                                   {
+  #ECHO {You gain @cyan{one} measly exp for this fight.};
+  #LINE GAG;
+
+  ggc;
+};
 #ACTION {^You skillfully spin around and your edge meets %* neck}                     {ggc};
 #ACTION {^The massive treasure of the sphinx lies here in a big pile.$}               {get treasure};
 
