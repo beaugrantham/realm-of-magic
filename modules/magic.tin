@@ -153,7 +153,7 @@
 
   #IF {"@isEmpty{$affects[$spell][remaining]; true}" != "true"} {
     #VAR {affects[$spell][remaining]} {0};
-  }
+  };
 
   tick;
 };
