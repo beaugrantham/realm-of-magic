@@ -9,19 +9,19 @@
   #NOP -- Constants
   #NOP -- ------------------------------------------------------------------------------------------
 
-  #VAR {tickDuration}           {75}; /* real-life seconds per game tick */
+  #VAR  {duration[tick]}         {75}; /* real-life seconds per game tick */
+  #MATH {duration[xpMultiplier]} {5 * $duration[tick]};
+  #MATH {duration[warcry]}       {2 * $duration[tick]};
 
-  #VAR {daysPerWeek}            {7};  /* game days per game week */
-  #VAR {daysPerMonth}           {35}; /* game days per game month */
+  #VAR {daysPerWeek}             {7};  /* game days per game week */
+  #VAR {daysPerMonth}            {35}; /* game days per game month */
 
-  #MATH {xpMultiplierDuration}  {5 * $tickDuration};
-  #MATH {warcryDuration}        {2 * $tickDuration};
-
-  #VAR {color[red]}             {<018>};
-  #VAR {color[green]}           {<028>};
-  #VAR {color[yellow]}          {<138>};
-  #VAR {color[cyan]}            {<068>};
-  #VAR {color[reset]}           {<088>};
+  #VAR {color[red]}              {<018>};
+  #VAR {color[green]}            {<028>};
+  #VAR {color[yellow]}           {<138>};
+  #VAR {color[blue]}             {<048>};
+  #VAR {color[cyan]}             {<068>};
+  #VAR {color[reset]}            {<088>};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Preferences
@@ -29,11 +29,11 @@
 
   #VAR {clockPrefs} {
     {day} {
-      {color} {$color[yellow]}
+      {color} {<130>}
       {symbol} {☼}
     }
     {night} {
-      {color} {$color[red]}
+      {color} {<010>}
       {symbol} {☽}
     }
   };
@@ -105,6 +105,15 @@
 
   #VAR {dayStarts}              {-1};
   #VAR {nightStarts}            {-1};
+
+  /*
+   * This is a hack.
+   *
+   * This variable is used to track a tick event. This will be increased by 1
+   * each tick, indefinitely. Use #EVENT {VARIABLE UPDATED global[tick]} {cmd}
+   * to subscribe to a tick.
+   */
+  #VAR {global[tick]}           {0};
 
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Spam
@@ -197,7 +206,7 @@
     #VAR {player[tnl]} {%1};
     #MATH {player[level]} {%2-1};
 
-    #ECHO {You need @green{%g} exp to make level @green{%d}.} {$player[tnl]} {%2};
+    #ECHO {You need @cyan{%g} exp to make level @cyan{%d}.} {$player[tnl]} {%2};
     #LINE GAG;
   };
 
@@ -283,6 +292,11 @@
     #LINE GAG;
   };
 
+  #ACTION {^You beheaded %d opponents with your weapon.$} {
+    #ECHO {You beheaded @cyan{%d} opponents with your weapon.} {%1};
+    #LINE GAG;
+  };
+
   /*
    * Color the important part of this line. Store as a stat.
    *
@@ -328,15 +342,18 @@
 
   #VAR {isGrouped} {0};
 
-  #ALIAS {as} {assist};
   #ALIAS {of %+} {order followers %1};
-  #ALIAS {oa} {of assist};
-  #ALIAS {oer} {of enter rift};
-  #ALIAS {os} {of stand};
-  #ALIAS {ok %+} {
+  #ALIAS {ofa} {of assist};
+  #ALIAS {ofer} {of enter rift};
+  #ALIAS {ofs} {of stand};
+
+  /* order followers kill [target] */
+  #ALIAS {ofk %+} {
     setTarget %1;
     of kill $target;
   };
+
+  /* group kill [target] [tank] */
   #ALIAS {gk %+ %+} {
     setTarget %1;
     order %2 kill $target;
@@ -397,6 +414,7 @@
   #ACTION {^AAAAaaahh... cough, cough... obviously you need more practice!$}   {warcry};
   #ACTION {^As %+ avoids your bash, you topple over and fall to the ground!$}  {stand};
   #ACTION {^Maybe you should get on your feet first?$}                         {stand};
+  #ACTION {^You can't do this sitting!$}                                       {stand};
   #ACTION {^PANIC!%sYou couldn't escape!$}                                     {flee};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -420,6 +438,8 @@
     #IF {"%1" != ""} {#VAR {target} {%1}};
   };
 
+  #ALIAS  {as}    {assist};
+
   #ALIAS  {b}     {setTarget %1; bas $target};
   #ALIAS  {bash}  {setTarget %1; bas $target};
   #ALIAS  {k}     {setTarget %1; kic $target};
@@ -427,7 +447,7 @@
   #ALIAS  {kill}  {setTarget %1; kil $target};
 
   #ACTION {^AAAHHH!!! CHARGE!!! BANZAIIII!!!$} {
-    #MATH {warcryRemaining} {$warcryDuration - ($tickDuration - $tickRemaining)};
+    #MATH {warcryRemaining} {$duration[warcry] - ($duration[tick] - $tickRemaining)};
   };
 
   #ACTION {^The holy sword Sikanda stirs in its sheath but does not yet move into your hand...$} {#send};
@@ -442,6 +462,8 @@
 
   #SUB {misses} {$color[green]misses<900>};
 
+  #SUB {%+ does some extremely quick moves and eventually disarms %+!} {$color[cyan]%0<900>};
+
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Tick activities
   #NOP -- ------------------------------------------------------------------------------------------
@@ -454,10 +476,12 @@
         #MATH {time[hour]} {($time[hour] + 1) % 24};
         #VAR {time[minute]} {0};
       };
+
+      #MATH {global[tick]} {$global[tick] + 1};
     };
 
     #VAR {timeSinceLastTick} {0};
-    #VAR {tickRemaining} {$tickDuration};
+    #VAR {tickRemaining} {$duration[tick]};
   };
 
   #TICK {eachSecond} {
@@ -466,7 +490,7 @@
     #IF {$tickRemaining == 0} {tick};
     #ELSEIF {$tickRemaining > 0} {
       #MATH {tickRemaining} {$tickRemaining - 1};
-      #MATH {time[minute]} {($tickDuration - $tickRemaining) * (59.000/$tickDuration)};
+      #MATH {time[minute]} {($duration[tick] - $tickRemaining) * (59.000/$duration[tick])};
     };
 
     #IF {$xpMultiplierRemaining > 0} {
@@ -478,7 +502,7 @@
     };
 
     #LOCAL {clock} {};
-    #VAR {clock[countdownColor]} {$color[reset]};
+    #VAR {clock[countdownColor]} {<080>};
 
     #IF {$time[hour] >= $dayStarts && $time[hour] < $nightStarts} {
       #VAR {clock[phase]} {day};
@@ -494,14 +518,14 @@
       };
 
       #IF {$clock[countdown] == 0} {
-        #VAR {clock[countdownColor]} {<518>};
+        #VAR {clock[countdownColor]} {<519>};
       };
     };
 
     #ECHO {
-      {[%s%s %s%s %s%02d%s]--(2XP:%03d)--(warcry:%03d)---------------------------------------------} {-2}
+      {<070>[%s%s %s%s %s%02d%s] [2XP:%03d] [warcry:%03d]                                            <088>} {-2}
     }
-    {$clockPrefs[$clock[phase]][color]} {@getTwentyFourHourTime{}} {$clockPrefs[$clock[phase]][symbol]} {$color[reset]} {$clock[countdownColor]} {$clock[countdown]} {$color[reset]} {$xpMultiplierRemaining} {$warcryRemaining};
+    {$clockPrefs[$clock[phase]][color]} {@getTwentyFourHourTime{}} {$clockPrefs[$clock[phase]][symbol]} {<080>} {$clock[countdownColor]} {$clock[countdown]} {<080>} {$xpMultiplierRemaining} {$warcryRemaining};
   } {1};
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -559,7 +583,7 @@
 
   #ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
     tick %0;
-    #VAR {xpMultiplierRemaining} {$xpMultiplierDuration};
+    #VAR {xpMultiplierRemaining} {$duration[xpMultiplier]};
   };
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -764,6 +788,12 @@
   }
   #FUNCTION {green} {
     #FORMAT {result} {%s%s%s} {$color[green]%0$color[reset]};
+  }
+  #FUNCTION {cyan} {
+    #FORMAT {result} {%s%s%s} {$color[cyan]%0$color[reset]};
+  }
+  #FUNCTION {blue} {
+    #FORMAT {result} {%s%s%s} {$color[blue]%0$color[reset]};
   }
 #CLASS {RealmOfMagic} {close}
 
