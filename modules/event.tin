@@ -1,0 +1,37 @@
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
+
+#VAR {eventHandlers} {}
+
+/*
+ * Register an event handler.
+ *
+ * Usage:
+ * eventRegister <event name> <cmd>
+ *
+ * Example:
+ * eventRegister {TICK} {#MATH {affectRemaining} {$affectRemaining - 1}};
+ */
+#ALIAS {eventRegister} {
+  #LOCAL {eventName} {%1};
+  #LOCAL {handlerCmd} {%2};
+
+  #LIST {eventHandlers[$eventName]} {add} {$handlerCmd};
+};
+
+/*
+ * Emit an event; invoke any registered handlers.
+ *
+ * Usage:
+ * eventEmit <event name>
+ *
+ * Example:
+ * eventEmit {TICK}
+ */
+#ALIAS {eventEmit} {
+  #LOCAL {eventName} {%1};
+  #IF {&eventHandlers[$eventName]} {
+    #FOREACH {$eventHandlers[$eventName][]} {registeredHandler} {
+      #LINE {substitute} {variables;escapes} {$registeredHandler};
+    };
+  };
+};

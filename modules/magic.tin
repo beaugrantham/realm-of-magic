@@ -277,7 +277,7 @@
  * 1. Loop through affects
  * 2. If affect is applied and has time remaining, decrease by 1
  */
-#EVENT {VARIABLE UPDATED global[tick]} {
+eventRegister {TICK} {
   #FOREACH {*affects[%*]} {affect} {
     #LOCAL {remaining} {$affects[$affect][remaining]};
     #IF {$remaining > 0} {
@@ -623,7 +623,7 @@
   }
   {sense life} {
     {messages} {
-      {apply}  {^You feel your awareness improve.$}
+      {apply}  {^Your feel your awareness improve.$}
       {warn}   {}
       {remove} {^You feel less aware of your surroundings.$}
       {score}  {^You can feel the presence of living beings around you.$}

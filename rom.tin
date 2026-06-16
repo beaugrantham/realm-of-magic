@@ -1,5 +1,7 @@
 #NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
+#CLASS {RealmOfMagic|Event} {read} {modules/event.tin};
+
 #CLASS {RealmOfMagic} {open}
   #SPLIT;
 
@@ -478,6 +480,7 @@
       };
 
       #MATH {global[tick]} {$global[tick] + 1};
+      eventEmit {TICK}
     };
 
     #VAR {timeSinceLastTick} {0};
