@@ -141,6 +141,12 @@
 #ACTION {^You feel weaker.$}                                                {endSpell {%0} {strength}};
 
 /*
+ * Handle a spell wearing off.
+ *
+ * Alter the message to show which spell ended..
+ * - [spell name] End message
+ *
+ * Usage:
  * endSpell <end message> <spell>
  */
 #ALIAS {endSpell} {
@@ -205,6 +211,12 @@
 #NOP #ACTION {^Your victim seems to be immune to it.$}      {failSpell %0};
 
 /*
+ * Handle a failed spell.
+ *
+ * Alter the message to show which spell failed.
+ * - [spell name] Fail message
+ *
+ * Usage:
  * failSpell <fail message>
  */
 #ALIAS {failSpell} {
@@ -242,6 +254,14 @@
 };
 
 /*
+ * Handle a successful spell.
+ *
+ * Alter the message to show which spell succeeded.
+ * - [spell name] Success message
+ *
+ * For duration based affects, start a countdown.
+ *
+ * Usage:
  * succeedSpell <success message> <spell>
  */
 #ALIAS {succeedSpell} {
