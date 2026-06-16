@@ -108,15 +108,6 @@
   #VAR {dayStarts}              {-1};
   #VAR {nightStarts}            {-1};
 
-  /*
-   * This is a hack.
-   *
-   * This variable is used to track a tick event. This will be increased by 1
-   * each tick, indefinitely. Use #EVENT {VARIABLE UPDATED global[tick]} {cmd}
-   * to subscribe to a tick.
-   */
-  #VAR {global[tick]}           {0};
-
   #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Spam
   #NOP -- ------------------------------------------------------------------------------------------
@@ -479,7 +470,6 @@
         #VAR {time[minute]} {0};
       };
 
-      #MATH {global[tick]} {$global[tick] + 1};
       eventEmit {TICK}
     };
 
@@ -776,6 +766,7 @@
   #ALIAS reload {
     #KILL {all};
     #READ rom.tin;
+    init;
   };
 
   #FUNCTION {isEmpty} {
@@ -784,6 +775,16 @@
 
   #FUNCTION {ifEmpty} {
     #IF {"%1" != ""} {#RETURN %1} {#RETURN %2};
+  };
+
+  /*
+   * Return the minimum of two numbers.
+   *
+   * Usage:
+   * @min{5;10}
+   */
+  #FUNCTION {min} {
+    #IF {%1 <= %2} {#RETURN %1} {#RETURN %2};
   };
 
   #FUNCTION {red} {

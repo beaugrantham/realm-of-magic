@@ -1,15 +1,10 @@
 #NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
 
-#NOP -- Config
+#NOP -- ------------------------------------------------------------------------------------------
+#NOP -- Constants
+#NOP -- ------------------------------------------------------------------------------------------
 
-/*
- * TODO
- *
- * Affect duration can be dependent on player level, but has a cap
- * of 40, so using $player[level] is inaccurate. Create a function
- * in main class that returns min($player[level], 40).
- */
-#VAR {playerLevel} {40};
+#VAR {MAXIMUM_LEVEL_FOR_AFFECTS} {40};
 
 #NOP -- Initial setup;
 
@@ -139,7 +134,6 @@
 #ACTION {^You feel a bit weaker.$}                                          {warnSpell {%0} {strength}};
 #ACTION {^Your stomach rumbles.$}                                           {warnSpell {%0} {food and water}};
 #ACTION {^Your throat feels a bit dry again.$}                              {warnSpell {%0} {food and water}};
-#ACTION {^Your walk on water spell starts to wear off$}                     {warnSpell {%0} {walk on water}};
 
 #NOP #ACTION {^You are hungry.$}                                                 {endSpell {%0} {food and water}};
 #NOP #ACTION {^You are thirsty.$}                                                {endSpell {%0} {food and water}};
@@ -260,7 +254,7 @@
 
   #NOP /* If affect has a duration, evaluate it */;
   #IF {"@isEmpty{$affects[$spell][duration]; true}" != "true"} {
-    #LINE {substitute} {variable} {
+    #LINE {substitute} {variables,functions} {
       #MATH {_duration} {$affects[$spell][duration]};
     };
 
@@ -312,7 +306,7 @@ eventRegister {TICK} {
  * Represents everything about an "affect" that has a duration.
  *
  * The affects[duration] property is evaluated dynamically. Variables
- * should be escaped (e.g., $$playerLevel) and a valid #MATH argument.
+ * should be escaped (e.g., $$var) and should be a valid #MATH argument.
  * The result should be the number of ticks (hours) an affect lasts.
  *
  * The folloing properties are set programatically:
@@ -329,7 +323,7 @@ eventRegister {TICK} {
       {remove} {^The aid you received is no longer present.$}
       {score}  {^You have been aided.$}
     }
-    {duration} {$$playerLevel / 2.0}
+    {duration} {@getPlayerLevelForAffects{} / 2.0}
     {shortcut} {
       {cmd}    {caid}
       {action} {castTarget {aid} {%1}}
@@ -433,7 +427,7 @@ eventRegister {TICK} {
       {remove} {^You feel less aware of what lies ahead.$}
       {score}  {^You can feel the aggressiveness of other beings.$}
     }
-    {duration} {$$playerLevel + 5}
+    {duration} {@getPlayerLevelForAffects{} + 5}
     {shortcut} {
       {cmd}    {cdag}
       {action} {cast 'detect aggressive' self}
@@ -446,7 +440,7 @@ eventRegister {TICK} {
       {remove} {^You sense the red in your vision disappear.$}
       {score}  {^The difference between good and evil is very clear to you.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {cdal}
       {action} {cast 'detect alignment'}
@@ -459,7 +453,7 @@ eventRegister {TICK} {
       {remove} {^The detect invisible wears off.$}
       {score}  {^You are sensitive to the presence of invisible things.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {cdi}
       {action} {cast 'detect invisibility' self}
@@ -472,7 +466,7 @@ eventRegister {TICK} {
       {remove} {^The detect magic wears off.$}
       {score}  {^You are sensitive to the presence of magical things.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {cdm}
       {action} {cast 'detect magic' self}
@@ -498,7 +492,7 @@ eventRegister {TICK} {
       {remove} {^The darkness is no longer afraid of you.$}
       {score}  {^You emit light - chasing the darkness away.$}
     }
-    {duration} {$$playerLevel + 5}
+    {duration} {@getPlayerLevelForAffects{} + 5}
     {shortcut} {
       {cmd}    {cdd}
       {action} {cast 'dispel darkness' self}
@@ -511,7 +505,7 @@ eventRegister {TICK} {
       {remove} {^Your dome of power fades away.$}
       {score}  {^A dome of magical energy is protecting you.$}
     }
-    {duration} {$$playerLevel / 2.0}
+    {duration} {@getPlayerLevelForAffects{} / 2.0}
     {shortcut} {
       {cmd}    {cdome}
       {action} {cast 'dome of power' self};
@@ -524,7 +518,7 @@ eventRegister {TICK} {
       {remove} {^You feel heavier now, your flying ability is gone.$}
       {score}  {^You are flying.$}
     }
-    {duration} {$$playerLevel + 3}
+    {duration} {@getPlayerLevelForAffects{} + 3}
     {shortcut} {
       {cmd}    {cfly}
       {action} {castTarget {fly} {%1}}
@@ -537,7 +531,7 @@ eventRegister {TICK} {
       {remove} {^Your focus with nature fades.$}
       {score}  {^You are in tune with nature.$}
     }
-    {duration} {($$playerLevel / 3.0) + 3}
+    {duration} {(@getPlayerLevelForAffects{} / 3.0) + 3}
     {shortcut} {
       {cmd}    {}
       {action} {}
@@ -589,7 +583,7 @@ eventRegister {TICK} {
       {remove} {^You can no longer see in the dark.$}
       {score}  {^No creature can hide from you in the dark.$}
     }
-    {duration} {$$playerLevel + 5}
+    {duration} {@getPlayerLevelForAffects{} + 5}
     {shortcut} {
       {cmd}    {cnv}
       {action} {cast 'night vision' self}
@@ -602,7 +596,7 @@ eventRegister {TICK} {
       {remove} {^The peace around you is gone.$}
       {score}  {^You're spreading an aura of peace.$}
     }
-    {duration} {$$playerLevel / 4.0}
+    {duration} {@getPlayerLevelForAffects{} / 4.0}
     {shortcut} {
       {cmd}    {cpeace}
       {action} {cast 'peace' self}
@@ -628,7 +622,7 @@ eventRegister {TICK} {
       {remove} {^You feel less aware of your surroundings.$}
       {score}  {^You can feel the presence of living beings around you.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {csl}
       {action} {cast 'sense life' self}
@@ -654,10 +648,23 @@ eventRegister {TICK} {
       {remove} {^The sharp spikes and spines protruding from your skin retract.$}
       {score}  {^Sharp thorns and spikes protrude out of your body.$}
     }
-    {duration} {($$playerLevel / 3.0) + 1}
+    {duration} {(@getPlayerLevelForAffects{} / 3.0) + 1}
     {shortcut} {
       {cmd}    {}
       {action} {}
+    }
+  }
+  {walk on water} {
+    {messages} {
+      {apply}  {}
+      {warn}   {^Your walk on water spell starts to wear off}
+      {remove} {}
+      {score}  {}
+    }
+    {duration} {@getPlayerLevelForAffects{} + 5}
+    {shortcut} {
+      {cmd}    {cww}
+      {action} {cast 'walk on water' self}
     }
   }
   {water breathe} {
@@ -667,7 +674,7 @@ eventRegister {TICK} {
       {remove} {^The ability to breathe water left you.$}
       {score}  {^You can breathe in water.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {cwater}
       {action} {castTarget {water breathe} {%1}}
@@ -680,7 +687,7 @@ eventRegister {TICK} {
       {remove} {^Your wizard's eye fades away with a *pop*$}
       {score}  {^You can see what lies ahead.$}
     }
-    {duration} {$$playerLevel + 5}
+    {duration} {@getPlayerLevelForAffects{} + 5}
     {shortcut} {
       {cmd}    {cwiz}
       {action} {cast 'wizards eye' self}
@@ -693,7 +700,7 @@ eventRegister {TICK} {
       {remove} {^Everything looks solid again.$}
       {score}  {^Your eyes are keen and piercing.$}
     }
-    {duration} {$$playerLevel * 5}
+    {duration} {@getPlayerLevelForAffects{} * 5}
     {shortcut} {
       {cmd}    {cxray}
       {action} {cast 'xray' self}
@@ -705,7 +712,7 @@ eventRegister {TICK} {
  * Set up actions and aliases for each of the affects.
  */
 #FOREACH {*affects[%*]} {affect} {
-  #LINE SUBSTITUTE variables {
+  #LINE {substitute} {variables} {
     #IF {"@isEmpty{$affects[$affect][messages][apply]; true}" != "true"} {
       #ACTION {$affects[$affect][messages][apply]} {succeedSpell {%0} {$affect}};
     };
@@ -723,4 +730,14 @@ eventRegister {TICK} {
       #ALIAS {$affects[$affect][shortcut][cmd]} {$affects[$affect][shortcut][action]};
     };
   };
+};
+
+/*
+ * Get the player level used for affects.
+ *
+ * Usage:
+ * @getPlayerLevelForAffects{}
+ */
+#FUNCTION {getPlayerLevelForAffects} {
+  #RETURN @min{$player[level];$MAXIMUM_LEVEL_FOR_AFFECTS};
 };

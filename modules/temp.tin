@@ -1,0 +1,75 @@
+#NOP vim:tabstop=2 shiftwidth=2 softtabstop=0 expandtab syntax=tintin
+
+#VAR {container[potion]} {magic};
+
+#ALIAS {sanc} {
+  get purple $container[potion];
+  quaff purple;
+};
+
+#ALIAS {soul} {
+  get soul $container[potion];
+  hold soul;
+  #IF {"@isEmpty{%1; true}" != "true"} {
+    throw soul %1;
+  };
+};
+
+#ACTION {^Only backstabber weapons can be used for backstabbing.$} {
+  swap bat;
+  bs $target;
+};
+
+#NOP -- what is this?
+#ACTION {^You are less water logged.}                      {tick %0};
+
+#VAR {_auto[dir]}    {};
+#VAR {_auto[target]}  {};
+
+#ALIAS {akbf %S %S} {
+  #VAR {_auto[dir]}    {%1};
+  #VAR {_auto[target]}  {%2};
+
+  $_auto[dir];
+  kbf $_auto[target];
+};
+
+#ACTION {^You flee head over heels.$} {
+  $_auto[dir];
+  kbf $_auto[target];
+};
+
+#ACTION {^You skillfully retreat from battle.$} {
+  $_auto[dir];
+  kbf $_auto[target];
+};
+
+#NOP #SUB {the Swordmaster's Blade} {[5d6] the Swordmaster's Blade};
+#NOP #SUB {the great two-handed Sledgehammer} {[6d7] the great two-handed Sledgehammer};
+#NOP #SUB {a deadly dagger} {[3d4] a deadly dagger};
+#NOP #SUB {a battle sword} {[3d7] a battle sword};
+#NOP #SUB {the holy sword Sikanda} {[8d4] the holy sword Sikanda};
+
+
+#ACTION {^You take hold of the wheel.$}                                                  {#LINE GAG};
+#ACTION {^You give the wheel a hard tug and send it spinning!$}                          {#LINE GAG};
+#ACTION {^The Wheel of Fortune spins rapidly and goes *clacketyclacketyclacketyclack*.$} {#LINE GAG};
+#ACTION {^After a while the wheel becomes a bit slower.$}                                {#LINE GAG};
+
+#ACTION {'Rumor has it, that some assassin got an assignment ... so be careful!'$} {
+  tell pansy rqe;
+  tell katrox rqe;
+  tell garlock rqe;
+  tell gorham rqe;
+  tell gaprizelle rqe;
+  tell lily rqe?;
+  tell andy rqe?;
+  tell goar rqe?;
+	tell vanessa rqe?;
+};
+
+#NOP #SUB {&*} {%0 <068>[]<900>};
+
+#ACTION {You have been idle, and are pulled into a void.} {#CR};
+#NOP #ACTION {You are hungry.} {#LINE GAG};
+#NOP #ACTION {You are thirsty.} {#LINE GAG};
