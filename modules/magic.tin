@@ -150,12 +150,15 @@
  * endSpell <end message> <spell>
  */
 #ALIAS {endSpell} {
-  #NOP FORMAT {_lastSpell} {[$color[red]%-19s<088>] %s} {%2} {%1};
-  #FORMAT {_lastSpell} {[$color[red]%-19s (%s)<088>] %s} {%2} {$affects[%2][lasted]} {%1};
-  #SUB {%1} {$_lastSpell};
+  #LOCAL {message} {%1};
+  #LOCAL {spell} {%2};
 
-  #IF {"@isEmpty{$affects[%2][]; true}" != "true"} {
-    #VAR {affects[%2][remaining]} {0};
+  #NOP FORMAT {_lastSpell} {[$color[red]%-19s<088>] %s} {$spell} {$message};
+  #FORMAT {_lastSpell} {[$color[red]%-19s<088>] %s} {$spell} {$message};
+  #SUB {$message} {$_lastSpell};
+
+  #IF {"@isEmpty{$affects[$spell][remaining]; true}" != "true"} {
+    #VAR {affects[$spell][remaining]} {0};
   }
 
   tick;
@@ -165,8 +168,11 @@
  * warnSpell <warn message> <spell>
  */
 #ALIAS {warnSpell} {
-  #FORMAT {_lastSpell} {[<138>%-19s<088>] %s} {%2} {%1};
-  #SUB {%1} {$_lastSpell};
+  #LOCAL {message} {%1};
+  #LOCAL {spell} {%2};
+
+  #FORMAT {_lastSpell} {[<138>%-19s<088>] %s} {$spell} {$message};
+  #SUB {$message} {$_lastSpell};
   tick;
 };
 
@@ -254,17 +260,14 @@
 
   #NOP /* If affect has a duration, evaluate it */;
   #IF {"@isEmpty{$affects[$spell][duration]; true}" != "true"} {
-      #LINE {substitute} {variable} {
-        #MATH {_duration} {$affects[$spell][duration]};
-      };
+    #LINE {substitute} {variable} {
+      #MATH {_duration} {$affects[$spell][duration]};
+    };
 
     #FORMAT {_duration} {%d} {$_duration};
 
     #NOP /* TODO - some spells stack (e.g., fly) */;
     #VAR {affects[$spell][remaining]} {$_duration};
-
-    #NOP /* temporary property for tracking actual duration */;
-    #VAR {affects[$spell][lasted]} {1};
   };
 };
 
@@ -279,7 +282,6 @@
     #LOCAL {remaining} {$affects[$affect][remaining]};
     #IF {$remaining > 0} {
       #MATH {affects[$affect][remaining]} {$remaining - 1};
-      #MATH {affects[$affect][lasted]} {$affects[$affect][lasted] + 1};
     };
   };
 };
