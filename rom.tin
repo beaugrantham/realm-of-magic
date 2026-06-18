@@ -2,7 +2,7 @@
 
 #CLASS {RealmOfMagic|Event} {read} {modules/event.tin};
 
-#CLASS {RealmOfMagic} {open}
+#CLASS {RealmOfMagic|Main} {open}
   #SPLIT;
 
   #SESSION rom rom.mud.de 4000;
@@ -537,37 +537,6 @@
   #ACTION {^You suffer tremendous pain.$}                                 {tick %0};
 
   #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Tick activities (weather)
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #ACTION {^Darkness once again fills the realm as the moon sets.$}       {tick %0};
-  #ACTION {^It is bitterly cold outside.$}                                {tick %0};
-  #NOP #ACTION {^It starts to rain.$}                                     {tick %0};
-  #ACTION {^It starts to snow.$}                                          {tick %0};
-  #ACTION {^Moonlight begins to fill the room.$}                          {tick %0};
-  #ACTION {^The blizzard has died down, but the snow continues.$}         {tick %0};
-  #ACTION {^The blizzard is over, but it is still snowing.$}              {tick %0};
-  #ACTION {^The clouds disappear.$}                                       {tick %0};
-  #ACTION {^The day has begun spreading light throughout the land.$}      {tick %0};
-  #ACTION {^The flowers start to bloom.$}                                 {tick %0};
-  #ACTION {^The full moon begins to rise from the western horizon.$}      {tick %0};
-  #ACTION {^The lightning has gone, but it is still raining.$}            {tick %0};
-  #ACTION {^The moon slowly sets.$}                                       {tick %0};
-  #ACTION {^The night has begun, dropping a blanket of darkness.$}        {tick %0};
-  #ACTION {^The night has fallen outside.$}                               {tick %0};
-  #ACTION {^The rainstorm slowly dies down.$}                             {tick %0};
-  #ACTION {^The sky starts to get cloudy.$}                               {tick %0};
-  #ACTION {^The snow has stopped.$}                                       {tick %0};
-  #ACTION {^The snowstorm slowly dies down.$}                             {tick %0};
-  #ACTION {^The sun begins to rise from the eastern horizon.$}            {tick %0};
-  #ACTION {^The sun is directly above, it must be noon.$}                 {tick %0};
-  #ACTION {^The sun slowly disappears into the western horizon.$}         {tick %0};
-  #ACTION {^The waning moon begins to rise from the western horizon.$}    {tick %0};
-  #ACTION {^The waxing moon begins to rise from the western horizon.$}    {tick %0};
-  #ACTION {^You are caught in a blizzard.$}                               {tick %0};
-  #ACTION {^You are caught in lightning storm.$}                          {tick %0};
-
-  #NOP -- ------------------------------------------------------------------------------------------
   #NOP -- Tick activities (other)
   #NOP -- ------------------------------------------------------------------------------------------
 
@@ -577,141 +546,6 @@
   #ACTION {^{The surroundings seem to slow down, doubling your experience.|You realize though, that this sensation won't last forever.}$} {
     tick %0;
     #VAR {xpMultiplierRemaining} {$duration[xpMultiplier]};
-  };
-
-  #NOP -- ------------------------------------------------------------------------------------------
-  #NOP -- Time and date
-  #NOP --
-  #NOP -- "The sun is rising." is the last hour of darkness.
-  #NOP -- "The sun is setting." is the first hour of darkness.
-  #NOP -- ------------------------------------------------------------------------------------------
-
-  #LIST {monthList} {CREATE} {
-    {
-      {name}        {Month of Winter}
-      {dayStarts}   {10}
-      {nightStarts} {16}
-    }
-    {
-      {name}        {Month of the Winter Wolf}
-      {dayStarts}   {10}
-      {nightStarts} {16}
-    }
-    {
-      {name}        {Month of the Frost Giant}
-      {dayStarts}   {10}
-      {nightStarts} {16}
-    }
-    {
-      {name}        {Month of the Old Forces}
-      {dayStarts}   {10}
-      {nightStarts} {16}
-    }
-    {
-      {name}        {Month of the Grand Struggle}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Spring}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of Nature}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of Futility}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Dragon}
-      {dayStarts}   {6}
-      {nightStarts} {20}
-    }
-    {
-      {name}        {Month of the Sun}
-      {dayStarts}   {6}
-      {nightStarts} {20}
-    }
-    {
-      {name}        {Month of the Heat}
-      {dayStarts}   {6}
-      {nightStarts} {20}
-    }
-    {
-      {name}        {Month of the Battle}
-      {dayStarts}   {6}
-      {nightStarts} {20}
-    }
-    {
-      {name}        {Month of the Dark Shades}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Shadows}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Long Shadows}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Ancient Darkness}
-      {dayStarts}   {8}
-      {nightStarts} {18}
-    }
-    {
-      {name}        {Month of the Great Evil}
-      {dayStarts}   {10}
-      {nightStarts} {16}
-    }
-  };
-
-  /* Display the month index (e.g., 4/17) after month name. */
-  #LOOP {1} {&monthList[]} {index} {
-    #LINE SUBSTITUTE variables {
-      #SUB {$monthList[$index][name]} {$monthList[$index][name] ($index/&monthList[])};
-    };
-    #UNVAR {index};
-  };
-
-  /* Display the day index (e.g., 4/7) after day name. */
-  #SUB {Day of the Moon}        {%0 (1/7)};
-  #SUB {Day of the Bull}        {%0 (2/7)};
-  #SUB {Day of the Deception}   {%0 (3/7)};
-  #SUB {Day of Thunder}         {%0 (4/7)};
-  #SUB {Day of Freedom}         {%0 (5/7)};
-  #SUB {day of the Great Gods}  {%0 (6/7)};
-  #SUB {Day of the Sun}         {%0 (7/7)};
-
-  #FUNCTION {getTwentyFourHourTime} {
-    #FORMAT {result} {%%02d:%%02d} {$time[hour]} {$time[minute]};
-  };
-
-  #ACTION {^It is %d o'clock %+, on %*} {
-    #MATH {time[hour]} {%1 % 12};
-    #IF {"%2" == "p.m."} {#MATH {time[hour]} {$time[hour] + 12}};
-
-    #SHOWME {It is @getTwentyFourHourTime{} on %3};
-    #LINE GAG;
-  };
-
-  /* Use the current month to determine the day/night cycle. */
-  #ACTION {^The %+ Day of the %+, Year %d.$} {
-    #LIST {monthList} {indexate} {name};
-    #LIST {monthList} {find} {%2} {_index};
-
-    #VAR {dayStarts}   {$monthList[$_index][dayStarts]};
-    #VAR {nightStarts} {$monthList[$_index][nightStarts]};
-
-    #UNVAR {_index};
   };
 
   #NOP -- ------------------------------------------------------------------------------------------
@@ -799,9 +633,10 @@
   #FUNCTION {blue} {
     #FORMAT {result} {%s%s%s} {$color[blue]%0$color[reset]};
   }
-#CLASS {RealmOfMagic} {close}
+#CLASS {RealmOfMagic|Main} {close}
 
 #CLASS {RealmOfMagic|Loot} {read} {modules/loot.tin};
+#CLASS {RealmOfMagic|DateTimeWeather} {read} {modules/date-time-weather.tin};
 #CLASS {RealmOfMagic|Speedwalks} {read} {modules/speedwalks.tin};
 #CLASS {RealmOfMagic|Thief} {read} {modules/thief.tin};
 #CLASS {RealmOfMagic|AutoTrack} {read} {modules/autotrack.tin};
