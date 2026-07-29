@@ -82,3 +82,3596 @@
 #SUB {a bar of radiant beauty soap%*} {%0 <068>[sanctuary]<900>};
 #SUB {a silver flute%*} {%0 <068>[2x charm]<900>};
 #SUB {a bound potion%*} {%0 <068>[detect alignment, detect invisibility, detect magic]<900>};
+
+#LIST {items.weapons} {CREATE} {
+  {
+    {item} {Ancient Bloodforged Sword of Hate}
+    {damage} {5d8}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {Bolg's flaming axe}
+    {damage} {8d3}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {Cailean's blade of angelic mercy}
+    {damage} {20000d1}
+    {minLevel} {41}
+    {type} {slashing}
+  }
+  {
+    {item} {Condor's Great Hammer of War}
+    {damage} {5000d1}
+    {minLevel} {44}
+    {type} {crushing}
+  }
+  {
+    {item} {Dagger of Zombie Master}
+    {damage} {7d2}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {Daratax's battleaxe}
+    {damage} {3d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {Deathchanter}
+    {damage} {3d6}
+    {minLevel} {29}
+    {type} {backstabber}
+  }
+  {
+    {item} {Demon-Dagger}
+    {damage} {6d3}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {Esnalia's Hammer}
+    {damage} {5d8}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {Frodo's little elven sword}
+    {damage} {20000d1}
+    {minLevel} {44}
+    {type} {slashing}
+  }
+  {
+    {item} {Geoffry's sledgehammer}
+    {damage} {4d8}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {Irongrip's Sword}
+    {damage} {2d13}
+    {minLevel} {30}
+    {type} {crushing}
+  }
+  {
+    {item} {John's fishing rod}
+    {damage} {0d0}
+    {minLevel} {20}
+    {type} {whipping}
+  }
+  {
+    {item} {Jupiter's Thunderbolt}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {Lyridon's warstaff}
+    {damage} {4d4}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {Mahn-Tor's Great Axe}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {Mandorallen's war lance}
+    {damage} {3d6}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {Nalfian Blade}
+    {damage} {4d5}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {Plaguesword}
+    {damage} {4d6}
+    {minLevel} {32}
+    {type} {slashing}
+  }
+  {
+    {item} {Poseidon's Trident}
+    {damage} {3d8}
+    {minLevel} {20}
+    {type} {whipping}
+  }
+  {
+    {item} {Saikentoka's ken}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {Senshikaze's Comb}
+    {damage} {1d27}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {Silk's dagger}
+    {damage} {4d3}
+    {minLevel} {14}
+    {type} {backstabber}
+  }
+  {
+    {item} {Sting}
+    {damage} {2d7}
+    {minLevel} {0}
+    {type} {blasting}
+  }
+  {
+    {item} {The Deadly D.C.}
+    {damage} {5000d2}
+    {minLevel} {41}
+    {type} {pounding}
+  }
+  {
+    {item} {Yuggoth staff}
+    {damage} {3d6}
+    {minLevel} {30}
+    {type} {pounding}
+  }
+  {
+    {item} {a Clinox}
+    {damage} {4d5}
+    {minLevel} {21}
+    {type} {pounding}
+  }
+  {
+    {item} {a Hook Blade}
+    {damage} {5d3}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {a Necronist's blade}
+    {damage} {4d6}
+    {minLevel} {20}
+    {type} {whipping}
+  }
+  {
+    {item} {a Necronist's mace}
+    {damage} {3d7}
+    {minLevel} {20}
+    {type} {pounding}
+  }
+  {
+    {item} {a Necronist's sword}
+    {damage} {4d6}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a Nehera Bowie}
+    {damage} {7d3}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {a backstabber}
+    {damage} {1d1}
+    {minLevel} {1}
+    {type} {backstabber}
+  }
+  {
+    {item} {a bag full of wheat}
+    {damage} {1d8}
+    {minLevel} {8}
+    {type} {pounding}
+  }
+  {
+    {item} {a ballista}
+    {damage} {2d500}
+    {minLevel} {41}
+    {type} {piercing}
+  }
+  {
+    {item} {a bar of lead}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a bardiche}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a battle axe}
+    {damage} {1d10}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a battle axe}
+    {damage} {4d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a battle dart}
+    {damage} {2d10}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {a battle stone stick}
+    {damage} {3d3}
+    {minLevel} {5}
+    {type} {pounding}
+  }
+  {
+    {item} {a battle sword}
+    {damage} {3d7}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {a battle-axe of pure black mithril}
+    {damage} {5d8}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a battleaxe}
+    {damage} {4d4}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {a battleaxe}
+    {damage} {6d2}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a bench}
+    {damage} {1d20}
+    {minLevel} {20}
+    {type} {pounding}
+  }
+  {
+    {item} {a bended dagger}
+    {damage} {5d3}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {a bevgul}
+    {damage} {3d2}
+    {minLevel} {13}
+    {type} {crushing}
+  }
+  {
+    {item} {a big black iron shovel}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a big cleaver}
+    {damage} {7d3}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a big iron club}
+    {damage} {3d4}
+    {minLevel} {26}
+    {type} {pounding}
+  }
+  {
+    {item} {a big wooden spoon}
+    {damage} {2d7}
+    {minLevel} {14}
+    {type} {pounding}
+  }
+  {
+    {item} {a black boomerang}
+    {damage} {5d7}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {a black broadsword}
+    {damage} {3d7}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a black but polished war-axe}
+    {damage} {3d5}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a black sword}
+    {damage} {3d7}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a black two-handed sword}
+    {damage} {6d5}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a blacksmith's hammer}
+    {damage} {2d6}
+    {minLevel} {20}
+    {type} {crushing}
+  }
+  {
+    {item} {a bo stick}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a broom}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a broom}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a broom}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a butterfly knife}
+    {damage} {1d8}
+    {minLevel} {3}
+    {type} {backstabber}
+  }
+  {
+    {item} {a carved staff}
+    {damage} {4d6}
+    {minLevel} {34}
+    {type} {pounding}
+  }
+  {
+    {item} {a cat o' nine tails}
+    {damage} {4d5}
+    {minLevel} {24}
+    {type} {whipping}
+  }
+  {
+    {item} {a ceremonial Kris}
+    {damage} {4d5}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a claw hammer}
+    {damage} {3d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a claymore}
+    {damage} {4d4}
+    {minLevel} {13}
+    {type} {slashing}
+  }
+  {
+    {item} {a claymore}
+    {damage} {4d5}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a cleaver}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a cobra's tooth}
+    {damage} {7d10}
+    {minLevel} {20}
+    {type} {piercing}
+  }
+  {
+    {item} {a comfy pillow}
+    {damage} {0d0}
+    {minLevel} {1}
+    {type} {pounding}
+  }
+  {
+    {item} {a copper hammer}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {blasting}
+  }
+  {
+    {item} {a crossbow pistol}
+    {damage} {1d20}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a crossbow}
+    {damage} {3d3}
+    {minLevel} {40}
+    {type} {piercing}
+  }
+  {
+    {item} {a crossbow}
+    {damage} {4d4}
+    {minLevel} {17}
+    {type} {piercing}
+  }
+  {
+    {item} {a crude club}
+    {damage} {2d4}
+    {minLevel} {8}
+    {type} {pounding}
+  }
+  {
+    {item} {a crude dagger}
+    {damage} {2d4}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a crude mace}
+    {damage} {7d4}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a curved dagger}
+    {damage} {1d8}
+    {minLevel} {7}
+    {type} {backstabber}
+  }
+  {
+    {item} {a curved knife}
+    {damage} {2d8}
+    {minLevel} {16}
+    {type} {backstabber}
+  }
+  {
+    {item} {a curved scimitar}
+    {damage} {1d7}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a curved scimitar}
+    {damage} {2d7}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a curved sword}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a curved sword}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a cutlass}
+    {damage} {1d10}
+    {minLevel} {8}
+    {type} {slashing}
+  }
+  {
+    {item} {a dagger called 'Biter'}
+    {damage} {8d2}
+    {minLevel} {21}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger called 'Widowmaker'}
+    {damage} {7d3}
+    {minLevel} {40}
+    {type} {piercing}
+  }
+  {
+    {item} {a dagger made of coral}
+    {damage} {3d6}
+    {minLevel} {15}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger made of pure energy}
+    {damage} {4d5}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger of evil energy}
+    {damage} {2d8}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger}
+    {damage} {1d4}
+    {minLevel} {1}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dagger}
+    {damage} {2d6}
+    {minLevel} {1}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dancing sword}
+    {damage} {4d5}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a dark bladed knife}
+    {damage} {1d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dark green staff}
+    {damage} {3d3}
+    {minLevel} {24}
+    {type} {piercing}
+  }
+  {
+    {item} {a dark iron battlestaff}
+    {damage} {3d3}
+    {minLevel} {25}
+    {type} {pounding}
+  }
+  {
+    {item} {a dark iron longsword}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a dark iron sword}
+    {damage} {2d10}
+    {minLevel} {7}
+    {type} {slashing}
+  }
+  {
+    {item} {a dark iron sword}
+    {damage} {3d4}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a dark scythe of a vampire}
+    {damage} {5d7}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a dart}
+    {damage} {1d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a deadly dagger}
+    {damage} {3d4}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a decorated shortsword}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a demon claw}
+    {damage} {5d4}
+    {minLevel} {35}
+    {type} {whipping}
+  }
+  {
+    {item} {a diamond needle}
+    {damage} {6d3}
+    {minLevel} {20}
+    {type} {piercing}
+  }
+  {
+    {item} {a dirt ball}
+    {damage} {250d20}
+    {minLevel} {42}
+    {type} {pounding}
+  }
+  {
+    {item} {a double handed axe}
+    {damage} {6d6}
+    {minLevel} {37}
+    {type} {slashing}
+  }
+  {
+    {item} {a double-edged axe}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {slashing}
+  }
+  {
+    {item} {a draconian sword}
+    {damage} {1d10}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a dragon tailed whip}
+    {damage} {4d5}
+    {minLevel} {33}
+    {type} {slashing}
+  }
+  {
+    {item} {a dragon's tongue}
+    {damage} {5d4}
+    {minLevel} {40}
+    {type} {whipping}
+  }
+  {
+    {item} {a dragon's tooth knife}
+    {damage} {3d5}
+    {minLevel} {24}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dryad's spear}
+    {damage} {6d3}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a dwarven club}
+    {damage} {2d3}
+    {minLevel} {7}
+    {type} {pounding}
+  }
+  {
+    {item} {a dwarven hammer}
+    {damage} {2d6}
+    {minLevel} {12}
+    {type} {pounding}
+  }
+  {
+    {item} {a feather duster}
+    {damage} {2d5}
+    {minLevel} {5}
+    {type} {pounding}
+  }
+  {
+    {item} {a feather}
+    {damage} {3d6}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a fine sword}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a fire-handaxe}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a fisher's knife}
+    {damage} {5d2}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a fishing spear}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a fish}
+    {damage} {2d12}
+    {minLevel} {23}
+    {type} {pounding}
+  }
+  {
+    {item} {a flail}
+    {damage} {1d8}
+    {minLevel} {13}
+    {type} {crushing}
+  }
+  {
+    {item} {a flail}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a flaming sword}
+    {damage} {4d3}
+    {minLevel} {14}
+    {type} {slashing}
+  }
+  {
+    {item} {a geckish sword}
+    {damage} {3d4}
+    {minLevel} {24}
+    {type} {slashing}
+  }
+  {
+    {item} {a gem mining chisel}
+    {damage} {3d5}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a gleaming scythe}
+    {damage} {17d5}
+    {minLevel} {41}
+    {type} {slashing}
+  }
+  {
+    {item} {a glowing dagger}
+    {damage} {1d14}
+    {minLevel} {18}
+    {type} {backstabber}
+  }
+  {
+    {item} {a gnarled magius staff}
+    {damage} {4d4}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a gnol drows}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a golden axe}
+    {damage} {4d5}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a golden bow}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {piercing}
+  }
+  {
+    {item} {a golden claw}
+    {damage} {4d5}
+    {minLevel} {20}
+    {type} {piercing}
+  }
+  {
+    {item} {a golden scimitar}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a golden sickle}
+    {damage} {4d2}
+    {minLevel} {10}
+    {type} {piercing}
+  }
+  {
+    {item} {a great bow}
+    {damage} {3d5}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {a great sledgehammer}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {a green-red dagger}
+    {damage} {7d2}
+    {minLevel} {32}
+    {type} {backstabber}
+  }
+  {
+    {item} {a guard's hammer}
+    {damage} {3d5}
+    {minLevel} {21}
+    {type} {crushing}
+  }
+  {
+    {item} {a hairy spider leg}
+    {damage} {3d3}
+    {minLevel} {35}
+    {type} {whipping}
+  }
+  {
+    {item} {a halbard}
+    {damage} {2d6}
+    {minLevel} {3}
+    {type} {slashing}
+  }
+  {
+    {item} {a hammer}
+    {damage} {2d12}
+    {minLevel} {23}
+    {type} {pounding}
+  }
+  {
+    {item} {a hand-axe}
+    {damage} {1d6}
+    {minLevel} {5}
+    {type} {slashing}
+  }
+  {
+    {item} {a handaxe}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a handaxe}
+    {damage} {2d4}
+    {minLevel} {4}
+    {type} {slashing}
+  }
+  {
+    {item} {a hard wooden sword}
+    {damage} {3d3}
+    {minLevel} {24}
+    {type} {slashing}
+  }
+  {
+    {item} {a hardened sword}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a harpoon}
+    {damage} {4d6}
+    {minLevel} {28}
+    {type} {piercing}
+  }
+  {
+    {item} {a heavy broom}
+    {damage} {3d7}
+    {minLevel} {21}
+    {type} {pounding}
+  }
+  {
+    {item} {a heavy iron-spiked club}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a heavy quarterstaff}
+    {damage} {5d3}
+    {minLevel} {21}
+    {type} {pounding}
+  }
+  {
+    {item} {a heavy ruler}
+    {damage} {3d7}
+    {minLevel} {5}
+    {type} {crushing}
+  }
+  {
+    {item} {a heavy sledgehammer}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a heavy wooden club}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {whipping}
+  }
+  {
+    {item} {a heavy wooden club}
+    {damage} {5d3}
+    {minLevel} {20}
+    {type} {pounding}
+  }
+  {
+    {item} {a heavy wooden spear}
+    {damage} {2d7}
+    {minLevel} {12}
+    {type} {piercing}
+  }
+  {
+    {item} {a holy cross}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a horse whip}
+    {damage} {2d7}
+    {minLevel} {7}
+    {type} {whipping}
+  }
+  {
+    {item} {a huge 2-handed bible}
+    {damage} {667d667}
+    {minLevel} {41}
+    {type} {pounding}
+  }
+  {
+    {item} {a huge butcher knife}
+    {damage} {2d9}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a huge crossbow}
+    {damage} {3d7}
+    {minLevel} {27}
+    {type} {pounding}
+  }
+  {
+    {item} {a huge double sided axe}
+    {damage} {5d4}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a huge halberd}
+    {damage} {7d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a huge halberd}
+    {damage} {9d2}
+    {minLevel} {26}
+    {type} {slashing    Mahn-Tor}
+  }
+  {
+    {item} {a huge leather whip}
+    {damage} {3d7}
+    {minLevel} {31}
+    {type} {whipping}
+  }
+  {
+    {item} {a huge mace named Dawnbringer}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {a huge mithril mace}
+    {damage} {4d4}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a huge morningstar}
+    {damage} {7d3}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {a huge spiked club}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a huge warhammer}
+    {damage} {3d6}
+    {minLevel} {30}
+    {type} {pounding}
+  }
+  {
+    {item} {a huge wooden club}
+    {damage} {4d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a huge wooden maul}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {pounding}
+  }
+  {
+    {item} {a hunting bow}
+    {damage} {3d6}
+    {minLevel} {17}
+    {type} {piercing}
+  }
+  {
+    {item} {a jagged rock}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a jagged spear}
+    {damage} {2d5}
+    {minLevel} {15}
+    {type} {backstabber}
+  }
+  {
+    {item} {a jewelled dagger}
+    {damage} {2d5}
+    {minLevel} {3}
+    {type} {backstabber}
+  }
+  {
+    {item} {a jo}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {pounding}
+  }
+  {
+    {item} {a kakusu tanto}
+    {damage} {3d4}
+    {minLevel} {16}
+    {type} {backstabber}
+  }
+  {
+    {item} {a katana}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a katana}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a katana}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a katana}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a kawa-naga}
+    {damage} {3d7}
+    {minLevel} {25}
+    {type} {whipping}
+  }
+  {
+    {item} {a keen long sword}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a keen long sword}
+    {damage} {3d6}
+    {minLevel} {5}
+    {type} {slashing}
+  }
+  {
+    {item} {a kinky leather whip}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {whipping}
+  }
+  {
+    {item} {a kiri ninjato}
+    {damage} {3d7}
+    {minLevel} {27}
+    {type} {backstabber}
+  }
+  {
+    {item} {a knife}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a knife}
+    {damage} {2d6}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a kopesh sword}
+    {damage} {5d3}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a kyutetsu-shoge}
+    {damage} {5d4}
+    {minLevel} {25}
+    {type} {whipping}
+  }
+  {
+    {item} {a large bastardsword}
+    {damage} {6d6}
+    {minLevel} {37}
+    {type} {slashing}
+  }
+  {
+    {item} {a large brass staff}
+    {damage} {4d4}
+    {minLevel} {17}
+    {type} {pounding}
+  }
+  {
+    {item} {a large broadsword}
+    {damage} {3d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a large dipper}
+    {damage} {8d2}
+    {minLevel} {8}
+    {type} {crushing}
+  }
+  {
+    {item} {a large halberd}
+    {damage} {3d6}
+    {minLevel} {26}
+    {type} {slashing}
+  }
+  {
+    {item} {a large pine cone}
+    {damage} {1d5}
+    {minLevel} {1}
+    {type} {whipping}
+  }
+  {
+    {item} {a large quarterstaff}
+    {damage} {4d3}
+    {minLevel} {18}
+    {type} {crushing}
+  }
+  {
+    {item} {a large two handed axe}
+    {damage} {6d6}
+    {minLevel} {37}
+    {type} {slashing}
+  }
+  {
+    {item} {a leather whip}
+    {damage} {2d5}
+    {minLevel} {5}
+    {type} {whipping}
+  }
+  {
+    {item} {a levohs}
+    {damage} {3d7}
+    {minLevel} {35}
+    {type} {pounding}
+  }
+  {
+    {item} {a lie}
+    {damage} {6d3}
+    {minLevel} {35}
+    {type} {whipping}
+  }
+  {
+    {item} {a little elven bow}
+    {damage} {2d7}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a little knife}
+    {damage} {3d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a living staff}
+    {damage} {2d6}
+    {minLevel} {1}
+    {type} {pounding}
+  }
+  {
+    {item} {a llams drows}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a long bow}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a long elven dagger}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a long sword of the holy order}
+    {damage} {4d5}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a long sword}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a long sword}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a long sword}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a long sword}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a long sword}
+    {damage} {1d9}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a long sword}
+    {damage} {2d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a long, curved sabre}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a long, pointed cutlass}
+    {damage} {1d7}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a lotulis}
+    {damage} {9d2}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a lumber axe}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a mace}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a mace}
+    {damage} {4d6}
+    {minLevel} {31}
+    {type} {pounding}
+  }
+  {
+    {item} {a machete}
+    {damage} {2d4}
+    {minLevel} {4}
+    {type} {slashing}
+  }
+  {
+    {item} {a machete}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a many-notched dwarven axe}
+    {damage} {2d4}
+    {minLevel} {3}
+    {type} {slashing}
+  }
+  {
+    {item} {a marble dagger}
+    {damage} {1d7}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a masakari}
+    {damage} {7d3}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a massive club}
+    {damage} {5d3}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a massive pike}
+    {damage} {6d3}
+    {minLevel} {25}
+    {type} {piercing}
+  }
+  {
+    {item} {a masterwork bow}
+    {damage} {2d8}
+    {minLevel} {15}
+    {type} {piercing}
+  }
+  {
+    {item} {a meat cleaver}
+    {damage} {2d4}
+    {minLevel} {8}
+    {type} {slashing}
+  }
+  {
+    {item} {a meat cleaver}
+    {damage} {3d4}
+    {minLevel} {13}
+    {type} {slashing}
+  }
+  {
+    {item} {a menhir}
+    {damage} {1d25}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {a menhir}
+    {damage} {2d18}
+    {minLevel} {32}
+    {type} {crushing}
+  }
+  {
+    {item} {a mining pick}
+    {damage} {2d3}
+    {minLevel} {7}
+    {type} {backstabber}
+  }
+  {
+    {item} {a mining pick}
+    {damage} {2d5}
+    {minLevel} {10}
+    {type} {piercing}
+  }
+  {
+    {item} {a minotaur glaive}
+    {damage} {5d4}
+    {minLevel} {24}
+    {type} {slashing}
+  }
+  {
+    {item} {a mithril axe}
+    {damage} {2d8}
+    {minLevel} {10}
+    {type} {crushing}
+  }
+  {
+    {item} {a mithril battle-axe}
+    {damage} {9d1}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a mithril hammer}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a mithril sword}
+    {damage} {7d3}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a mop}
+    {damage} {1d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a naganita}
+    {damage} {4d9}
+    {minLevel} {15}
+    {type} {slashing}
+  }
+  {
+    {item} {a naginata}
+    {damage} {4d9}
+    {minLevel} {15}
+    {type} {slashing}
+  }
+  {
+    {item} {a needle}
+    {damage} {3d1}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a needle}
+    {damage} {4d3}
+    {minLevel} {22}
+    {type} {backstabber}
+  }
+  {
+    {item} {a net}
+    {damage} {2d5}
+    {minLevel} {20}
+    {type} {whipping}
+  }
+  {
+    {item} {a nightgaunt's tickler}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a ninjato}
+    {damage} {3d7}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a ninjato}
+    {damage} {3d7}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a notched axe}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a pair of bear paws}
+    {damage} {1d8}
+    {minLevel} {7}
+    {type} {pounding}
+  }
+  {
+    {item} {a pair of dragon's claws}
+    {damage} {2d7}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pair of nekode}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {piercing}
+  }
+  {
+    {item} {a pair of sharp pruning shears}
+    {damage} {2d8}
+    {minLevel} {8}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pair of studded knuckledusters}
+    {damage} {2d3}
+    {minLevel} {7}
+    {type} {pounding}
+  }
+  {
+    {item} {a paper cudgel}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {piercing}
+  }
+  {
+    {item} {a pick-axe}
+    {damage} {3d6}
+    {minLevel} {15}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pickaxe}
+    {damage} {2d2}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a pike}
+    {damage} {2d8}
+    {minLevel} {16}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pirate sabre}
+    {damage} {3d4}
+    {minLevel} {5}
+    {type} {slashing}
+  }
+  {
+    {item} {a pirate tempered sword}
+    {damage} {8d3}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a pitch-black longsword}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a pitchfork}
+    {damage} {2d4}
+    {minLevel} {4}
+    {type} {piercing}
+  }
+  {
+    {item} {a pitchfork}
+    {damage} {3d3}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pitchfork}
+    {damage} {3d4}
+    {minLevel} {13}
+    {type} {piercing}
+  }
+  {
+    {item} {a plaguecenser}
+    {damage} {3d6}
+    {minLevel} {25}
+    {type} {pounding}
+  }
+  {
+    {item} {a platinum kris}
+    {damage} {4d4}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {a pocket knife}
+    {damage} {1d4}
+    {minLevel} {3}
+    {type} {backstabber}
+  }
+  {
+    {item} {a poisoned dart}
+    {damage} {1d5}
+    {minLevel} {15}
+    {type} {piercing}
+  }
+  {
+    {item} {a poisoned scimitar}
+    {damage} {2d6}
+    {minLevel} {15}
+    {type} {piercing}
+  }
+  {
+    {item} {[a poisonous dagger]}
+    {damage} {7d3}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {a polonium broad sword}
+    {damage} {6d6}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a polonium long sword}
+    {damage} {5d4}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a primitive spear}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a quarterstaff}
+    {damage} {1d6}
+    {minLevel} {8}
+    {type} {pounding}
+  }
+  {
+    {item} {a quarterstaff}
+    {damage} {6d3}
+    {minLevel} {21}
+    {type} {pounding}
+  }
+  {
+    {item} {a quenched sword}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {slashing}
+  }
+  {
+    {item} {a rakiri blade}
+    {damage} {5d3}
+    {minLevel} {5}
+    {type} {slashing}
+  }
+  {
+    {item} {a ranseur}
+    {damage} {4d4}
+    {minLevel} {24}
+    {type} {backstabber}
+  }
+  {
+    {item} {a rapier}
+    {damage} {4d2}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a razor edged kurki}
+    {damage} {3d5}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a red glowing axe}
+    {damage} {4d6}
+    {minLevel} {32}
+    {type} {pounding}
+  }
+  {
+    {item} {a red glowing whip}
+    {damage} {4d6}
+    {minLevel} {38}
+    {type} {whipping}
+  }
+  {
+    {item} {a red rose}
+    {damage} {0d0}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a reggad}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a rhakna dagger}
+    {damage} {4d3}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a ritual knife}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a rolling pin}
+    {damage} {2d4}
+    {minLevel} {16}
+    {type} {pounding}
+  }
+  {
+    {item} {a rolling pin}
+    {damage} {2d4}
+    {minLevel} {17}
+    {type} {pounding}
+  }
+  {
+    {item} {a rolling pin}
+    {damage} {2d7}
+    {minLevel} {1}
+    {type} {pounding}
+  }
+  {
+    {item} {a rolling pin}
+    {damage} {3d6}
+    {minLevel} {5}
+    {type} {pounding}
+  }
+  {
+    {item} {a roman battlesword}
+    {damage} {5d25}
+    {minLevel} {41}
+    {type} {piercing}
+  }
+  {
+    {item} {a roman shortsword}
+    {damage} {3d3}
+    {minLevel} {11}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusted axe}
+    {damage} {5d4}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusted long sword}
+    {damage} {1d8}
+    {minLevel} {7}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusty curved scimitar}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusty iron bar}
+    {damage} {3d7}
+    {minLevel} {21}
+    {type} {pounding}
+  }
+  {
+    {item} {a rusty longsword}
+    {damage} {3d6}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusty scimitar}
+    {damage} {4d5}
+    {minLevel} {24}
+    {type} {slashing}
+  }
+  {
+    {item} {a rusty trident}
+    {damage} {3d7}
+    {minLevel} {40}
+    {type} {piercing}
+  }
+  {
+    {item} {a sailor's cutlass}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a saw-toothed sword}
+    {damage} {4d6}
+    {minLevel} {27}
+    {type} {crushing}
+  }
+  {
+    {item} {a scimitar}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a scratchy longsword}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {slashing}
+  }
+  {
+    {item} {a sea-urchin's sting}
+    {damage} {2d4}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a serving plate made of silver}
+    {damage} {1d18}
+    {minLevel} {20}
+    {type} {crushing}
+  }
+  {
+    {item} {a sewing needle}
+    {damage} {3d4}
+    {minLevel} {12}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sharp scalpel}
+    {damage} {3d2}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sharp shard of obsidian}
+    {damage} {3d7}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sharp stiletto}
+    {damage} {3d3}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shepherd's staff}
+    {damage} {3d4}
+    {minLevel} {19}
+    {type} {pounding}
+  }
+  {
+    {item} {a shepherd's staff}
+    {damage} {4d8}
+    {minLevel} {27}
+    {type} {pounding}
+  }
+  {
+    {item} {a short bow}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a short mithril sword}
+    {damage} {8d2}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shortbow}
+    {damage} {2d5}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shortsword named Nightbringer}
+    {damage} {6d3}
+    {minLevel} {21}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shortsword}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shovel}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a shovel}
+    {damage} {3d3}
+    {minLevel} {5}
+    {type} {crushing}
+  }
+  {
+    {item} {a shuriken}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a shuriken}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sickle}
+    {damage} {2d8}
+    {minLevel} {12}
+    {type} {slashing}
+  }
+  {
+    {item} {a sickle}
+    {damage} {3d7}
+    {minLevel} {29}
+    {type} {slashing}
+  }
+  {
+    {item} {a silver bear's paw}
+    {damage} {4d4}
+    {minLevel} {32}
+    {type} {pounding}
+  }
+  {
+    {item} {a silver bow}
+    {damage} {4d4}
+    {minLevel} {15}
+    {type} {pounding}
+  }
+  {
+    {item} {a silver dagger}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a silver dagger}
+    {damage} {3d3}
+    {minLevel} {22}
+    {type} {backstabber}
+  }
+  {
+    {item} {a silver dagger}
+    {damage} {3d7}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {a silver studded morningstar}
+    {damage} {2d5}
+    {minLevel} {8}
+    {type} {crushing}
+  }
+  {
+    {item} {a silver whip}
+    {damage} {4d5}
+    {minLevel} {30}
+    {type} {whipping}
+  }
+  {
+    {item} {a silvery dagger}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a silvery short sword}
+    {damage} {1d5}
+    {minLevel} {1}
+    {type} {piercing}
+  }
+  {
+    {item} {a skean}
+    {damage} {3d7}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sledgehammer}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a slingshot}
+    {damage} {2d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small anchor}
+    {damage} {3d8}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a small axe}
+    {damage} {2d5}
+    {minLevel} {3}
+    {type} {whipping}
+  }
+  {
+    {item} {a small black mithril axe}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a small black short sword}
+    {damage} {4d5}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small dagger}
+    {damage} {3d5}
+    {minLevel} {17}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small golden dagger}
+    {damage} {3d6}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small hand-axe}
+    {damage} {3d5}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {a small sharp knife}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small sharp sword}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small shovel}
+    {damage} {2d5}
+    {minLevel} {2}
+    {type} {pounding}
+  }
+  {
+    {item} {a small silver dagger}
+    {damage} {2d4}
+    {minLevel} {24}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small spear}
+    {damage} {4d4}
+    {minLevel} {17}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small sword}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small sword}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small sword}
+    {damage} {3d4}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small sword}
+    {damage} {3d6}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small wooden sword}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a small, thin branch}
+    {damage} {2d2}
+    {minLevel} {5}
+    {type} {pounding}
+  }
+  {
+    {item} {a smith's hammer}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a smith's hammer}
+    {damage} {2d7}
+    {minLevel} {11}
+    {type} {pounding}
+  }
+  {
+    {item} {a smith's hammer}
+    {damage} {3d4}
+    {minLevel} {12}
+    {type} {pounding}
+  }
+  {
+    {item} {a smith's hammer}
+    {damage} {3d6}
+    {minLevel} {8}
+    {type} {crushing}
+  }
+  {
+    {item} {a snowball}
+    {damage} {8d2}
+    {minLevel} {33}
+    {type} {blasting}
+  }
+  {
+    {item} {a soul sword}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a spear}
+    {damage} {2d5}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a spear}
+    {damage} {4d4}
+    {minLevel} {40}
+    {type} {piercing}
+  }
+  {
+    {item} {a special longsword}
+    {damage} {4d5}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {a spiked club}
+    {damage} {4d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a spiked club}
+    {damage} {5d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {a spiked leather whip}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {whipping}
+  }
+  {
+    {item} {a spiked length of chain}
+    {damage} {4d5}
+    {minLevel} {40}
+    {type} {whipping}
+  }
+  {
+    {item} {a sprite-sized bow}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a sprite-sized sword}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a steel broad sword}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a steel kris}
+    {damage} {3d5}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a steel scimitar}
+    {damage} {2d9}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a steel war axe}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a stirring spoon}
+    {damage} {3d4}
+    {minLevel} {8}
+    {type} {pounding}
+  }
+  {
+    {item} {a stone club}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {blasting}
+  }
+  {
+    {item} {a stone tipped spear}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a strong mining pick}
+    {damage} {12d1}
+    {minLevel} {23}
+    {type} {piercing}
+  }
+  {
+    {item} {a sturdy axe}
+    {damage} {2d8}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a sword of decoration}
+    {damage} {4d6}
+    {minLevel} {37}
+    {type} {slashing}
+  }
+  {
+    {item} {a sword with a dark blade}
+    {damage} {4d6}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a swordfish's sword}
+    {damage} {6d6}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a sword}
+    {damage} {2d12}
+    {minLevel} {38}
+    {type} {backstabber}
+  }
+  {
+    {item} {a sword}
+    {damage} {3d5}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a tamer's whip}
+    {damage} {2d6}
+    {minLevel} {3}
+    {type} {whipping}
+  }
+  {
+    {item} {a tamer's whip}
+    {damage} {4d6}
+    {minLevel} {19}
+    {type} {whipping}
+  }
+  {
+    {item} {a tanto}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a taramacil sword}
+    {damage} {3d7}
+    {minLevel} {19}
+    {type} {slashing}
+  }
+  {
+    {item} {a tarnished gold spear}
+    {damage} {3d4}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a tear-silver katana}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a tear-silver wakizashi}
+    {damage} {3d5}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {a tempered sword}
+    {damage} {3d8}
+    {minLevel} {23}
+    {type} {slashing}
+  }
+  {
+    {item} {a templar's sword}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {[a thick rusty chain]}
+    {damage} {5d5}
+    {minLevel} {35}
+    {type} {crushing}
+  }
+  {
+    {item} {a thin bladed epee}
+    {damage} {1d9}
+    {minLevel} {5}
+    {type} {piercing}
+  }
+  {
+    {item} {a thin saw}
+    {damage} {2d7}
+    {minLevel} {5}
+    {type} {crushing}
+  }
+  {
+    {item} {a thin stiletto}
+    {damage} {1d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a thorn dagger}
+    {damage} {5d3}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {a throwing spear}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {a tiny dagger}
+    {damage} {1d6}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a tiny shovel}
+    {damage} {2d3}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {a totem sceptre}
+    {damage} {4d4}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a training sword}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a trollish club}
+    {damage} {5d5}
+    {minLevel} {30}
+    {type} {pounding}
+  }
+  {
+    {item} {a trollish warhammer}
+    {damage} {4d8}
+    {minLevel} {39}
+    {type} {slashing}
+  }
+  {
+    {item} {a two handed roman battlesword}
+    {damage} {5d7}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed dwarven axe}
+    {damage} {2d7}
+    {minLevel} {24}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed steel sword}
+    {damage} {4d6}
+    {minLevel} {19}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed sword}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed sword}
+    {damage} {4d6}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed sword}
+    {damage} {5d7}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {a two-handed sword}
+    {damage} {6d5}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {a vampire's teeth}
+    {damage} {10d10}
+    {minLevel} {15}
+    {type} {piercing}
+  }
+  {
+    {item} {a wakizashi}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a wakizashi}
+    {damage} {3d5}
+    {minLevel} {16}
+    {type} {backstabber}
+  }
+  {
+    {item} {a wakizashi}
+    {damage} {3d5}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a wakizashi}
+    {damage} {3d5}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {a walking-stick}
+    {damage} {1d5}
+    {minLevel} {2}
+    {type} {pounding}
+  }
+  {
+    {item} {a wand made of bronzite}
+    {damage} {2d12}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {a wandering stick}
+    {damage} {6d2}
+    {minLevel} {36}
+    {type} {crushing}
+  }
+  {
+    {item} {a war hammer}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a war ribbon}
+    {damage} {8d2}
+    {minLevel} {33}
+    {type} {whipping}
+  }
+  {
+    {item} {a war sickle}
+    {damage} {3d4}
+    {minLevel} {6}
+    {type} {slashing}
+  }
+  {
+    {item} {a warhammer}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a warstaff}
+    {damage} {3d5}
+    {minLevel} {12}
+    {type} {pounding}
+  }
+  {
+    {item} {a wet noodle}
+    {damage} {2d1}
+    {minLevel} {0}
+    {type} {whipping}
+  }
+  {
+    {item} {a whip}
+    {damage} {2d4}
+    {minLevel} {4}
+    {type} {whipping}
+  }
+  {
+    {item} {a whip}
+    {damage} {4d4}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {a whisper thin rapier}
+    {damage} {4d2}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a white shining sword}
+    {damage} {3d8}
+    {minLevel} {26}
+    {type} {blasting}
+  }
+  {
+    {item} {a wicked knife}
+    {damage} {2d5}
+    {minLevel} {13}
+    {type} {backstabber}
+  }
+  {
+    {item} {a wicked shortsword}
+    {damage} {4d3}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {a wooden broom}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden club}
+    {damage} {1d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden club}
+    {damage} {1d3}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden club}
+    {damage} {2d8}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden spear}
+    {damage} {3d4}
+    {minLevel} {3}
+    {type} {backstabber}
+  }
+  {
+    {item} {a wooden spoon}
+    {damage} {1d2}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden staff}
+    {damage} {1d4}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a wooden toothpick}
+    {damage} {4d5}
+    {minLevel} {25}
+    {type} {backstabber}
+  }
+  {
+    {item} {a wrench}
+    {damage} {1d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {a yari}
+    {damage} {5d3}
+    {minLevel} {17}
+    {type} {backstabber}
+  }
+  {
+    {item} {an Atalian shortsword}
+    {damage} {3d4}
+    {minLevel} {14}
+    {type} {slashing}
+  }
+  {
+    {item} {an Evil Sword}
+    {damage} {3d8}
+    {minLevel} {23}
+    {type} {slashing}
+  }
+  {
+    {item} {an adamantium kris}
+    {damage} {6d3}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {an ancient two-handed sword}
+    {damage} {4d7}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {an arm of a skeleton}
+    {damage} {2d4}
+    {minLevel} {6}
+    {type} {whipping}
+  }
+  {
+    {item} {an axe of frost}
+    {damage} {2d13}
+    {minLevel} {34}
+    {type} {slashing}
+  }
+  {
+    {item} {an axe}
+    {damage} {1d6}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {an ebony kris}
+    {damage} {3d6}
+    {minLevel} {31}
+    {type} {backstabber}
+  }
+  {
+    {item} {an egral lialf}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {an elite rakiri blade}
+    {damage} {4d4}
+    {minLevel} {10}
+    {type} {slashing}
+  }
+  {
+    {item} {an elite sword}
+    {damage} {2d8}
+    {minLevel} {6}
+    {type} {slashing}
+  }
+  {
+    {item} {an elven bow}
+    {damage} {2d8}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {an elven bow}
+    {damage} {3d5}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {an emerald sword}
+    {damage} {3d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {an engraved shortsword}
+    {damage} {6d2}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {an enourmous halberd}
+    {damage} {5d5}
+    {minLevel} {38}
+    {type} {slashing}
+  }
+  {
+    {item} {an epee}
+    {damage} {12d1}
+    {minLevel} {20}
+    {type} {backstabber}
+  }
+  {
+    {item} {an ethereal blade}
+    {damage} {4d3}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {an executioner's mace}
+    {damage} {5d1}
+    {minLevel} {8}
+    {type} {pounding}
+  }
+  {
+    {item} {an ice staff}
+    {damage} {6d3}
+    {minLevel} {21}
+    {type} {crushing}
+  }
+  {
+    {item} {an icepick}
+    {damage} {3d4}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {an icy scythe}
+    {damage} {3d7}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {an immense bastard sword}
+    {damage} {2d15}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {an instrument of pain}
+    {damage} {9d2}
+    {minLevel} {30}
+    {type} {piercing}
+  }
+  {
+    {item} {an invisible dagger}
+    {damage} {6d3}
+    {minLevel} {21}
+    {type} {backstabber}
+  }
+  {
+    {item} {an iron chisel}
+    {damage} {2d2}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {an iron longsword}
+    {damage} {6d2}
+    {minLevel} {0}
+    {type} {whipping}
+  }
+  {
+    {item} {an iron screwdriver}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {an iron shod staff}
+    {damage} {2d7}
+    {minLevel} {23}
+    {type} {pounding}
+  }
+  {
+    {item} {an ivory hilted dagger}
+    {damage} {3d6}
+    {minLevel} {21}
+    {type} {backstabber}
+  }
+  {
+    {item} {an oak staff}
+    {damage} {3d6}
+    {minLevel} {15}
+    {type} {pounding}
+  }
+  {
+    {item} {an oaken cudgel}
+    {damage} {1d7}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {an obsidian sword}
+    {damage} {4d5}
+    {minLevel} {27}
+    {type} {slashing}
+  }
+  {
+    {item} {an ogre spear}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {an ogre war club}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {an old fishing rod}
+    {damage} {1d8}
+    {minLevel} {0}
+    {type} {whipping}
+  }
+  {
+    {item} {an old sword}
+    {damage} {2d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {an ornated battlesword}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {an overseers whip}
+    {damage} {4d5}
+    {minLevel} {25}
+    {type} {whipping}
+  }
+  {
+    {item} {an oversized dwarven axe}
+    {damage} {3d8}
+    {minLevel} {15}
+    {type} {slashing}
+  }
+  {
+    {item} {an unholy sword}
+    {damage} {4d8}
+    {minLevel} {35}
+    {type} {slashing}
+  }
+  {
+    {item} {an unliving blade}
+    {damage} {4d5}
+    {minLevel} {30}
+    {type} {piercing}
+  }
+  {
+    {item} {axe}
+    {damage} {2d7}
+    {minLevel} {5}
+    {type} {slashing}
+  }
+  {
+    {item} {hedge shears}
+    {damage} {2d6}
+    {minLevel} {5}
+    {type} {backstabber}
+  }
+  {
+    {item} {objedit 1707}
+    {damage} {5d6}
+    {minLevel} {20}
+    {type} {pounding}
+  }
+  {
+    {item} {one leg of a skeleton}
+    {damage} {3d1}
+    {minLevel} {6}
+    {type} {pounding}
+  }
+  {
+    {item} {partially petrified silver longsword }
+    {damage} {1d9}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {sceptre of the councelor}
+    {damage} {3d4}
+    {minLevel} {15}
+    {type} {crushing}
+  }
+  {
+    {item} {sledgehammer}
+    {damage} {3d6}
+    {minLevel} {10}
+    {type} {crushing}
+  }
+  {
+    {item} {[some black massage oil]}
+    {damage} {1d23}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {some huge spiked brass knuckles}
+    {damage} {4d3}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {some juggling clubs}
+    {damage} {6d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {some tetsubishi}
+    {damage} {2d4}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {the 'Deathslayer'}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {the 'Demonslayer'}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {the Angel of Death}
+    {damage} {5d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {the Arm-a'ghe'ton}
+    {damage} {6d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Axe 'Demonsbane'}
+    {damage} {6d7}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {[the Axe 'Harvest Moon']}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {crushing}
+  }
+  {
+    {item} {[the Axe of Malice]}
+    {damage} {5d8}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Axe of Wounding}
+    {damage} {4d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {the Azure Powerstaff}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the Bear Claws}
+    {damage} {4d6}
+    {minLevel} {35}
+    {type} {piercing}
+  }
+  {
+    {item} {the Blade of the Keeper of Darkness}
+    {damage} {3d5}
+    {minLevel} {35}
+    {type} {piercing}
+  }
+  {
+    {item} {the Bogyokatana}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Bragolamarth}
+    {damage} {3d6}
+    {minLevel} {19}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Chief's rod}
+    {damage} {6d2}
+    {minLevel} {15}
+    {type} {pounding}
+  }
+  {
+    {item} {the Crystal Trident}
+    {damage} {5d3}
+    {minLevel} {24}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Crystal Trident}
+    {damage} {6d3}
+    {minLevel} {24}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Dagger Of Evilness}
+    {damage} {7d3}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {[the Dagger of Kel]}
+    {damage} {15d1}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Demon Hammer}
+    {damage} {4d6}
+    {minLevel} {35}
+    {type} {pounding}
+  }
+  {
+    {item} {[the Dwarf Gouger]}
+    {damage} {1d40}
+    {minLevel} {37}
+    {type} {pounding/two-handed}
+  }
+  {
+    {item} {the Guardian's Razor}
+    {damage} {4d7}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Halberd of Discreation}
+    {damage} {8d4}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Holy Axe of the Mortal Gang}
+    {damage} {2d6}
+    {minLevel} {39}
+    {type} {pounding}
+  }
+  {
+    {item} {the Jonin's Tear-Silver Ninjato}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Khi-ta'bor}
+    {damage} {7d3}
+    {minLevel} {39}
+    {type} {slashing}
+  }
+  {
+    {item} {the Kohorta's Highleader Baton}
+    {damage} {5d4}
+    {minLevel} {22}
+    {type} {pounding}
+  }
+  {
+    {item} {the Lucerne Hammer}
+    {damage} {5d7}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {the Necronist Death Razor}
+    {damage} {4d6}
+    {minLevel} {20}
+    {type} {slashing}
+  }
+  {
+    {item} {the Rumblemaster's Blade}
+    {damage} {10d2}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Ryuninjato}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Scythe of Death}
+    {damage} {4d5}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Scythe of the Cult of Death}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Shade of Light}
+    {damage} {6d6}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the Shuriken of Accuracy}
+    {damage} {2d5}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Soul Blade}
+    {damage} {3d6}
+    {minLevel} {15}
+    {type} {slashing}
+  }
+  {
+    {item} {the Spike of Madness}
+    {damage} {12d1}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {the Sword of Mysteries}
+    {damage} {4d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {the Sword of the Dark Moon}
+    {damage} {8d4}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the Sword of the Sun}
+    {damage} {6d5}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the Swordmaster's Blade}
+    {damage} {5d5}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Thunder Bolt}
+    {damage} {6d5}
+    {minLevel} {25}
+    {type} {blasting}
+  }
+  {
+    {item} {the Tooth of Satan}
+    {damage} {4d7}
+    {minLevel} {0}
+    {type} {piercing}
+  }
+  {
+    {item} {the Vampire Slayer}
+    {damage} {6d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the Word}
+    {damage} {0d0}
+    {minLevel} {41}
+    {type} {whipping}
+  }
+  {
+    {item} {the Wrath of Twilight}
+    {damage} {6d6}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the battle monk's staff}
+    {damage} {3d6}
+    {minLevel} {20}
+    {type} {pounding}
+  }
+  {
+    {item} {the blade of angelic mercy}
+    {damage} {4000d1}
+    {minLevel} {41}
+    {type} {slashing}
+  }
+  {
+    {item} {the bow-shaped sword}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {the butcher's knife}
+    {damage} {5d3}
+    {minLevel} {27}
+    {type} {backstabber}
+  }
+  {
+    {item} {the charcoal burners axe}
+    {damage} {2d8}
+    {minLevel} {26}
+    {type} {crushing}
+  }
+  {
+    {item} {the crystal blade}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {the cyan sword}
+    {damage} {3d7}
+    {minLevel} {21}
+    {type} {slashing}
+  }
+  {
+    {item} {the dark sword}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {the defender of Weramak}
+    {damage} {4d4}
+    {minLevel} {22}
+    {type} {slashing}
+  }
+  {
+    {item} {the dreamblade}
+    {damage} {2d8}
+    {minLevel} {10}
+    {type} {backstabber}
+  }
+  {
+    {item} {the feather of an angel}
+    {damage} {20000d1}
+    {minLevel} {41}
+    {type} {blasting}
+  }
+  {
+    {item} {the fine mace}
+    {damage} {2d5}
+    {minLevel} {0}
+    {type} {pounding}
+  }
+  {
+    {item} {the fire spear}
+    {damage} {6d4}
+    {minLevel} {30}
+    {type} {piercing}
+  }
+  {
+    {item} {the gardener's scythe}
+    {damage} {3d3}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {the great elven bow}
+    {damage} {4d5}
+    {minLevel} {40}
+    {type} {backstabber}
+  }
+  {
+    {item} {[the great two-handed Sledgehammer]}
+    {damage} {6d7}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the holy Avenger}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the holy orb of light}
+    {damage} {1d7000}
+    {minLevel} {41}
+    {type} {blasting}
+  }
+  {
+    {item} {the holy sword Sikanda}
+    {damage} {8d4}
+    {minLevel} {30}
+    {type} {slashing}
+  }
+  {
+    {item} {the horse captain's whip}
+    {damage} {2d4}
+    {minLevel} {5}
+    {type} {whipping}
+  }
+  {
+    {item} {the lance of the pharaoh}
+    {damage} {9d2}
+    {minLevel} {40}
+    {type} {piercing}
+  }
+  {
+    {item} {the longsword of Despaxas}
+    {damage} {4d4}
+    {minLevel} {17}
+    {type} {slashing}
+  }
+  {
+    {item} {the lumberjack's axe}
+    {damage} {3d6}
+    {minLevel} {15}
+    {type} {slashing}
+  }
+  {
+    {item} {the magical bow}
+    {damage} {3d7}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {the naginata of Nagamasa}
+    {damage} {5d7}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the neutralizer}
+    {damage} {5d5}
+    {minLevel} {32}
+    {type} {blasting}
+  }
+  {
+    {item} {the nobleman's sword}
+    {damage} {2d6}
+    {minLevel} {0}
+    {type} {slashing}
+  }
+  {
+    {item} {the righteous dagger}
+    {damage} {6d3}
+    {minLevel} {18}
+    {type} {piercing}
+  }
+  {
+    {item} {the righteous foil}
+    {damage} {5d5}
+    {minLevel} {18}
+    {type} {piercing}
+  }
+  {
+    {item} {the righteous mace}
+    {damage} {5d5}
+    {minLevel} {18}
+    {type} {pounding}
+  }
+  {
+    {item} {the righteous two-handed sword}
+    {damage} {6d6}
+    {minLevel} {18}
+    {type} {slashing}
+  }
+  {
+    {item} {the rod of corruption}
+    {damage} {4d6}
+    {minLevel} {30}
+    {type} {pounding}
+  }
+  {
+    {item} {the rod of might}
+    {damage} {2d7}
+    {minLevel} {0}
+    {type} {crushing}
+  }
+  {
+    {item} {the rod of weaponry}
+    {damage} {4d6}
+    {minLevel} {25}
+    {type} {crushing}
+  }
+  {
+    {item} {the sacred dagger of Relg}
+    {damage} {2d7}
+    {minLevel} {23}
+    {type} {backstabber}
+  }
+  {
+    {item} {the scythe of everlasting sleep}
+    {damage} {1d20}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the scythe of the black death}
+    {damage} {6d7}
+    {minLevel} {41}
+    {type} {piercing}
+  }
+  {
+    {item} {the shortsword of Despaxas}
+    {damage} {2d6}
+    {minLevel} {12}
+    {type} {piercing}
+  }
+  {
+    {item} {the snowcrystal}
+    {damage} {4d5}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the spirit spear}
+    {damage} {3d7}
+    {minLevel} {30}
+    {type} {backstabber}
+  }
+  {
+    {item} {the stylus of the scribe}
+    {damage} {7d2}
+    {minLevel} {35}
+    {type} {backstabber}
+  }
+  {
+    {item} {the sword 'Orcrist'}
+    {damage} {4d6}
+    {minLevel} {31}
+    {type} {slashing}
+  }
+  {
+    {item} {the sword Excalibur}
+    {damage} {15d2}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the sword of Arta Myrdhyn}
+    {damage} {34d1}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the sword of Arta Myrdhyn}
+    {damage} {6d7}
+    {minLevel} {40}
+    {type} {two handed}
+  }
+  {
+    {item} {the sword of Asterix}
+    {damage} {3d8}
+    {minLevel} {29}
+    {type} {slashing}
+  }
+  {
+    {item} {the sword of Majestix}
+    {damage} {2d10}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {the sword of the guard}
+    {damage} {4d5}
+    {minLevel} {25}
+    {type} {slashing}
+  }
+  {
+    {item} {the terror-blade}
+    {damage} {4d6}
+    {minLevel} {40}
+    {type} {slashing}
+  }
+  {
+    {item} {the trident of the oceans}
+    {damage} {1d1}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the trident of the oceans}
+    {damage} {6d5}
+    {minLevel} {40}
+    {type} {blasting}
+  }
+  {
+    {item} {the unholy orb of darkness}
+    {damage} {1d7000}
+    {minLevel} {41}
+    {type} {blasting}
+  }
+  {
+    {item} {the wakizashi of the Ryushichi}
+    {damage} {3d5}
+    {minLevel} {0}
+    {type} {backstabber}
+  }
+  {
+    {item} {the weeping blade}
+    {damage} {5d4}
+    {minLevel} {26}
+    {type} {backstabber}
+  }
+  {
+    {item} {the whip of slavery}
+    {damage} {9d2}
+    {minLevel} {30}
+    {type} {whipping}
+  }
+};
+
+/* Display weapon damage. */
+#LOOP {1} {&{items.weapons[]}} {index} {
+	#LINE SUBSTITUTE variables {
+		#SUB {${items.weapons[$index][item]}} {${items.weapons[$index][item]}$color[cyan] [${items.weapons[$index][damage]}]$color[reset]};
+	};
+	#UNVAR {index};
+};
