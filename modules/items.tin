@@ -1090,7 +1090,7 @@
     {item} {a huge halberd}
     {damage} {9d2}
     {minLevel} {26}
-    {type} {slashing    Mahn-Tor}
+    {type} {slashing}
   }
   {
     {item} {a huge leather whip}
@@ -1729,7 +1729,7 @@
     {type} {piercing}
   }
   {
-    {item} {[a poisonous dagger]}
+    {item} {a poisonous dagger}
     {damage} {7d3}
     {minLevel} {40}
     {type} {backstabber}
@@ -2389,13 +2389,13 @@
     {type} {slashing}
   }
   {
-    {item} {a sword}
+    {item} {_ a sword}
     {damage} {2d12}
     {minLevel} {38}
     {type} {backstabber}
   }
   {
-    {item} {a sword}
+    {item} {_ a sword}
     {damage} {3d5}
     {minLevel} {10}
     {type} {slashing}
@@ -2455,7 +2455,7 @@
     {type} {slashing}
   }
   {
-    {item} {[a thick rusty chain]}
+    {item} {a thick rusty chain}
     {damage} {5d5}
     {minLevel} {35}
     {type} {crushing}
@@ -3043,7 +3043,7 @@
     {type} {crushing}
   }
   {
-    {item} {[some black massage oil]}
+    {item} {some black massage oil}
     {damage} {1d23}
     {minLevel} {40}
     {type} {backstabber}
@@ -3097,13 +3097,13 @@
     {type} {slashing}
   }
   {
-    {item} {[the Axe 'Harvest Moon']}
+    {item} {the Axe 'Harvest Moon'}
     {damage} {4d6}
     {minLevel} {40}
     {type} {crushing}
   }
   {
-    {item} {[the Axe of Malice]}
+    {item} {the Axe of Malice}
     {damage} {5d8}
     {minLevel} {40}
     {type} {slashing}
@@ -3169,7 +3169,7 @@
     {type} {backstabber}
   }
   {
-    {item} {[the Dagger of Kel]}
+    {item} {the Dagger of Kel}
     {damage} {15d1}
     {minLevel} {0}
     {type} {backstabber}
@@ -3181,7 +3181,7 @@
     {type} {pounding}
   }
   {
-    {item} {[the Dwarf Gouger]}
+    {item} {the Dwarf Gouger}
     {damage} {1d40}
     {minLevel} {37}
     {type} {pounding/two-handed}
@@ -3427,7 +3427,7 @@
     {type} {backstabber}
   }
   {
-    {item} {[the great two-handed Sledgehammer]}
+    {item} {the great two-handed Sledgehammer}
     {damage} {6d7}
     {minLevel} {40}
     {type} {slashing}
