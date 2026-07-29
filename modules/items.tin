@@ -307,13 +307,13 @@
     {type} {slashing}
   }
   {
-    {item} {a battle axe}
+    {item} {_ a battle axe}
     {damage} {1d10}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a battle axe}
+    {item} {_ a battle axe}
     {damage} {4d4}
     {minLevel} {0}
     {type} {slashing}
@@ -343,13 +343,13 @@
     {type} {slashing}
   }
   {
-    {item} {a battleaxe}
+    {item} {_ a battleaxe}
     {damage} {4d4}
     {minLevel} {17}
     {type} {slashing}
   }
   {
-    {item} {a battleaxe}
+    {item} {_ a battleaxe}
     {damage} {6d2}
     {minLevel} {0}
     {type} {slashing}
@@ -439,19 +439,19 @@
     {type} {pounding}
   }
   {
-    {item} {a broom}
+    {item} {_ a broom}
     {damage} {1d4}
     {minLevel} {0}
     {type} {piercing}
   }
   {
-    {item} {a broom}
+    {item} {_ a broom}
     {damage} {1d6}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a broom}
+    {item} {_ a broom}
     {damage} {2d3}
     {minLevel} {0}
     {type} {pounding}
@@ -487,13 +487,13 @@
     {type} {pounding}
   }
   {
-    {item} {a claymore}
+    {item} {_ a claymore}
     {damage} {4d4}
     {minLevel} {13}
     {type} {slashing}
   }
   {
-    {item} {a claymore}
+    {item} {_ a claymore}
     {damage} {4d5}
     {minLevel} {20}
     {type} {slashing}
@@ -529,13 +529,13 @@
     {type} {piercing}
   }
   {
-    {item} {a crossbow}
+    {item} {_ a crossbow}
     {damage} {3d3}
     {minLevel} {40}
     {type} {piercing}
   }
   {
-    {item} {a crossbow}
+    {item} {_ a crossbow}
     {damage} {4d4}
     {minLevel} {17}
     {type} {piercing}
@@ -571,13 +571,13 @@
     {type} {backstabber}
   }
   {
-    {item} {a curved scimitar}
+    {item} {_ a curved scimitar}
     {damage} {1d7}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a curved scimitar}
+    {item} {_ a curved scimitar}
     {damage} {2d7}
     {minLevel} {0}
     {type} {slashing}
@@ -631,25 +631,25 @@
     {type} {backstabber}
   }
   {
-    {item} {a dagger}
+    {item} {_ a dagger}
     {damage} {1d4}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a dagger}
+    {item} {_ a dagger}
     {damage} {1d4}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a dagger}
+    {item} {_ a dagger}
     {damage} {1d4}
     {minLevel} {1}
     {type} {backstabber}
   }
   {
-    {item} {a dagger}
+    {item} {_ a dagger}
     {damage} {2d6}
     {minLevel} {1}
     {type} {backstabber}
@@ -685,13 +685,13 @@
     {type} {slashing}
   }
   {
-    {item} {a dark iron sword}
+    {item} {_ a dark iron sword}
     {damage} {2d10}
     {minLevel} {7}
     {type} {slashing}
   }
   {
-    {item} {a dark iron sword}
+    {item} {_ a dark iron sword}
     {damage} {3d4}
     {minLevel} {25}
     {type} {slashing}
@@ -829,19 +829,19 @@
     {type} {backstabber}
   }
   {
-    {item} {a fish}
+    {item} {_ a fish}
     {damage} {2d12}
     {minLevel} {23}
     {type} {pounding}
   }
   {
-    {item} {a flail}
+    {item} {_ a flail}
     {damage} {1d8}
     {minLevel} {13}
     {type} {crushing}
   }
   {
-    {item} {a flail}
+    {item} {_ a flail}
     {damage} {2d4}
     {minLevel} {0}
     {type} {pounding}
@@ -967,13 +967,13 @@
     {type} {slashing}
   }
   {
-    {item} {a handaxe}
+    {item} {_ a handaxe}
     {damage} {1d6}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a handaxe}
+    {item} {_ a handaxe}
     {damage} {2d4}
     {minLevel} {4}
     {type} {slashing}
@@ -1027,13 +1027,13 @@
     {type} {slashing}
   }
   {
-    {item} {a heavy wooden club}
+    {item} {_ a heavy wooden club}
     {damage} {2d5}
     {minLevel} {0}
     {type} {whipping}
   }
   {
-    {item} {a heavy wooden club}
+    {item} {_ a heavy wooden club}
     {damage} {5d3}
     {minLevel} {20}
     {type} {pounding}
@@ -1081,13 +1081,13 @@
     {type} {slashing}
   }
   {
-    {item} {a huge halberd}
+    {item} {_ a huge halberd}
     {damage} {7d6}
     {minLevel} {40}
     {type} {slashing}
   }
   {
-    {item} {a huge halberd}
+    {item} {_ a huge halberd}
     {damage} {9d2}
     {minLevel} {26}
     {type} {slashing}
@@ -1207,13 +1207,13 @@
     {type} {whipping}
   }
   {
-    {item} {a keen long sword}
+    {item} {_ a keen long sword}
     {damage} {2d5}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a keen long sword}
+    {item} {_ a keen long sword}
     {damage} {3d6}
     {minLevel} {5}
     {type} {slashing}
@@ -1231,13 +1231,13 @@
     {type} {backstabber}
   }
   {
-    {item} {a knife}
+    {item} {_ a knife}
     {damage} {1d4}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a knife}
+    {item} {_ a knife}
     {damage} {2d6}
     {minLevel} {5}
     {type} {backstabber}
@@ -1363,37 +1363,37 @@
     {type} {slashing}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {1d8}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {1d8}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {1d8}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {1d8}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {1d9}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a long sword}
+    {item} {_ a long sword}
     {damage} {2d5}
     {minLevel} {10}
     {type} {slashing}
@@ -1423,25 +1423,25 @@
     {type} {slashing}
   }
   {
-    {item} {a mace}
+    {item} {_ a mace}
     {damage} {1d6}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a mace}
+    {item} {_ a mace}
     {damage} {4d6}
     {minLevel} {31}
     {type} {pounding}
   }
   {
-    {item} {a machete}
+    {item} {_ a machete}
     {damage} {2d4}
     {minLevel} {4}
     {type} {slashing}
   }
   {
-    {item} {a machete}
+    {item} {_ a machete}
     {damage} {2d5}
     {minLevel} {0}
     {type} {slashing}
@@ -1483,37 +1483,37 @@
     {type} {piercing}
   }
   {
-    {item} {a meat cleaver}
+    {item} {_ a meat cleaver}
     {damage} {2d4}
     {minLevel} {8}
     {type} {slashing}
   }
   {
-    {item} {a meat cleaver}
+    {item} {_ a meat cleaver}
     {damage} {3d4}
     {minLevel} {13}
     {type} {slashing}
   }
   {
-    {item} {a menhir}
+    {item} {_ a menhir}
     {damage} {1d25}
     {minLevel} {25}
     {type} {crushing}
   }
   {
-    {item} {a menhir}
+    {item} {_ a menhir}
     {damage} {2d18}
     {minLevel} {32}
     {type} {crushing}
   }
   {
-    {item} {a mining pick}
+    {item} {_ a mining pick}
     {damage} {2d3}
     {minLevel} {7}
     {type} {backstabber}
   }
   {
-    {item} {a mining pick}
+    {item} {_ a mining pick}
     {damage} {2d5}
     {minLevel} {10}
     {type} {piercing}
@@ -1567,13 +1567,13 @@
     {type} {slashing}
   }
   {
-    {item} {a needle}
+    {item} {_ a needle}
     {damage} {3d1}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a needle}
+    {item} {_ a needle}
     {damage} {4d3}
     {minLevel} {22}
     {type} {backstabber}
@@ -1681,19 +1681,19 @@
     {type} {slashing}
   }
   {
-    {item} {a pitchfork}
+    {item} {_ a pitchfork}
     {damage} {2d4}
     {minLevel} {4}
     {type} {piercing}
   }
   {
-    {item} {a pitchfork}
+    {item} {_ a pitchfork}
     {damage} {3d3}
     {minLevel} {10}
     {type} {backstabber}
   }
   {
-    {item} {a pitchfork}
+    {item} {_ a pitchfork}
     {damage} {3d4}
     {minLevel} {13}
     {type} {piercing}
@@ -1753,13 +1753,13 @@
     {type} {piercing}
   }
   {
-    {item} {a quarterstaff}
+    {item} {_ a quarterstaff}
     {damage} {1d6}
     {minLevel} {8}
     {type} {pounding}
   }
   {
-    {item} {a quarterstaff}
+    {item} {_ a quarterstaff}
     {damage} {6d3}
     {minLevel} {21}
     {type} {pounding}
@@ -1831,37 +1831,37 @@
     {type} {backstabber}
   }
   {
-    {item} {a rolling pin}
+    {item} {_ a rolling pin}
     {damage} {2d4}
     {minLevel} {16}
     {type} {pounding}
   }
   {
-    {item} {a rolling pin}
+    {item} {_ a rolling pin}
     {damage} {2d4}
     {minLevel} {17}
     {type} {pounding}
   }
   {
-    {item} {a rolling pin}
+    {item} {_ a rolling pin}
     {damage} {2d7}
     {minLevel} {1}
     {type} {pounding}
   }
   {
-    {item} {a rolling pin}
+    {item} {_ a rolling pin}
     {damage} {3d6}
     {minLevel} {5}
     {type} {pounding}
   }
   {
-    {item} {a roman battlesword}
+    {item} {_ a roman battlesword}
     {damage} {5d25}
     {minLevel} {41}
     {type} {piercing}
   }
   {
-    {item} {a roman shortsword}
+    {item} {_ a roman shortsword}
     {damage} {3d3}
     {minLevel} {11}
     {type} {slashing}
@@ -1969,13 +1969,13 @@
     {type} {backstabber}
   }
   {
-    {item} {a shepherd's staff}
+    {item} {_ a shepherd's staff}
     {damage} {3d4}
     {minLevel} {19}
     {type} {pounding}
   }
   {
-    {item} {a shepherd's staff}
+    {item} {_ a shepherd's staff}
     {damage} {4d8}
     {minLevel} {27}
     {type} {pounding}
@@ -2011,13 +2011,13 @@
     {type} {backstabber}
   }
   {
-    {item} {a shovel}
+    {item} {_ a shovel}
     {damage} {1d5}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a shovel}
+    {item} {_ a shovel}
     {damage} {3d3}
     {minLevel} {5}
     {type} {crushing}
@@ -2035,13 +2035,13 @@
     {type} {backstabber}
   }
   {
-    {item} {a sickle}
+    {item} {_ a sickle}
     {damage} {2d8}
     {minLevel} {12}
     {type} {slashing}
   }
   {
-    {item} {a sickle}
+    {item} {_ a sickle}
     {damage} {3d7}
     {minLevel} {29}
     {type} {slashing}
@@ -2059,19 +2059,19 @@
     {type} {pounding}
   }
   {
-    {item} {a silver dagger}
+    {item} {_ a silver dagger}
     {damage} {2d4}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a silver dagger}
+    {item} {_ a silver dagger}
     {damage} {3d3}
     {minLevel} {22}
     {type} {backstabber}
   }
   {
-    {item} {a silver dagger}
+    {item} {_ a silver dagger}
     {damage} {3d7}
     {minLevel} {35}
     {type} {backstabber}
@@ -2107,7 +2107,7 @@
     {type} {backstabber}
   }
   {
-    {item} {a sledgehammer}
+    {item} {_ a sledgehammer}
     {damage} {2d5}
     {minLevel} {0}
     {type} {pounding}
@@ -2191,25 +2191,25 @@
     {type} {backstabber}
   }
   {
-    {item} {a small sword}
+    {item} {_ a small sword}
     {damage} {1d6}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a small sword}
+    {item} {_ a small sword}
     {damage} {1d6}
     {minLevel} {0}
     {type} {backstabber}
   }
   {
-    {item} {a small sword}
+    {item} {_ a small sword}
     {damage} {3d4}
     {minLevel} {30}
     {type} {backstabber}
   }
   {
-    {item} {a small sword}
+    {item} {_ a small sword}
     {damage} {3d6}
     {minLevel} {25}
     {type} {backstabber}
@@ -2227,25 +2227,25 @@
     {type} {pounding}
   }
   {
-    {item} {a smith's hammer}
+    {item} {_ a smith's hammer}
     {damage} {1d5}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a smith's hammer}
+    {item} {_ a smith's hammer}
     {damage} {2d7}
     {minLevel} {11}
     {type} {pounding}
   }
   {
-    {item} {a smith's hammer}
+    {item} {_ a smith's hammer}
     {damage} {3d4}
     {minLevel} {12}
     {type} {pounding}
   }
   {
-    {item} {a smith's hammer}
+    {item} {_ a smith's hammer}
     {damage} {3d6}
     {minLevel} {8}
     {type} {crushing}
@@ -2263,13 +2263,13 @@
     {type} {slashing}
   }
   {
-    {item} {a spear}
+    {item} {_ a spear}
     {damage} {2d5}
     {minLevel} {10}
     {type} {backstabber}
   }
   {
-    {item} {a spear}
+    {item} {_ a spear}
     {damage} {4d4}
     {minLevel} {40}
     {type} {piercing}
@@ -2281,13 +2281,13 @@
     {type} {slashing}
   }
   {
-    {item} {a spiked club}
+    {item} {_ a spiked club}
     {damage} {4d3}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a spiked club}
+    {item} {_ a spiked club}
     {damage} {5d6}
     {minLevel} {40}
     {type} {slashing}
@@ -2401,13 +2401,13 @@
     {type} {slashing}
   }
   {
-    {item} {a tamer's whip}
+    {item} {_ a tamer's whip}
     {damage} {2d6}
     {minLevel} {3}
     {type} {whipping}
   }
   {
-    {item} {a tamer's whip}
+    {item} {_ a tamer's whip}
     {damage} {4d6}
     {minLevel} {19}
     {type} {whipping}
@@ -2545,25 +2545,25 @@
     {type} {slashing}
   }
   {
-    {item} {a two-handed sword}
+    {item} {_ a two-handed sword}
     {damage} {3d6}
     {minLevel} {0}
     {type} {slashing}
   }
   {
-    {item} {a two-handed sword}
+    {item} {_ a two-handed sword}
     {damage} {4d6}
     {minLevel} {10}
     {type} {slashing}
   }
   {
-    {item} {a two-handed sword}
+    {item} {_ a two-handed sword}
     {damage} {5d7}
     {minLevel} {30}
     {type} {slashing}
   }
   {
-    {item} {a two-handed sword}
+    {item} {_ a two-handed sword}
     {damage} {6d5}
     {minLevel} {35}
     {type} {slashing}
@@ -2653,13 +2653,13 @@
     {type} {whipping}
   }
   {
-    {item} {a whip}
+    {item} {_ a whip}
     {damage} {2d4}
     {minLevel} {4}
     {type} {whipping}
   }
   {
-    {item} {a whip}
+    {item} {_ a whip}
     {damage} {4d4}
     {minLevel} {0}
     {type} {slashing}
@@ -2695,19 +2695,19 @@
     {type} {pounding}
   }
   {
-    {item} {a wooden club}
+    {item} {_ a wooden club}
     {damage} {1d3}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a wooden club}
+    {item} {_ a wooden club}
     {damage} {1d3}
     {minLevel} {0}
     {type} {pounding}
   }
   {
-    {item} {a wooden club}
+    {item} {_ a wooden club}
     {damage} {2d8}
     {minLevel} {0}
     {type} {pounding}
@@ -2785,7 +2785,7 @@
     {type} {slashing}
   }
   {
-    {item} {an axe}
+    {item} {_ an axe}
     {damage} {1d6}
     {minLevel} {17}
     {type} {slashing}
@@ -2815,13 +2815,13 @@
     {type} {slashing}
   }
   {
-    {item} {an elven bow}
+    {item} {_ an elven bow}
     {damage} {2d8}
     {minLevel} {10}
     {type} {backstabber}
   }
   {
-    {item} {an elven bow}
+    {item} {_ an elven bow}
     {damage} {3d5}
     {minLevel} {20}
     {type} {backstabber}
@@ -3001,7 +3001,7 @@
     {type} {piercing}
   }
   {
-    {item} {axe}
+    {item} {_ axe}
     {damage} {2d7}
     {minLevel} {5}
     {type} {slashing}
@@ -3037,7 +3037,7 @@
     {type} {crushing}
   }
   {
-    {item} {sledgehammer}
+    {item} {_ sledgehammer}
     {damage} {3d6}
     {minLevel} {10}
     {type} {crushing}
@@ -3151,13 +3151,13 @@
     {type} {pounding}
   }
   {
-    {item} {the Crystal Trident}
+    {item} {_ the Crystal Trident}
     {damage} {5d3}
     {minLevel} {24}
     {type} {backstabber}
   }
   {
-    {item} {the Crystal Trident}
+    {item} {_ the Crystal Trident}
     {damage} {6d3}
     {minLevel} {24}
     {type} {backstabber}
