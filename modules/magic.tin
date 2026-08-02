@@ -6,11 +6,15 @@
 
 #VAR {MAXIMUM_LEVEL_FOR_AFFECTS} {40};
 
+#NOP -- ------------------------------------------------------------------------------------------
 #NOP -- Initial setup;
+#NOP -- ------------------------------------------------------------------------------------------
 
 #LIST {castingQueue} {clear};
 
+#NOP -- ------------------------------------------------------------------------------------------
 #NOP -- Shortcuts;
+#NOP -- ------------------------------------------------------------------------------------------
 
 #ALIAS {cacid}      {cast 'acid splash'};
 #ALIAS {catom}      {cast 'atomic blast'};
@@ -55,7 +59,6 @@
 #ALIAS {goto}       {ctp};
 #ALIAS {silence}    {csilence};
 #ALIAS {sum}        {csum};
-
 
 #NOP -- Enhance display of harmful affects;
 
@@ -135,10 +138,11 @@
 #ACTION {^Your stomach rumbles.$}                                           {warnSpell {%0} {food and water}};
 #ACTION {^Your throat feels a bit dry again.$}                              {warnSpell {%0} {food and water}};
 
-#NOP #ACTION {^You are hungry.$}                                                 {endSpell {%0} {food and water}};
-#NOP #ACTION {^You are thirsty.$}                                                {endSpell {%0} {food and water}};
 #ACTION {^You cough and release that frog.$}                                {endSpell {%0} {silence}};
 #ACTION {^You feel weaker.$}                                                {endSpell {%0} {strength}};
+
+#NOP #ACTION {^You are hungry.$}                                                 {endSpell {%0} {food and water}};
+#NOP #ACTION {^You are thirsty.$}                                                {endSpell {%0} {food and water}};
 
 /*
  * Handle a spell wearing off.
@@ -176,7 +180,6 @@
   tick;
 };
 
-
 #NOP -- ------------------------------------------------------------------------------------------
 #NOP -- Spell failure/success
 #NOP -- ------------------------------------------------------------------------------------------
@@ -199,22 +202,25 @@
 #ACTION {^Your brain vanishes, as you try to cast! Wait a little bit, maybe it reappears.$} {failSpell %0};
 #ACTION {^Your mind is drifting away as you start uttering the words!$}                     {failSpell %0};
 
-#ACTION {^Arcane powers prevent you from using magic.$}       {failSpell %0};
-#ACTION {^Impossible!  You can't concentrate enough!$}        {failSpell %0};
-#ACTION {^Possible arguments:$}                               {failSpell %0};
-#ACTION {^Spell can only be used on safe grounds.$}           {failSpell %0};
-#ACTION {^You can't concentrate enough while resting.$}       {failSpell %0};
-#ACTION {^You can't summon enough energy to cast the spell.$} {failSpell %0};
-#ACTION {^Your magic fizzles against your anti-magic shell!$} {failSpell %0};
+#ACTION {^Arcane powers prevent you from using magic.$}                                     {failSpell %0};
+#ACTION {^Impossible!  You can't concentrate enough!$}                                      {failSpell %0};
+#ACTION {^Possible arguments:$}                                                             {failSpell %0};
+#ACTION {^Spell can only be used on safe grounds.$}                                         {failSpell %0};
+#ACTION {^You can't concentrate enough while resting.$}                                     {failSpell %0};
+#ACTION {^You can't summon enough energy to cast the spell.$}                               {failSpell %0};
+#ACTION {^Your magic fizzles against your anti-magic shell!$}                               {failSpell %0};
 
-#NOP #ACTION {^Divine forces prevent you from calling %w.$} {failSpell %0};
-#NOP #ACTION {^Your victim seems to be immune to it.$}      {failSpell %0};
+#NOP #ACTION {^Divine forces prevent you from calling %w.$}                                      {failSpell %0};
+#NOP #ACTION {^Your victim seems to be immune to it.$}                                           {failSpell %0};
 
 /*
  * Handle a failed spell.
  *
  * Alter the message to show which spell failed.
  * - [spell name] Fail message
+ *
+ * Example:
+ * - [charm person] Segmentation violation, mana dumped.
  *
  * Usage:
  * failSpell <fail message>
@@ -423,8 +429,8 @@ eventRegister {TICK} {
     }
     {duration} {6}
     {shortcut} {
-      {cmd}    {shotcutcmd}
-      {action} {shortcutaction}
+      {cmd}    {}
+      {action} {}
     }
   }
   {deflect} {
